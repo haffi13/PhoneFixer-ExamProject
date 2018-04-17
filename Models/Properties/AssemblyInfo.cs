@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("PhoneFixer-ExamProject")]
+[assembly: AssemblyTitle("Models")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("PhoneFixer-ExamProject")]
+[assembly: AssemblyProduct("Models")]
 [assembly: AssemblyCopyright("Copyright ©  2018")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("0243490b-e080-4346-a647-f1b8a7c6f411")]
+[assembly: Guid("667dd8d7-0a62-4100-bd8b-c981768c56ae")]
 
 // Version information for an assembly consists of the following four values:
 //
