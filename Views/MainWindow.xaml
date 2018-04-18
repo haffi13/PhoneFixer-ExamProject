@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Views"
         xmlns:vm="clr-namespace:ViewModels;assembly=ViewModels"
+        
         mc:Ignorable="d"
         Title="MainWindow" Height="350" Width="525">
     <Window.DataContext>
@@ -13,12 +14,15 @@
     <Grid>
 
         <TabControl 
-                ItemsSource="{Binding TabViewModels}" 
-                SelectedItem="{Binding SelectedTabViewModel}">
+                ItemsSource="{Binding TabItems}" >
+
 
             <TabControl.Resources>
-                <DataTemplate DataType="{x:Type local:FirstTabViewModel}">
-                    <local:FirstTabUserControl/>
+                <DataTemplate DataType="{x:Type vm:InventoryViewModel}">
+                    <local:InventoryView/>
+                </DataTemplate>
+                <DataTemplate DataType="{x:Type vm:CustomerViewModel}">
+                    <local:CustomerView/>
                 </DataTemplate>
             </TabControl.Resources>
 

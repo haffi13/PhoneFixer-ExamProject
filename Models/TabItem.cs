@@ -6,7 +6,10 @@ using System.Threading.Tasks;
 
 namespace Models
 {
-    public class Class1
+    public interface TabItem
     {
+        string Header { get; set; }
+        // The Content is a user control.
+        object Content { get; set; } 
     }
 }
