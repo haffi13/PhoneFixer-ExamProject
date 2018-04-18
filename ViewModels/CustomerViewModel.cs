@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Models;
+//using Models;
 
 namespace ViewModels
 {
-    public class CustomerViewModel : BaseViewModel, TabItem
+    public class CustomerViewModel : BaseViewModel, ITabItem
     {
-        string TabItem.Header { get; set; }
-        object TabItem.Content { get; set; }
+        public string Header { get; set; }
+        //object ITabItem.Content { get; set; }
 
     }
 }

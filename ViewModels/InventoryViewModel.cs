@@ -3,15 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Models;
+//using Models;
 
 namespace ViewModels 
 {
     //Change name of TabItem to ITab item
-    public class InventoryViewModel : BaseViewModel, TabItem
+    public class InventoryViewModel : BaseViewModel, ITabItem
     {
-        string TabItem.Header { get; set; }
-        object TabItem.Content { get; set; }
+        public string Header { get; set; }
+        //public object Content { get; set; }
 
     }
 }

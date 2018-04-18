@@ -4,12 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Models
+namespace ViewModels
 {
-    public interface TabItem
+    public interface ITabItem
     {
         string Header { get; set; }
-        // The Content is a user control.
-        object Content { get; set; } 
     }
 }

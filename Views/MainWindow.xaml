@@ -29,7 +29,7 @@
             <TabControl.ItemContainerStyle>
                 <Style TargetType="TabItem">
                     <Setter Property="Header" Value="{Binding Header}"/>
-                    <Setter Property="Content" Value="{Binding Content}"/>
+                    
                 </Style>
             </TabControl.ItemContainerStyle>
 

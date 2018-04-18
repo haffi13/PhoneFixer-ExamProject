@@ -43,13 +43,14 @@
     <Compile Include="BaseViewModel.cs" />
     <Compile Include="CustomerViewModel.cs" />
     <Compile Include="InventoryViewModel.cs" />
+    <Compile Include="ITabItem.cs" />
     <Compile Include="MainWindowViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RelayCommand.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Models\Models.csproj">
-      <Project>{667dd8d7-0a62-4100-bd8b-c981768c56ae}</Project>
+      <Project>{6167c487-2410-4e28-acda-582d28e58ecd}</Project>
       <Name>Models</Name>
     </ProjectReference>
   </ItemGroup>
