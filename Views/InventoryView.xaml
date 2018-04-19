@@ -29,13 +29,14 @@
             <RowDefinition Height="0.25*"/>
         </Grid.RowDefinitions>
 
-        <DataGrid 
+        <DataGrid
             Grid.Column="1"
             Grid.ColumnSpan="6"
             Grid.Row="1"
             Grid.RowSpan="5"
             Margin="10"
-            AutoGenerateColumns="True">
+            AutoGenerateColumns="True"
+            ItemsSource="{Binding Items}">
             
         </DataGrid>
 
