@@ -14,7 +14,6 @@ namespace ViewModels
         DatabaseReader databaseReader = new DatabaseReader();
         private ObservableCollection<Item> items = new ObservableCollection<Item>();
 
-
         // The header is the name of the tab. It's set in the MainWindowViewModel ctor.
         public string Header { get; set; }
 
@@ -41,7 +40,7 @@ namespace ViewModels
             this.DeleteItemCmd = new RelayCommand(DeleteItem);
         }
 
-        // Populates the datagrid with all items in the Item table in the database.
+        // Populates the datagrid with all the items in the Item table in the database.
         private void RefreshInventory()
         {
             Items = new ObservableCollection<Item>(databaseReader.ExecuteQuery());

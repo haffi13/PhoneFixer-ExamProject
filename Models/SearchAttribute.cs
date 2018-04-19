@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Models
 {
-    public class SearchAttributes
+    public class SearchAttribute
     {
         public string spGetAllItems = "GetAllItems";
         string spAddItem = "AddItem";
