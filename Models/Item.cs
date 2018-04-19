@@ -6,27 +6,27 @@ using System.Threading.Tasks;
 
 namespace Models
 {
-    class Item
+    public class Item
     {
         // NVarchar(15)
-        string Barcode { get; set; }
+        public string Barcode { get; set; }
         
         // NVarchar(50)
-        string Name { get; set; }
+        public string Name { get; set; }
         
         // NVarchar(150)
-        string Description { get; set; }
+        public string Description { get; set; }
         
         // Decimal(18, 2)
-        decimal Price { get; set; }
+        public decimal Price { get; set; }
         
         // NVarchar(20)
-        string Category { get; set; }
+        public string Category { get; set; }
         
         // NVarchar(30)
-        string Model { get; set; }
+        public string Model { get; set; }
         
         // Float <- why is this float ?
-        float Number_Available { get; set; }
+        public float Number_Available { get; set; }
     }
 }
