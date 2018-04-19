@@ -7,30 +7,33 @@
 --Price				Decimal(18,2)						NOT NULL,
 --Category			NVarchar(20)						NOT NULL,
 --Model				NVarchar(30)						NOT NULL,
---Number_Available	INT									NOT NULL,
+--NumberAvailable		INT									NOT NULL,
 --);
 
 
 ----Procedures:
 
+----Get ALL items in the item table
 
 --CREATE PROCEDURE GetAllItems
 --AS
 --BEGIN
---		SELECT Barcode, Name, Description, Price, Category, Model, Number_Available FROM ITEM
+--		SELECT Barcode, Name, Description, Price, Category, Model, NumberAvailable FROM ITEM
 --END
 
+----Add Item to Item table
+
 --CREATE PROCEDURE AddItem
---				(@Barcode NVarchar(15), @Name NVarchar(50), @Description NVarchar(150), @Price Decimal(18,2), @Category NVarchar(20), @Model NVarchar(30), @Number_Available INT)
+--				(@Barcode NVarchar(15), @Name NVarchar(50), @Description NVarchar(150), @Price Decimal(18,2), @Category NVarchar(20), @Model NVarchar(30), @NumberAvailable INT)
 --AS
 --BEGIN
 --		INSERT INTO ITEM
---		VALUES	(@Barcode, @Name, @Description, @Price, @Category, @Model, @Number_Available)
+--		VALUES	(@Barcode, @Name, @Description, @Price, @Category, @Model, @NumberAvailable)
 --END
 
 ----MOCKDATA:
 
---Mock data Item table:
+----Mock data Item table:
 
 --INSERT INTO ITEM VALUES (
 --'57201760042', 'Skærm', 'Skærm til iPhone 6s hvid', '500.00', 'Skærm IP', 'iPhone 6s', '2');
