@@ -11,7 +11,6 @@ namespace ViewModels
     public class InventoryViewModel : BaseViewModel, ITabItem
     {
         public string Header { get; set; }
-        //public object Content { get; set; }
 
     }
 }
