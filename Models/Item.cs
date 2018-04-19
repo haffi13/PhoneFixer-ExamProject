@@ -27,6 +27,6 @@ namespace Models
         public string Model { get; set; }
         
         // Float <- why is this float ?
-        public float Number_Available { get; set; }
+        public float NumberAvailable { get; set; }
     }
 }

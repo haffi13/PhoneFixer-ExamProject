@@ -44,19 +44,22 @@
                 Margin="10"
                 Content="Add" 
                 FontSize="25"
-                FontWeight="DemiBold"/>
+                FontWeight="DemiBold"
+                Command="{Binding AddItemCmd}"/>
         <Button Grid.Column="8"
                 Grid.Row="2"
                 Margin="10"
                 Content="Edit" 
                 FontSize="25"
-                FontWeight="DemiBold"/>
+                FontWeight="DemiBold"
+                Command="{Binding EditItemCmd}"/>
         <Button Grid.Column="8"
                 Grid.Row="3"
                 Margin="10"
                 Content="Delete" 
                 FontSize="25"
-                FontWeight="DemiBold"/>
+                FontWeight="DemiBold"
+                Command="{Binding DeleteItemCmd}"/>
 
 
     </Grid>

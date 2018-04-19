@@ -43,6 +43,7 @@
     <Compile Include="BaseViewModel.cs" />
     <Compile Include="CustomerViewModel.cs" />
     <Compile Include="DatabaseReader.cs" />
+    <Compile Include="DatabaseWriter.cs" />
     <Compile Include="InventoryViewModel.cs" />
     <Compile Include="ITabItem.cs" />
     <Compile Include="MainWindowViewModel.cs" />
