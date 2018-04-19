@@ -53,7 +53,7 @@ namespace ViewModels
                             decimal Price = Convert.ToDecimal(reader["Price"].ToString());
                             string Category = reader["Category"].ToString();
                             string Model = reader["Model"].ToString();
-                            float Number_Available = float.Parse(reader["Number_Available"].ToString());
+                            float NumberAvailable = float.Parse(reader["NumberAvailable"].ToString());
 
                             // I don't think we need to check for nulls here.
                             // I think nothing happens if there isn't any value in field in the
@@ -65,7 +65,7 @@ namespace ViewModels
                             temp.Price = Price;
                             temp.Category = Category;
                             temp.Model = Model;
-                            temp.Number_Available = Number_Available;
+                            temp.NumberAvailable = NumberAvailable;
 
                             Items.Add(temp);
                         }
