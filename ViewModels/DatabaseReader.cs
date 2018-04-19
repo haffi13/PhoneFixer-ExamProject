@@ -6,6 +6,7 @@ using Models;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 //-----------------------------------
 // We are not sure where to put the Data Access in the layers.
@@ -76,6 +77,7 @@ namespace ViewModels
                     //----------------------------------
                     //      Deal with this!
                     //----------------------------------
+                    MessageBox.Show(e.Message);
                 }
             }
             return Items;
