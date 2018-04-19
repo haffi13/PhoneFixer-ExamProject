@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-//using Models;
+using Models;
 
 namespace ViewModels 
 {
@@ -11,7 +11,11 @@ namespace ViewModels
     public class InventoryViewModel : BaseViewModel, ITabItem
     {
         DatabaseReader databaseReader = new DatabaseReader();
+        
+        // The header is the name of the tab. It's set in the MainWindowViewModel ctor.
         public string Header { get; set; }
+
+        
 
         public RelayCommand AddItemCmd { get; set; }
         public RelayCommand EditItemCmd { get; set; }
@@ -26,7 +30,16 @@ namespace ViewModels
 
         private void AddItem()
         {
-
+            Item item = new Item
+            {
+                Barcode = ItemBarcode,
+                Name = ItemName,
+                Description = ItemDescription,
+                Price = ItemPrice,
+                Category = ItemCategory,
+                Model = ItemModel,
+                NumberAvailable = ItemNumberAvailable
+            };
         }
         private void EditItem()
         {
