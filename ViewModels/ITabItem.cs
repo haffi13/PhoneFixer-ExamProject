@@ -4,9 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Models
+namespace ViewModels
 {
-    public class Class1
+    public interface ITabItem
     {
+        string Header { get; set; }
     }
 }
