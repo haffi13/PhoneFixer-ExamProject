@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Models;
 
 namespace ViewModels
 {
@@ -10,75 +11,74 @@ namespace ViewModels
     // in turn inherit the base view model...inception!
     public class AddItemDialogViewModel : BaseViewModel
     {
-        private string itemBarcode;
-        private string itemName;
-        private string itemDescription;
-        private decimal itemPrice;
-        private string itemCategory;
-        private string itemModel;
-        private int itemNumberAvailable;
+        private Item item;
+
+        public AddItemDialogViewModel()
+        {
+            item = new Item();
+        }
 
         #region These properties and corresponding variables should be in a dialog box view model
         public string ItemBarcode
         {
-            get { return itemBarcode; }
+            get { return item.Barcode; }
             set
             {
-                itemBarcode = value;
+                item.Barcode = value;
                 OnPropertyChanged();
             }
         }
         public string ItemName
         {
-            get { return itemName; }
+            get { return item.Name; }
             set
             {
-                itemName = value;
+                item.Name = value;
                 OnPropertyChanged();
             }
         }
         public string ItemDescription
         {
-            get { return itemDescription; }
+            get { return item.Description; }
             set
             {
-                itemDescription = value;
+                item.Description = value;
                 OnPropertyChanged();
             }
         }
         public decimal ItemPrice
         {
-            get { return itemPrice; }
+            get { return item.Price; }
             set
             {
-                itemPrice = value;
+                item.Price = value;
                 OnPropertyChanged();
             }
         }
         public string ItemCategory
         {
-            get { return itemCategory; }
+            get { return item.Category; }
             set
             {
-                itemCategory = value;
+                item.Category = value;
                 OnPropertyChanged();
             }
         }
         public string ItemModel
         {
-            get { return itemModel; }
+            get { return item.Model; }
             set
             {
-                itemModel = value;
+                item.Model = value;
                 OnPropertyChanged();
             }
         }
         public int ItemNumberAvailable
         {
-            get { return itemNumberAvailable; }
+            get { return item.NumberAvailable; }
             set
             {
-                itemNumberAvailable = value;
+                item.NumberAvailable = value;
                 OnPropertyChanged();
             }
         }
