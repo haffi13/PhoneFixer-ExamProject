@@ -13,11 +13,9 @@
     <Window.DataContext>
         <vm:MainWindowViewModel/>
     </Window.DataContext>
-    
-    <Grid>
 
-        <TabControl 
-                ItemsSource="{Binding TabItems}" >
+    <Grid>
+        <TabControl ItemsSource="{Binding TabViewModels}" >
             
             <TabControl.Resources>
                 <DataTemplate DataType="{x:Type vm:InventoryViewModel}">
