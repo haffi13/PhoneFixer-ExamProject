@@ -26,7 +26,7 @@ namespace Models
         // NVarchar(30)
         public string Model { get; set; }
         
-        // Float <- why is this float ?                  - if int yet this needs to be changed.
+        // Int
         public int NumberAvailable { get; set; }
     }
 }
