@@ -19,14 +19,14 @@ namespace ViewModels
         private static string connectionString = string.Format
             ("Server={0}; Database={1}; User Id={2}; Password={3};", url, database, username, password);
 
-        public void AddItemToInventory(Item item)
+        public void UpdateItem(Item item)
         {
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 try
                 {
                     connection.Open();
-                    SqlCommand cmd = new SqlCommand("AddItem", connection)
+                    SqlCommand cmd = new SqlCommand("ItemUpdate", connection)
                     {
                         CommandType = CommandType.StoredProcedure
                     };

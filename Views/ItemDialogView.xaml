@@ -74,7 +74,8 @@
                  Grid.Row="1"
                  VerticalContentAlignment="Center"
                  Margin="0, 2"
-                 IsReadOnly="{Binding BarcodeIsEditable}"
+                 IsReadOnly="{Binding BarcodeIsReadOnly}"
+                 IsEnabled="{Binding BarcodeIsEditable}"
                  />
         <TextBox Text="{Binding Name}"
                  Grid.Column="1"

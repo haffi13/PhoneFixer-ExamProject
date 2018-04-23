@@ -21,13 +21,15 @@ namespace ViewModels
 
         private string confirmButtonContent;
         private string cancelButtonContent;
-        private bool barcodeIsReadOnly;
 
+        private bool barcodeIsEditable;
+        private bool barcodeIsReadOnly;
         private bool priceCanParse;
         private bool numberAvailableCanParse;
 
         public RelayCommand ConfirmCommand { get; set; }
         public RelayCommand CancelCommand { get; set; }
+
         public bool PriceCanParse
         {
             get { return priceCanParse; }
@@ -46,6 +48,15 @@ namespace ViewModels
                 barcodeIsReadOnly = value;
                 OnPropertyChanged();
             } 
+        }
+        public bool BarcodeIsEditable
+        {
+            get { return barcodeIsEditable; }
+            set
+            {
+                barcodeIsEditable = value;
+                OnPropertyChanged();
+            }
         }
         public string ConfirmButtonContent
         {
@@ -66,111 +77,7 @@ namespace ViewModels
             }
         }
 
-
-        // Constructor used when the dialog is to be used to add a item.
-        public ItemDialogViewModel()
-        {
-            ConfirmCommand = new RelayCommand(Confirm);
-            CancelCommand = new RelayCommand(Cancel);
-
-            if(item == null)
-            {
-                item = new Item();
-
-                ConfirmButtonContent = "Add";
-                CancelButtonContent = "Close";
-
-                BarcodeIsReadOnly = false;
-            }
-        }
-        // Constructor used when the dialog is to be used to edit a item.
-        public ItemDialogViewModel(Item item)
-        {
-            this.item = item;
-
-            // These properties are bound to the text boxes in the view.
-            // By passing the selected item as args and setting the properties to the 
-            // selected values this view model can be reused for both adding and editing.
-
-            Barcode = item.Barcode;
-            Name = item.Name;
-            Description = item.Description;
-            Price = item.Price.ToString();
-            Category = item.Category;
-            Model = item.Model;
-            NumberAvailable = item.NumberAvailable.ToString();
-
-            ConfirmButtonContent = "Ok";
-            CancelButtonContent = "Cancel";
-
-            BarcodeIsReadOnly = true;
-        }
-
-        // Method called when the Confirm button is clicked.
-        private void Confirm()
-        {
-            if (ItemDataIsCorrectFormat())
-            {
-                databaseWriter.AddItemToInventory(item);
-                ClearPublicProperties();
-                item = new Item();
-            }
-        }
-
-        // Method called when the Cancel button is clicked.
-        private void Cancel()
-        {
-
-        }
-        // No item properties except Description allow nulls.
-        private bool ItemDataIsCorrectFormat()
-        {
-            bool ret = true;
-
-            if(Barcode == string.Empty || Barcode.Length > 15)
-            {
-                ret = false;
-            }
-            else if(Name == string.Empty || Name.Length > 50)
-            {
-                ret = false;
-            }
-            else if(Description.Length > 150)
-            {
-                ret = false;
-            }
-            else if(!PriceCanParse)
-            {
-                ret = false;
-            }
-            else if(Category == string.Empty || Category.Length > 20)
-            {
-                ret = false;
-            }
-            else if(Model == string.Empty || Model.Length > 30)
-            {
-                ret = false;
-            }
-            else if(!NumberAvailableCanParse)
-            {
-                ret = false;
-            }
-
-            return ret;
-        }
-
-        private void ClearPublicProperties()
-        {
-            Barcode = string.Empty;
-            Name = string.Empty;
-            Description = string.Empty;
-            Price = string.Empty;
-            Category = string.Empty;
-            Model = string.Empty;
-            NumberAvailable = string.Empty;
-        }
-
-        #region These properties and corresponding variables should be in a dialog box view model
+        #region Public item properties 
         public string Barcode
         {
             get { return item.Barcode; }
@@ -245,5 +152,115 @@ namespace ViewModels
             }
         }
         #endregion
+
+
+        // Constructor used when the dialog is to be used to add a item.
+        public ItemDialogViewModel()
+        {
+            ConfirmCommand = new RelayCommand(Confirm);
+            CancelCommand = new RelayCommand(Cancel);
+
+            if(item == null)
+            {
+                item = new Item();
+
+                BarcodeIsReadOnly = false;
+                BarcodeIsEditable = true;
+
+                ConfirmButtonContent = "Add";
+                CancelButtonContent = "Close";
+            }
+        }
+        // Constructor used when the dialog is to be used to edit a item.
+        public ItemDialogViewModel(Item item)
+        {
+            this.item = item;
+            BarcodeIsReadOnly = true;
+            BarcodeIsEditable = false;
+
+            ConfirmButtonContent = "Ok";
+            CancelButtonContent = "Cancel";
+
+            // These properties are bound to the text boxes in the view.
+            // By passing the selected item as args and setting the properties to the 
+            // selected values this view model can be reused for both adding and editing.
+
+            Barcode = item.Barcode;
+            Name = item.Name;
+            Description = item.Description;
+            Price = item.Price.ToString();
+            Category = item.Category;
+            Model = item.Model;
+            NumberAvailable = item.NumberAvailable.ToString();
+        }
+
+        // Method called when the Confirm button is clicked.
+        // The ItemUpdate stored procedure can handle adding and editing items
+        private void Confirm()
+        {
+            //if (ItemDataIsCorrectFormat())
+            //{
+            //    databaseWriter.AddItemToInventory(item);
+            //    ClearPublicProperties();
+            //    item = new Item();
+            //}
+            databaseWriter.UpdateItem(item);
+            ClearPublicProperties();
+            item = new Item();
+        }
+
+        // Method called when the Cancel button is clicked.
+        private void Cancel()
+        {
+
+        }
+        // No item properties except Description allow nulls.
+        private bool ItemDataIsCorrectFormat()
+        {
+            bool ret = true;
+
+            if(Barcode == string.Empty || Barcode.Length > 15)
+            {
+                ret = false;
+            }
+            else if(Name == string.Empty || Name.Length > 50)
+            {
+                ret = false;
+            }
+            else if(Description.Length > 150)
+            {
+                ret = false;
+            }
+            else if(!PriceCanParse)
+            {
+                ret = false;
+            }
+            else if(Category == string.Empty || Category.Length > 20)
+            {
+                ret = false;
+            }
+            else if(Model == string.Empty || Model.Length > 30)
+            {
+                ret = false;
+            }
+            else if(!NumberAvailableCanParse)
+            {
+                ret = false;
+            }
+
+            return ret;
+        }
+
+        private void ClearPublicProperties()
+        {
+            Barcode = string.Empty;
+            Name = string.Empty;
+            Description = string.Empty;
+            Price = string.Empty;
+            Category = string.Empty;
+            Model = string.Empty;
+            NumberAvailable = string.Empty;
+        }
+
     }
 }

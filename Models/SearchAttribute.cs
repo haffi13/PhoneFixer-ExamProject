@@ -9,6 +9,7 @@ namespace Models
     public class SearchAttribute
     {
         public string spGetAllItems = "GetAllItems";
-        string spAddItem = "AddItem";
+        public string spAddItem = "AddItem";
+        public string spEditItem = "ItemUpdate";
     }
 }
