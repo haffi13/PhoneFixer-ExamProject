@@ -11,24 +11,103 @@ namespace ViewModels
     // in turn inherit the base view model...inception!
     public class ItemDialogViewModel : BaseViewModel
     {
-        DatabaseWriter databaseWriter = new DatabaseWriter();
+        private DatabaseWriter databaseWriter = new DatabaseWriter();
         private Item item;
 
+        // Price and number available have a special string variable to store a string
+        // version from the UI of the corresponding item value.
         private string price;
         private string numberAvailable;
 
-        public RelayCommand AddItemCommand { get; set; }
+        private string confirmButtonContent;
+        private string cancelButtonContent;
+        private bool barcodeIsReadOnly;
+
+        private bool priceCanParse;
+        private bool numberAvailableCanParse;
+
+        public RelayCommand ConfirmCommand { get; set; }
         public RelayCommand CancelCommand { get; set; }
-
-        public ItemDialogViewModel()
+        public bool PriceCanParse
         {
-            item = new Item();
-
-            AddItemCommand = new RelayCommand(AddItem);
-            CancelCommand = new RelayCommand(Cancel);
+            get { return priceCanParse; }
+            set { priceCanParse = value; }
+        }
+        public bool NumberAvailableCanParse
+        {
+            get { return numberAvailableCanParse; }
+            set { numberAvailableCanParse = value; }
+        }
+        public bool BarcodeIsReadOnly
+        {
+            get { return barcodeIsReadOnly; }
+            set
+            {
+                barcodeIsReadOnly = value;
+                OnPropertyChanged();
+            } 
+        }
+        public string ConfirmButtonContent
+        {
+            get { return confirmButtonContent; }
+            set
+            {
+                confirmButtonContent = value;
+                OnPropertyChanged();
+            }
+        }
+        public string CancelButtonContent
+        {
+            get { return cancelButtonContent; }
+            set
+            {
+                cancelButtonContent = value;
+                OnPropertyChanged();
+            }
         }
 
-        private void AddItem()
+
+        // Constructor used when the dialog is to be used to add a item.
+        public ItemDialogViewModel()
+        {
+            ConfirmCommand = new RelayCommand(Confirm);
+            CancelCommand = new RelayCommand(Cancel);
+
+            if(item == null)
+            {
+                item = new Item();
+
+                ConfirmButtonContent = "Add";
+                CancelButtonContent = "Close";
+
+                BarcodeIsReadOnly = false;
+            }
+        }
+        // Constructor used when the dialog is to be used to edit a item.
+        public ItemDialogViewModel(Item item)
+        {
+            this.item = item;
+
+            // These properties are bound to the text boxes in the view.
+            // By passing the selected item as args and setting the properties to the 
+            // selected values this view model can be reused for both adding and editing.
+
+            Barcode = item.Barcode;
+            Name = item.Name;
+            Description = item.Description;
+            Price = item.Price.ToString();
+            Category = item.Category;
+            Model = item.Model;
+            NumberAvailable = item.NumberAvailable.ToString();
+
+            ConfirmButtonContent = "Ok";
+            CancelButtonContent = "Cancel";
+
+            BarcodeIsReadOnly = true;
+        }
+
+        // Method called when the Confirm button is clicked.
+        private void Confirm()
         {
             if (ItemDataIsCorrectFormat())
             {
@@ -38,11 +117,12 @@ namespace ViewModels
             }
         }
 
+        // Method called when the Cancel button is clicked.
         private void Cancel()
         {
 
         }
-        // All item properties except Description do not allow nulls.
+        // No item properties except Description allow nulls.
         private bool ItemDataIsCorrectFormat()
         {
             bool ret = true;
@@ -78,22 +158,6 @@ namespace ViewModels
 
             return ret;
         }
-
-
-        private bool priceCanParse;
-        private bool numberAvailableCanParse;
-        public bool PriceCanParse
-        {
-            get { return priceCanParse; }
-            set { priceCanParse = value; }
-        }
-        public bool NumberAvailableCanParse
-        {
-            get { return numberAvailableCanParse; }
-            set { numberAvailableCanParse = value; }
-        }
-
-
 
         private void ClearPublicProperties()
         {

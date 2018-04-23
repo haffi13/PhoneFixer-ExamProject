@@ -10,7 +10,5 @@ namespace ViewModels
     public class CustomerViewModel : BaseViewModel, ITabItem
     {
         public string Header { get; set; }
-        //object ITabItem.Content { get; set; }
-
     }
 }

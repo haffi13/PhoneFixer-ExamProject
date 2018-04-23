@@ -11,18 +11,29 @@ namespace ViewModels
     //Change name of TabItem to ITab item
     public class InventoryViewModel : BaseViewModel, ITabItem
     {
-        DatabaseReader databaseReader = new DatabaseReader();
-        private ObservableCollection<Item> items = new ObservableCollection<Item>();
+        private DatabaseReader databaseReader = new DatabaseReader();
+        private ObservableCollection<Item> inventory = new ObservableCollection<Item>();
+        private Item selectedItem;
 
         // The header is the name of the tab. It's set in the MainWindowViewModel ctor.
         public string Header { get; set; }
 
-        public ObservableCollection<Item> Items
+        public ObservableCollection<Item> Inventory
         {
-            get { return items; }
+            get { return inventory; }
             set
             {
-                items = value;
+                inventory = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public Item SelectedItem
+        {
+            get { return selectedItem; }
+            set
+            {
+                selectedItem = value;
                 OnPropertyChanged();
             }
         }
@@ -43,7 +54,7 @@ namespace ViewModels
         // Populates the datagrid with all the items in the Item table in the database.
         private void RefreshInventory()
         {
-            Items = new ObservableCollection<Item>(databaseReader.ExecuteQuery());
+            Inventory = new ObservableCollection<Item>(databaseReader.ExecuteQuery());
         }
         private void AddItem()
         {
@@ -51,7 +62,7 @@ namespace ViewModels
         }
         private void EditItem()
         {
-
+            // Pass selected item into the dialog view model
         }
         private void DeleteItem()
         {

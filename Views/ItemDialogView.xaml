@@ -74,6 +74,7 @@
                  Grid.Row="1"
                  VerticalContentAlignment="Center"
                  Margin="0, 2"
+                 IsReadOnly="{Binding BarcodeIsEditable}"
                  />
         <TextBox Text="{Binding Name}"
                  Grid.Column="1"
@@ -112,13 +113,13 @@
                  Margin="0, 2"
                  />
 
-        <Button Content="Add"
+        <Button Content="{Binding ConfirmButton}"
                 Grid.Column="3"
                 Grid.Row="2"
                 Grid.RowSpan="2"
-                Command="{Binding AddItemCommand}"
+                Command="{Binding ConfirmCommand}"
                 />
-        <Button Content="Cancel"
+        <Button Content="{Binding CancelButton}"
                 Grid.Column="3"
                 Grid.Row="5"
                 Grid.RowSpan="2"

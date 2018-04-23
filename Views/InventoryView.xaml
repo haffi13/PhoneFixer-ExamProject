@@ -36,9 +36,12 @@
             Grid.RowSpan="5"
             Margin="10"
             AutoGenerateColumns="True"
-            ItemsSource="{Binding Items}">
-            
-        </DataGrid>
+            IsReadOnly="True"
+            ItemsSource="{Binding Inventory}"
+            SelectedItem="{Binding SelectedItem}"
+            />
+
+
 
         <Button Grid.Column="8"
                 Grid.Row="1"
