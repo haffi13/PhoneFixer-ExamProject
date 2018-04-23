@@ -8,21 +8,25 @@ namespace Models
 {
     class Customer
     {
-        //int
+        // Int
         public int CustomerID { get; set; }
 
-        //Nvarchar(50)?
+        // Nvarchar(50)
         public string Name { get; set; }
 
-        //Nvarchar(50)
+        // Nvarchar(50)
         public string Tlf { get; set; }
 
-        //Nvarchar(50)
+        // Nvarchar(50)
         public string Email { get; set; }
+        
+        // Bool
+        public bool Subscribed { get; set; } = false;
 
-        public bool Subscribed = false;
+        // Int
+        int AmountOfSales { get; set; }
 
-        int AmountOfSales = 0;
-        int AmountSpent = 0;
+        // Int
+        int AmountSpent { get; set; }
     }
 }

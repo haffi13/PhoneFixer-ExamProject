@@ -8,16 +8,19 @@ namespace Models
 {
     class Service
     {
-        //int
+        // Int
         public int ServiceID { get; set; }
 
-        //Nvarchar(150)
+        // Nvarchar(150)
         public string Description { get; set; }
 
-        //decimal(18, 2)
+        // Decimal(18, 2)
         public decimal Price { get; set; }
-
-        public bool Done = false;
-        public bool Pickup = false;
+        
+        // Bool
+        public bool Done { get; set; } = false;
+        
+        // Bool
+        public bool Pickup { get; set; } = false;
     }
 }
