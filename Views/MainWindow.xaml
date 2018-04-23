@@ -9,15 +9,16 @@
         WindowState="Maximized"
         WindowStyle="SingleBorderWindow"
         Title="MainWindow" Height="350" Width="525">
+    
     <Window.DataContext>
         <vm:MainWindowViewModel/>
     </Window.DataContext>
+    
     <Grid>
 
         <TabControl 
                 ItemsSource="{Binding TabItems}" >
-
-
+            
             <TabControl.Resources>
                 <DataTemplate DataType="{x:Type vm:InventoryViewModel}">
                     <local:InventoryView/>
@@ -25,15 +26,19 @@
                 <DataTemplate DataType="{x:Type vm:CustomerViewModel}">
                     <local:CustomerView/>
                 </DataTemplate>
+                <DataTemplate DataType="{x:Type vm:ServiceViewModel}">
+                    <local:ServiceView/>
+                </DataTemplate>
             </TabControl.Resources>
 
             <TabControl.ItemContainerStyle>
                 <Style TargetType="TabItem">
                     <Setter Property="Header" Value="{Binding Header}"/>
-                    
                 </Style>
             </TabControl.ItemContainerStyle>
-
+            
         </TabControl>
+        
     </Grid>
+    
 </Window>

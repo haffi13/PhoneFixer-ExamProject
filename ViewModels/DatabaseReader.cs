@@ -17,7 +17,7 @@ namespace ViewModels
 {
     public class DatabaseReader
     {
-        private static string url = "EALSQL1.eal.local";
+        private static string url      = "EALSQL1.eal.local";
         private static string database = "DB2017_B12";
         private static string username = "USER_B12";
         private static string password = "SesamLukOp_12";
@@ -53,7 +53,7 @@ namespace ViewModels
                             decimal Price = Convert.ToDecimal(reader["Price"].ToString());
                             string Category = reader["Category"].ToString();
                             string Model = reader["Model"].ToString();
-                            float NumberAvailable = float.Parse(reader["NumberAvailable"].ToString());
+                            int NumberAvailable = Convert.ToInt32(reader["NumberAvailable"].ToString());
 
                             // I don't think we need to check for nulls here.
                             // I think nothing happens if there isn't any value in field in the

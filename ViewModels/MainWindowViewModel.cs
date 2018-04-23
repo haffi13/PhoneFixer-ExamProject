@@ -27,7 +27,9 @@ namespace ViewModels
         public MainWindowViewModel()
         {
             TabItems.Add(new InventoryViewModel { Header = "Inventory" });
-            TabItems.Add(new CustomerViewModel { Header = "Customers" });
+            TabItems.Add(new ServiceViewModel   { Header = "Service" });
+            TabItems.Add(new CustomerViewModel  { Header = "Customers" });
+            
         }
         
     }
