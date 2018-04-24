@@ -227,8 +227,11 @@ namespace ViewModels
 
         }
         // No item properties except Description allow nulls.
-        private bool ItemDataIsCorrectFormat()
+
+        // This method is currently public for testing purposes. Shall be private!
+        public bool ItemDataIsCorrectFormat()
         {
+            // This needs to be tested
             bool ret = true;
 
             if(Barcode == string.Empty || Barcode.Length > 15)
