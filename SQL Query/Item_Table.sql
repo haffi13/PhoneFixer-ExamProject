@@ -1,3 +1,5 @@
+------SQL Query for 
+
 ----Table creations:
 
 --CREATE TABLE ITEM (
@@ -21,7 +23,7 @@
 --		SELECT Barcode, Name, Description, Price, Category, Model, NumberAvailable FROM ITEM
 --END
 
-----Add Item to Item table
+----Add Item to dbo.ITEM table
 
 --CREATE PROCEDURE AddItem
 --				(@Barcode NVarchar(15), @Name NVarchar(50), @Description NVarchar(150), @Price Decimal(18,2), @Category NVarchar(20), @Model NVarchar(30), @NumberAvailable INT)
@@ -31,7 +33,7 @@
 --		VALUES	(@Barcode, @Name, @Description, @Price, @Category, @Model, @NumberAvailable)
 --END
 
-----Insert and update data in table dbo.ITEM
+----Insert and update data in dbo.ITEM NB: This may make the AddItem procedure OBSOLETE!!!
 
 --CREATE PROCEDURE ItemUpdate
 
@@ -54,6 +56,25 @@
 --	ELSE
 --		UPDATE ITEM SET Name = @Name, Description = @Description, Price = @Price, Category = @Category, Model = @Model, NumberAvailable = @NumberAvailable
 --		WHERE Barcode = @Barcode
+--END
+
+----Delete Item from dbo.ITEM:
+
+--CREATE PROCEDURE DeleteItem
+
+--	@Barcode NVarchar(15),
+--	@Name NVarchar(50),
+--	@Description NVarchar(150),
+--	@Price Decimal(18,2),
+--	@Category NVarchar(20),
+--	@Model NVarchar(30),
+--	@NumberAvailable INT
+
+--AS
+
+--BEGIN
+--	SET NOCOUNT ON;
+--	DELETE FROM ITEM WHERE Barcode = @Barcode
 --END
 
 ----MOCKDATA:
