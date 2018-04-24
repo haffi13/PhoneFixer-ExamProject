@@ -1,17 +1,12 @@
 ﻿using Models;
-using System;
-using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ViewModels
 {
     public class DatabaseWriter
     {
-        private static string url = "EALSQL1.eal.local";
+        private static string url      = "EALSQL1.eal.local";
         private static string database = "DB2017_B12";
         private static string username = "USER_B12";
         private static string password = "SesamLukOp_12";
@@ -19,6 +14,7 @@ namespace ViewModels
         private static string connectionString = string.Format
             ("Server={0}; Database={1}; User Id={2}; Password={3};", url, database, username, password);
 
+        // Creates a new or updates an existing object in the Item table in the database.
         public void UpdateItem(Item item)
         {
             using (SqlConnection connection = new SqlConnection(connectionString))

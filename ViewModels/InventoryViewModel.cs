@@ -18,6 +18,8 @@ namespace ViewModels
         // The header is the name of the tab. It's set in the MainWindowViewModel ctor.
         public string Header { get; set; }
 
+        // Collection of items populated by the items table in the database and is
+        // bound to the DataGrid in the InventoryView.
         public ObservableCollection<Item> Inventory
         {
             get { return inventory; }
@@ -28,6 +30,7 @@ namespace ViewModels
             }
         }
 
+        // The item the user selected in the DataGrid in the InventoryView.
         public Item SelectedItem
         {
             get { return selectedItem; }
@@ -56,10 +59,15 @@ namespace ViewModels
         {
             Inventory = new ObservableCollection<Item>(databaseReader.ExecuteQuery());
         }
+
+        // Opens a dialog box for the user to add a Item to the database.
         private void AddItem()
         {
             
         }
+
+        // Opens a dialog box for the user to edit the selected item in the datagrid in the
+        // InventoryView. Updates the corresponding Item object in the database.
         private void EditItem()
         {
             // Pass selected item into the dialog view model

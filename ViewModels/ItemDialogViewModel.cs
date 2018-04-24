@@ -14,8 +14,9 @@ namespace ViewModels
         private DatabaseWriter databaseWriter = new DatabaseWriter();
         private Item item;
 
-        // Price and number available have a special string variable to store a string
-        // version from the UI of the corresponding item value.
+        // Price and number available have a string variable to store the string value
+        // from the corresponding textboxes in the ItemDialogView. 
+        // They cannot be stored in a  item object as those objects are of type int and decimal.
         private string price;
         private string numberAvailable;
 
@@ -30,16 +31,21 @@ namespace ViewModels
         public RelayCommand ConfirmCommand { get; set; }
         public RelayCommand CancelCommand { get; set; }
 
+        // Bool which returns if the value in the Price textbox in the ItemDialogView
+        // can be parced to a decimal value.
         public bool PriceCanParse
         {
             get { return priceCanParse; }
             set { priceCanParse = value; }
         }
+        // Bool which returns if the value in the NumberAvailable textbox in the ItemDialogView
+        // can be parced to a Int value.
         public bool NumberAvailableCanParse
         {
             get { return numberAvailableCanParse; }
             set { numberAvailableCanParse = value; }
         }
+        // Bound to the Barcode textbox in the ItemDialogView. Makes it un-editable.
         public bool BarcodeIsReadOnly
         {
             get { return barcodeIsReadOnly; }
@@ -49,6 +55,7 @@ namespace ViewModels
                 OnPropertyChanged();
             } 
         }
+        // Bound to the Barcode textbox in the ItemDialogView. Makes it un-selectable.
         public bool BarcodeIsEditable
         {
             get { return barcodeIsEditable; }
@@ -58,6 +65,8 @@ namespace ViewModels
                 OnPropertyChanged();
             }
         }
+        // Bound to the Confirm button in the ItemDialogView. Contains the button content
+        // "Add" if adding an item, "OK" if editing an item.
         public string ConfirmButtonContent
         {
             get { return confirmButtonContent; }
@@ -67,6 +76,8 @@ namespace ViewModels
                 OnPropertyChanged();
             }
         }
+        // Bound to the Cancel button in the ItemDialogView. Contains the button content
+        // "Close" if adding an item, "Cancel" if editing an item.
         public string CancelButtonContent
         {
             get { return cancelButtonContent; }
@@ -183,7 +194,8 @@ namespace ViewModels
 
             // These properties are bound to the text boxes in the view.
             // By passing the selected item as args and setting the properties to the 
-            // selected values this view model can be reused for both adding and editing.
+            // selected values this view model can be reused for both adding and editing,
+            // decided from which constructor the view model is instanciated with.
 
             Barcode = item.Barcode;
             Name = item.Name;
@@ -251,6 +263,8 @@ namespace ViewModels
             return ret;
         }
 
+        // Clears the string properties bound to the textboxes in the ItemDialogView.
+        // This method is called before a new instance of item is instanciated.
         private void ClearPublicProperties()
         {
             Barcode = string.Empty;
@@ -261,6 +275,5 @@ namespace ViewModels
             Model = string.Empty;
             NumberAvailable = string.Empty;
         }
-
     }
 }

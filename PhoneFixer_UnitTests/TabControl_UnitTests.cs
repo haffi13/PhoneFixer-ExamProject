@@ -7,10 +7,9 @@ using System.Collections.ObjectModel;
 namespace PhoneFixer_UnitTests
 {
     [TestClass]
-    public class Inventory_UnitTests
+    public class TabControl_UnitTests
     {
         MainWindowViewModel mainWindowViewModel;
-        InventoryViewModel inventoryViewModel;
         ObservableCollection<ITabItem> tabItem = new ObservableCollection<ITabItem>();
 
 
@@ -20,8 +19,8 @@ namespace PhoneFixer_UnitTests
             tabItem.Add(new InventoryViewModel { Header = "Inventory" });
             tabItem.Add(new InventoryViewModel { Header = "Service" });
             mainWindowViewModel = new MainWindowViewModel();
-            inventoryViewModel = new InventoryViewModel();
         }
+
 
         [TestMethod]
         public void TabItemHeaderRegistersCorrectly()
@@ -31,7 +30,15 @@ namespace PhoneFixer_UnitTests
         }
 
         [TestMethod]
-        public void Tas()
+        public void ITabItemCanBeAssignedToRelevantViewModels()
+        {
+            Assert.IsTrue(typeof(ITabItem).IsAssignableFrom(typeof(InventoryViewModel)));
+            Assert.IsTrue(typeof(ITabItem).IsAssignableFrom(typeof(ServiceViewModel)));
+            Assert.IsTrue(typeof(ITabItem).IsAssignableFrom(typeof(CustomerViewModel)));
+        }
+
+        [TestMethod]
+        public void Test()
         {
             
         }

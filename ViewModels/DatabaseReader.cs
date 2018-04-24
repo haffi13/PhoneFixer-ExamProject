@@ -26,7 +26,7 @@ namespace ViewModels
             ("Server={0}; Database={1}; User Id={2}; Password={3};", url, database, username, password);
 
 
-        // Should take in parameters of stored procedure and argument for the SP.
+        // Returns a list of all Item objects in the Item table in the database.
         public List<Item> ExecuteQuery()
         {
             List<Item> Items = new List<Item>();
@@ -54,10 +54,6 @@ namespace ViewModels
                             string Category = reader["Category"].ToString();
                             string Model = reader["Model"].ToString();
                             int NumberAvailable = Convert.ToInt32(reader["NumberAvailable"].ToString());
-
-                            // I don't think we need to check for nulls here.
-                            // I think nothing happens if there isn't any value in field in the
-                            // database.
 
                             temp.Barcode = Barcode;
                             temp.Name = ItemName;
