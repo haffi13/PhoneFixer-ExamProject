@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.ObjectModel;
 using Models;
 using ViewModels.DialogServices;
 
-namespace ViewModels 
+namespace ViewModels
 {
     public class InventoryViewModel : BaseViewModel, ITabItem
     {
@@ -66,9 +61,9 @@ namespace ViewModels
         // Opens a dialog box for the user to add a Item to the database.
         private void AddItem()
         {
-            var viewModel = new ItemDialogViewModel();
+            //var viewModel = new ItemDialogViewModel();
 
-            bool? result = dialogService.ShowDialog(viewModel);
+            bool? result = dialogService.ShowDialog(new ItemDialogViewModel());
 
 
 
@@ -81,7 +76,8 @@ namespace ViewModels
         {
             if(SelectedItem != null)
             {
-
+                bool? result = dialogService.ShowDialog(new ItemDialogViewModel(SelectedItem));
+                RefreshInventory();
             }
             // Pass selected item into the dialog view model
         }
