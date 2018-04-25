@@ -7,8 +7,11 @@ namespace ViewModels
     public class InventoryViewModel : BaseViewModel, ITabItem
     {
         private DatabaseReader databaseReader = new DatabaseReader();
+        private DatabaseWriter databaseWriter = new DatabaseWriter();
         private ObservableCollection<Item> inventory = new ObservableCollection<Item>();
         private Item selectedItem;
+
+        // Keeps an instance of the DialogService instanciated at startup.
         private readonly IDialogService dialogService;
 
         // The header is the name of the tab. It's set in the MainWindowViewModel ctor.
@@ -37,10 +40,11 @@ namespace ViewModels
             }
         }
 
-        public RelayCommand AddItemCommand { get; set; }
-        public RelayCommand EditItemCommand { get; set; }
-        public RelayCommand DeleteItemCommand { get; set; }
-
+        public RelayCommand AddItemCommand { get; }
+        public RelayCommand EditItemCommand { get; }
+        public RelayCommand DeleteItemCommand { get; }
+        
+        
         public InventoryViewModel(IDialogService dialogService)
         {
             this.dialogService = dialogService;
@@ -61,11 +65,7 @@ namespace ViewModels
         // Opens a dialog box for the user to add a Item to the database.
         private void AddItem()
         {
-            //var viewModel = new ItemDialogViewModel();
-
             bool? result = dialogService.ShowDialog(new ItemDialogViewModel());
-
-
 
             RefreshInventory();
         }
@@ -79,11 +79,16 @@ namespace ViewModels
                 bool? result = dialogService.ShowDialog(new ItemDialogViewModel(SelectedItem));
                 RefreshInventory();
             }
-            // Pass selected item into the dialog view model
         }
+
+        // Deletes the selected item in the datagrid in the InventoryView.
         private void DeleteItem()
         {
-
+            if(SelectedItem != null)
+            {
+                databaseWriter.DeleteItem(SelectedItem);
+                RefreshInventory();
+            }
         }
     }
 }
