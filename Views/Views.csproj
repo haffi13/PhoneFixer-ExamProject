@@ -57,6 +57,9 @@
     <Compile Include="ItemDialogView.xaml.cs">
       <DependentUpon>ItemDialogView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="MessageBoxDialogView.xaml.cs">
+      <DependentUpon>MessageBoxDialogView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ServiceView.xaml.cs">
       <DependentUpon>ServiceView.xaml</DependentUpon>
     </Compile>
@@ -90,6 +93,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="MessageBoxDialogView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="ServiceView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

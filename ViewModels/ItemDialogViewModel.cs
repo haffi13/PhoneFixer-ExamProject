@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Models;
 using ViewModels.DialogServices;
 
@@ -14,7 +10,6 @@ namespace ViewModels
     {
         private DatabaseWriter databaseWriter = new DatabaseWriter();
         private Item item;
-
         
         // Price and number available have a string variable to store the string value
         // from the corresponding textboxes in the ItemDialogView. 
@@ -25,12 +20,15 @@ namespace ViewModels
         private string confirmButtonContent;
         private string cancelButtonContent;
 
+        private bool isAdd; // no properties.
+        private bool isEdit; // no properties.
         private bool barcodeIsEditable;
         private bool barcodeIsReadOnly;
         private bool priceCanParse;
         private bool numberAvailableCanParse;
 
-
+        // Private variables who point out what values are not valid in the 
+        // textboxes in the ItemDialogView.
         private bool barcodeIsValid = true;
         private bool nameIsValid = true;
         private bool descriptionIsValid = true;
@@ -52,6 +50,8 @@ namespace ViewModels
             get { return priceCanParse; }
             set { priceCanParse = value; }
         }
+        
+        
         // Bool which returns if the value in the NumberAvailable textbox in the ItemDialogView
         // can be parced to a Int value.
         public bool NumberAvailableCanParse
@@ -266,6 +266,8 @@ namespace ViewModels
             {
                 item = new Item();
 
+                isAdd = true;
+
                 BarcodeIsReadOnly = false;
                 BarcodeIsEditable = true;
 
@@ -277,6 +279,9 @@ namespace ViewModels
         public ItemDialogViewModel(Item item)
         {
             this.item = item;
+
+            isAdd = false;
+
             BarcodeIsReadOnly = true;
             BarcodeIsEditable = false;
 
@@ -306,6 +311,12 @@ namespace ViewModels
                 databaseWriter.UpdateItem(item);
                 ClearPublicProperties();
                 item = new Item();
+
+                // When editing a specific item the window closes when user confirms changes.
+                if (isEdit)
+                {
+                    CloseRequested.Invoke(this, new DialogCloseRequestedEventArgs(true));
+                }
             }
         }
 
@@ -314,9 +325,11 @@ namespace ViewModels
         {
             CloseRequested.Invoke(this, new DialogCloseRequestedEventArgs(false));
         }
-        // No item properties except Description allow nulls.
+        
 
         // This method is currently public for testing purposes. Shall be private!
+        // This method checks if the input in the ItemDialogView is of values and size the 
+        // item table in the database accepts.
         public bool ItemDataIsCorrectFormat()
         {
             bool ret = true;
