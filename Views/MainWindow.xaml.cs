@@ -12,6 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using ViewModels;
+using ViewModels.DialogServices;
 
 namespace Views
 {
@@ -23,6 +25,12 @@ namespace Views
         public MainWindow()
         {
             InitializeComponent();
+            //IDialogService dialogService = new DialogService(this);
+
+            //dialogService.Register<ItemDialogViewModel, ItemDialogView>();
+
+            //var viewModel = new MainWindowViewModel(dialogService);
+            //var view = this.DataContext = viewModel;
         }
     }
 }

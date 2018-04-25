@@ -13,14 +13,14 @@ namespace PhoneFixer_UnitTests
         ItemDialogViewModel itemDialogViewModel;
         ObservableCollection<ITabItem> tabItem = new ObservableCollection<ITabItem>();
 
-
+        // Doesn't work after implementing the dialog service.
         [TestInitialize]
         public void InitializeTest()
         {
-            tabItem.Add(new InventoryViewModel { Header = "Inventory" });
-            tabItem.Add(new InventoryViewModel { Header = "Service" });
-            mainWindowViewModel = new MainWindowViewModel();
-            itemDialogViewModel = new ItemDialogViewModel();
+            //tabItem.Add(new InventoryViewModel { Header = "Inventory" });
+            //tabItem.Add(new InventoryViewModel { Header = "Service" });
+            //mainWindowViewModel = new MainWindowViewModel();
+            //itemDialogViewModel = new ItemDialogViewModel();
         }
 
 

@@ -11,17 +11,20 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using ViewModels.DialogServices;
 
 namespace Views
 {
     /// <summary>
     /// Interaction logic for ItemDialogView.xaml
     /// </summary>
-    public partial class ItemDialogView : Window
+    public partial class ItemDialogView : Window, IDialog
     {
         public ItemDialogView()
         {
             InitializeComponent();
+
         }
+        
     }
 }

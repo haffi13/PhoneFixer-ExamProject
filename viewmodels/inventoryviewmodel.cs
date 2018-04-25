@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Models;
+using ViewModels.DialogServices;
 
 namespace ViewModels 
 {
@@ -13,6 +14,7 @@ namespace ViewModels
         private DatabaseReader databaseReader = new DatabaseReader();
         private ObservableCollection<Item> inventory = new ObservableCollection<Item>();
         private Item selectedItem;
+        private readonly IDialogService dialogService;
 
         // The header is the name of the tab. It's set in the MainWindowViewModel ctor.
         public string Header { get; set; }
@@ -44,8 +46,10 @@ namespace ViewModels
         public RelayCommand EditItemCommand { get; set; }
         public RelayCommand DeleteItemCommand { get; set; }
 
-        public InventoryViewModel()
+        public InventoryViewModel(IDialogService dialogService)
         {
+            this.dialogService = dialogService;
+
             RefreshInventory();
 
             AddItemCommand = new RelayCommand(AddItem);
@@ -62,13 +66,23 @@ namespace ViewModels
         // Opens a dialog box for the user to add a Item to the database.
         private void AddItem()
         {
-            
+            var viewModel = new ItemDialogViewModel();
+
+            bool? result = dialogService.ShowDialog(viewModel);
+
+
+
+            RefreshInventory();
         }
 
         // Opens a dialog box for the user to edit the selected item in the datagrid in the
         // InventoryView. Updates the corresponding Item object in the database.
         private void EditItem()
         {
+            if(SelectedItem != null)
+            {
+
+            }
             // Pass selected item into the dialog view model
         }
         private void DeleteItem()
