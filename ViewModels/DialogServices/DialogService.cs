@@ -4,7 +4,8 @@ using System.Windows;
 
 namespace ViewModels.DialogServices
 {
-    // Here the ViewModels are registered to the views.
+    // The DialogService assigns it's owner, we assign MainWindow at startup. 
+    // The ViewModels are registered to the views.
     public class DialogService : IDialogService
     {
         private readonly Window owner;

@@ -9,7 +9,8 @@ namespace ViewModels
 {
     public class CustomerViewModel : BaseViewModel, ITabItem
     {
-        IDialogService dialogService;
+        // Keeps an instance of the DialogService instanciated at startup.
+        private readonly IDialogService dialogService;
         public CustomerViewModel(IDialogService dialogService)
         {
             this.dialogService = dialogService;

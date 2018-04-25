@@ -38,11 +38,13 @@ namespace ViewModels
             }
         }
 
+        // Constructor adds view models to an ObservableCollection bound to a tab control 
+        // in the MainWindow.
         public MainWindowViewModel(IDialogService dialogService)
         {
             TabViewModels.Add(new InventoryViewModel(dialogService) { Header = "Inventory" });
             TabViewModels.Add(new ServiceViewModel(dialogService)   { Header = "Service" });
-            TabViewModels.Add(new CustomerViewModel( dialogService)  { Header = "Customers" });
+            TabViewModels.Add(new CustomerViewModel(dialogService)  { Header = "Customers" });
 
             SelectedTab = TabViewModels[0];
         }   

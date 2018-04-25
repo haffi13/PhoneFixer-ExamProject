@@ -4,8 +4,6 @@ using ViewModels.DialogServices;
 
 namespace ViewModels
 {
-    // This should maybe inherit from a specific dialog base which would
-    // in turn inherit the base view model...inception!
     public class ItemDialogViewModel : BaseViewModel, IDialogRequestClose
     {
         private DatabaseWriter databaseWriter = new DatabaseWriter();
@@ -20,8 +18,8 @@ namespace ViewModels
         private string confirmButtonContent;
         private string cancelButtonContent;
 
-        private bool isAdd; // no properties.
         private bool isEdit; // no properties.
+        
         private bool barcodeIsEditable;
         private bool barcodeIsReadOnly;
         private bool priceCanParse;
@@ -40,8 +38,8 @@ namespace ViewModels
         // Handles requests to close the dialog box
         public event EventHandler<DialogCloseRequestedEventArgs> CloseRequested;
 
-        public RelayCommand ConfirmCommand { get; set; } // just get, doesnt need set
-        public RelayCommand CancelCommand { get; set; }
+        public RelayCommand ConfirmCommand { get; } // just get, doesnt need set
+        public RelayCommand CancelCommand { get; }
 
         // Bool which returns if the value in the Price textbox in the ItemDialogView
         // can be parced to a decimal value.
@@ -266,7 +264,7 @@ namespace ViewModels
             {
                 item = new Item();
 
-                isAdd = true;
+                isEdit = false;
 
                 BarcodeIsReadOnly = false;
                 BarcodeIsEditable = true;
@@ -280,7 +278,7 @@ namespace ViewModels
         {
             this.item = item;
 
-            isAdd = false;
+            isEdit = true;
 
             BarcodeIsReadOnly = true;
             BarcodeIsEditable = false;

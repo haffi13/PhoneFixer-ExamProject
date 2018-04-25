@@ -9,7 +9,7 @@ namespace ViewModels
 {
     public class ServiceViewModel : BaseViewModel, ITabItem
     {
-        IDialogService dialogService;
+        private readonly IDialogService dialogService;
         public ServiceViewModel(IDialogService dialogService)
         {
             this.dialogService = dialogService;
