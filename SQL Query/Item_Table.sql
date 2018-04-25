@@ -1,4 +1,4 @@
-2------SQL Query for 
+------SQL Query for 
 
 ----Table creations:
 
@@ -75,6 +75,25 @@
 --BEGIN
 --	SET NOCOUNT ON;
 --	DELETE FROM ITEM WHERE Barcode = @Barcode
+--END
+
+----Search table ITEM for a item based on a string:
+
+--CREATE PROCEDURE SearchItemName
+
+--	@barcode NVarchar(15),
+--	@Name NVarchar(50),
+--	@Description NVarchar(150),
+--	@Price Decimal(18,2),
+--	@Category NVarchar(20),
+--	@Model NVarchar(30),
+--	@NumberAvailable INT
+
+--AS
+
+--BEGIN
+--	SET NOCOUNT ON;
+--	SELECT * FROM ITEM WHERE Name = @Name
 --END
 
 ----MOCKDATA:
