@@ -35,8 +35,6 @@ namespace ViewModels
                     cmd.Parameters.Add(new SqlParameter("@Model", item.Model));
                     cmd.Parameters.Add(new SqlParameter("@NumberAvailable", item.NumberAvailable));
 
-
-
                     cmd.ExecuteNonQuery();
                     connection.Close();
                 }

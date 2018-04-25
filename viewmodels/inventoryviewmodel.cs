@@ -8,7 +8,6 @@ using Models;
 
 namespace ViewModels 
 {
-    //Change name of TabItem to ITab item
     public class InventoryViewModel : BaseViewModel, ITabItem
     {
         private DatabaseReader databaseReader = new DatabaseReader();

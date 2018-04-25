@@ -8,10 +8,6 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 
-//-----------------------------------
-// We are not sure where to put the Data Access in the layers.
-// Should it be in the ViewModels or should it have its own layer?
-//-----------------------------------
 
 namespace ViewModels
 {
