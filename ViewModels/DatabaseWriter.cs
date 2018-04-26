@@ -1,6 +1,7 @@
 ﻿using Models;
 using System.Data;
 using System.Data.SqlClient;
+using System.Windows;
 
 namespace ViewModels
 {
@@ -15,8 +16,9 @@ namespace ViewModels
             ("Server={0}; Database={1}; User Id={2}; Password={3};", url, database, username, password);
 
         // Creates a new or updates an existing object in the Item table in the database.
-        public void UpdateItem(Item item)
+        public string UpdateItem(Item item)
         {
+            string ret = string.Empty;
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 try
@@ -40,10 +42,11 @@ namespace ViewModels
                 }
                 catch (SqlException e)
                 {
-                    //MessageBox.Show(e.Message.ToString()); //should not do this                 fixit!!!!!!!!!!!
+                    ret = Message.AddItemError + "\n\n" +
+                                     e.Message;
                 }
             }
-
+            return ret;
         }
 
         public void DeleteItem(Item item)

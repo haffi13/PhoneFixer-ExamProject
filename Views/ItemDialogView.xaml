@@ -36,6 +36,13 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
+        <Label Content="{Binding ItemDialogMessage}"
+               Grid.Column="1"
+               Grid.Row="0"
+               HorizontalAlignment="Stretch"
+               HorizontalContentAlignment="Center"
+               VerticalContentAlignment="Center"
+            />
         <Label Content="Barcode" 
                Grid.Column="0"
                Grid.Row="1"

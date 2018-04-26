@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Windows;
 using Models;
 using ViewModels.DialogServices;
 
@@ -48,7 +49,6 @@ namespace ViewModels
             get { return priceCanParse; }
             set { priceCanParse = value; }
         }
-        
         
         // Bool which returns if the value in the NumberAvailable textbox in the ItemDialogView
         // can be parced to a Int value.
@@ -179,7 +179,7 @@ namespace ViewModels
         #endregion
 
 
-        // bool? maybe...
+        // bool? maybe...might make us get away with working with un-instanciated properties.
         #region Input validity checks
 
         public bool BarcodeIsValid 
@@ -304,18 +304,35 @@ namespace ViewModels
         // The ItemUpdate stored procedure can handle adding and editing items
         private void Confirm()
         {
-            if (ItemDataIsCorrectFormat())
-            {
-                databaseWriter.UpdateItem(item);
-                ClearPublicProperties();
-                item = new Item();
+            //if (ItemDataIsCorrectFormat())
+            //{
+                string errorMessage = databaseWriter.UpdateItem(item);
+                //
+                //  Insert bool to check if database operation goes smooooooth.
+                if(errorMessage == string.Empty)
+                {
+                    
+                    ClearPublicProperties();
+                    item = new Item();
+
+                    if (isEdit)
+                    {
+                        CloseRequested.Invoke(this, new DialogCloseRequestedEventArgs(true));
+                    }
+                }
+                else
+                {
+                    // Change to our own message box
+                    MessageBox.Show(errorMessage);
+                }
+                
+                //
+                //ClearPublicProperties();
+                //item = new Item();
 
                 // When editing a specific item the window closes when user confirms changes.
-                if (isEdit)
-                {
-                    CloseRequested.Invoke(this, new DialogCloseRequestedEventArgs(true));
-                }
-            }
+                
+           // }
         }
 
         // Method called when the Cancel button is clicked.
@@ -331,6 +348,8 @@ namespace ViewModels
         public bool ItemDataIsCorrectFormat()
         {
             bool ret = true;
+
+            // We need to handle potential null reference exception.
 
             if(Barcode == string.Empty || Barcode.Length > 15)
             {

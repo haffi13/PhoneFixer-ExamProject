@@ -3,22 +3,22 @@
     // Comments indicate the variable type and constraints in the service table in the database.
     class Customer
     {
-        // Int
+        // Int not null
         public int CustomerID { get; set; }
 
-        // Nvarchar(50)
+        // Nvarchar(50) not null
         public string Name { get; set; }
 
         // Nvarchar(50)
         public string Tlf { get; set; }
 
-        // Nvarchar(50)
+        // Nvarchar(50) 
         public string Email { get; set; }
         
-        // Bool
+        // Bool not null
         public bool Subscribed { get; set; } = false;
 
-        // Int
+        // Int not null
         int AmountOfSales { get; set; }
 
         // Int
