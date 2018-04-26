@@ -29,7 +29,7 @@ namespace Views
             var viewModel = new MainWindowViewModel(dialogService);
             var view = new MainWindow { DataContext = viewModel };
 
-            view.Show();
+            view.ShowDialog();
         }
     }
 }
