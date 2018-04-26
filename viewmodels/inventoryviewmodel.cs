@@ -64,7 +64,7 @@ namespace ViewModels
         // Opens a dialog box for the user to add a Item to the database.
         private void AddItem()
         {
-            bool? result = dialogService.ShowDialog(new ItemDialogViewModel());
+            bool? result = dialogService.ShowDialog(new ItemDialogViewModel(dialogService));
 
             RefreshInventory();
         }
@@ -75,7 +75,7 @@ namespace ViewModels
         {
             if(SelectedItem != null)
             {
-                bool? result = dialogService.ShowDialog(new ItemDialogViewModel(SelectedItem));
+                bool? result = dialogService.ShowDialog(new ItemDialogViewModel(SelectedItem, dialogService));
                 RefreshInventory();
             }
         }
@@ -89,7 +89,7 @@ namespace ViewModels
                 if(errorMessage != string.Empty)
                 {
                     bool? result = dialogService.ShowDialog
-                        (new MessageBoxDialogViewModel(errorMessage));
+                        (new MessageBoxDialogViewModel(errorMessage, Message.InventoryErrorTitle));
                 }
                 else
                 {
