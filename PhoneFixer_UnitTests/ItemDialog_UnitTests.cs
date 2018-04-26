@@ -14,7 +14,7 @@ namespace PhoneFixer_UnitTests
         [TestInitialize]
         public void InitializeTest()
         {
-            itemDialogViewModel = new ItemDialogViewModel();
+            //itemDialogViewModel = new ItemDialogViewModel();
             item = new Item();
         }
         

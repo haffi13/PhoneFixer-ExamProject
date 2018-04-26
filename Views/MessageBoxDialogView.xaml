@@ -5,7 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Views"
         mc:Ignorable="d"
-        Title="MessageBoxDialogView" Height="200" Width="300">
+        Title="MessageBoxDialogView" SizeToContent="WidthAndHeight"
+        MinHeight="150"
+        MinWidth="300">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="0.2*"/>

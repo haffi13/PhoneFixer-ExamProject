@@ -18,6 +18,8 @@ namespace ViewModels
         // Creates a new or updates an existing object in the Item table in the database.
         public static string UpdateItem(Item item)
         {
+            // If you input a alredy existing barcode in when adding a new item
+            // the old item becomes overridden. Make checks
             string ret = string.Empty;
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
@@ -49,6 +51,7 @@ namespace ViewModels
             return ret;
         }
 
+
         public static string DeleteItem(Item item)
         {
             string ret = string.Empty;
@@ -73,6 +76,7 @@ namespace ViewModels
                                 e.Message;
                 }
             }
+            return ret;
         }
     }
 }

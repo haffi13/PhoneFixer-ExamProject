@@ -5,9 +5,18 @@ using ViewModels.DialogServices;
 
 namespace ViewModels
 {
+
+    // --------------------------------------------------
+
+    // There is a problem with the items and the database.
+
+    // --------------------------------------------------
+
+
     public class ItemDialogViewModel : BaseViewModel, IDialogRequestClose
     {
         private Item item;
+        private readonly IDialogService dialogService;
         
         // Price and number available have a string variable to store the string value
         // from the corresponding textboxes in the ItemDialogView. 
@@ -265,10 +274,12 @@ namespace ViewModels
         #endregion
 
         // Constructor used when the dialog is to be used to add a item.
-        public ItemDialogViewModel()
+        public ItemDialogViewModel(IDialogService dialogService)
         {
             ConfirmCommand = new RelayCommand(Confirm);
             CancelCommand = new RelayCommand(Cancel);
+
+            this.dialogService = dialogService;
 
             if(item == null)
             {
@@ -284,11 +295,12 @@ namespace ViewModels
             }
         }
         // Constructor used when the dialog is to be used to edit a item.
-        public ItemDialogViewModel(Item item)
+        public ItemDialogViewModel(Item item, IDialogService dialogService)
         {
             ConfirmCommand = new RelayCommand(Confirm);
             CancelCommand = new RelayCommand(Cancel);
 
+            this.dialogService = dialogService;
             this.item = item;
 
             isEdit = true;
@@ -317,9 +329,9 @@ namespace ViewModels
         // The ItemUpdate stored procedure can handle adding and editing items
         private void Confirm()
         {
-            //if (ItemDataIsCorrectFormat())
-            //{
-                string errorMessage = DatabaseWriter.UpdateItem(item);
+            if (ItemDataIsCorrectFormat())
+            {
+            string errorMessage = DatabaseWriter.UpdateItem(item);
                 //
                 //  Insert bool to check if database operation goes smooooooth.
                 if(errorMessage == string.Empty)
@@ -339,10 +351,10 @@ namespace ViewModels
                 }
                 else
                 {
-                    // Change to our own message box
-                    MessageBox.Show(errorMessage);
+                 bool? result = dialogService.ShowDialog
+                    (new MessageBoxDialogViewModel(errorMessage, Message.InventoryErrorTitle));
                 } 
-           // }
+            }
         }
 
         // Method called when the Cancel button is clicked.
@@ -350,7 +362,6 @@ namespace ViewModels
         {
             CloseRequested.Invoke(this, new DialogCloseRequestedEventArgs(false));
         }
-        
 
         // This method is currently public for testing purposes. Shall be private!
         // This method checks if the input in the ItemDialogView is of values and size the 
