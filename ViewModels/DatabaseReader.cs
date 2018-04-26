@@ -23,7 +23,7 @@ namespace ViewModels
 
 
         // Returns a list of all Item objects in the Item table in the database.
-        public List<Item> ExecuteQuery()
+        public List<Item> GetInventory()
         {
             List<Item> Items = new List<Item>();
 
