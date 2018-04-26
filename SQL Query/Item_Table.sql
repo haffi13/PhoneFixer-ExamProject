@@ -18,6 +18,7 @@
 ----Get ALL items in the item table
 
 --CREATE PROCEDURE GetAllItems
+
 --AS
 --BEGIN
 --		SELECT Barcode, Name, Description, Price, Category, Model, NumberAvailable FROM ITEM
@@ -35,7 +36,7 @@
 
 ----Insert and update data in dbo.ITEM NB: This may make the AddItem procedure OBSOLETE!!!
 
---CREATE PROCEDURE ItemUpdate
+--CREATE PROCEDURE UpdateItem
 
 --	@Barcode NVarchar(15),
 --	@Name NVarchar(50),
@@ -62,13 +63,13 @@
 
 --CREATE PROCEDURE DeleteItem
 
---	@Barcode NVarchar(15),
---	@Name NVarchar(50),
---	@Description NVarchar(150),
---	@Price Decimal(18,2),
---	@Category NVarchar(20),
---	@Model NVarchar(30),
---	@NumberAvailable INT
+--	@Barcode NVarchar(15)
+----	@Name NVarchar(50),
+----	@Description NVarchar(150),
+----	@Price Decimal(18,2),
+----	@Category NVarchar(20),
+----	@Model NVarchar(30),
+----	@NumberAvailable INT
 
 --AS
 
