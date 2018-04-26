@@ -11,7 +11,7 @@ using System.Windows;
 
 namespace ViewModels
 {
-    public class DatabaseReader
+    public static class DatabaseReader
     {
         private static string url      = "EALSQL1.eal.local";
         private static string database = "DB2017_B12";
@@ -23,7 +23,7 @@ namespace ViewModels
 
 
         // Returns a list of all Item objects in the Item table in the database.
-        public List<Item> GetInventory()
+        public static List<Item> GetInventory()
         {
             List<Item> Items = new List<Item>();
 
