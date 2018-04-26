@@ -1,4 +1,5 @@
 ﻿using System.Collections.ObjectModel;
+using System.Windows;
 using Models;
 using ViewModels.DialogServices;
 
@@ -84,7 +85,12 @@ namespace ViewModels
         {
             if(SelectedItem != null)
             {
-                DatabaseWriter.DeleteItem(SelectedItem);
+                string errorMessage = DatabaseWriter.DeleteItem(SelectedItem);
+                if(errorMessage != string.Empty)
+                {
+                    // implement our own message box for this...
+                    MessageBox.Show(errorMessage);
+                }
                 RefreshInventory();
             }
         }

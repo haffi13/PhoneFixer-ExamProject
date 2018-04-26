@@ -49,8 +49,9 @@ namespace ViewModels
             return ret;
         }
 
-        public static void DeleteItem(Item item)
+        public static string DeleteItem(Item item)
         {
+            string ret = string.Empty;
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 try
@@ -61,23 +62,15 @@ namespace ViewModels
                         CommandType = CommandType.StoredProcedure
                     };
 
-                    // Is it not enough to only pass the Barcode to the database?
-                    // Might be redundant to ask for all the other stuffs.
                     cmd.Parameters.Add(new SqlParameter("@Barcode", item.Barcode));
-                    // ------------------------------------------------------------
-                    //cmd.Parameters.Add(new SqlParameter("@Name", item.Name));
-                    //cmd.Parameters.Add(new SqlParameter("@Description", item.Description));
-                    //cmd.Parameters.Add(new SqlParameter("@Price", item.Price));
-                    //cmd.Parameters.Add(new SqlParameter("@Category", item.Category));
-                    //cmd.Parameters.Add(new SqlParameter("@Model", item.Model));
-                    //cmd.Parameters.Add(new SqlParameter("@NumberAvailable", item.NumberAvailable));
-
+                    
                     cmd.ExecuteNonQuery();
                     connection.Close();
                 }
                 catch (SqlException e)
                 {
-                    //MessageBox.Show(e.Message.ToString()); //should not do this                 fixit!!!!!!!!!!!
+                    ret = Message.DeleteItemError + "\n\n" +
+                                e.Message;
                 }
             }
         }

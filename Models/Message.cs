@@ -11,6 +11,8 @@ namespace Models
         // Error Messages
         public static string AddItemError = 
             "The system could not add the item to the inventory.\nPlease check your input.";
+        public static string DeleteItemError =
+            "The system could not delete the selected item from the inventory.";
 
 
         // Success Messsages
