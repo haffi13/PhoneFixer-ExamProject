@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Views"
         mc:Ignorable="d"
-        Title="MessageBoxDialogView" SizeToContent="WidthAndHeight"
+        Title="{Binding WindowTitle}" SizeToContent="WidthAndHeight"
         MinHeight="150"
         MinWidth="300">
     <Grid>

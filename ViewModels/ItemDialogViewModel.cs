@@ -351,8 +351,8 @@ namespace ViewModels
                 }
                 else
                 {
-                 bool? result = dialogService.ShowDialog
-                    (new MessageBoxDialogViewModel(errorMessage, Message.InventoryErrorTitle));
+                    bool? result = dialogService.ShowDialog
+                       (new MessageBoxDialogViewModel(errorMessage, Message.InventoryErrorTitle));
                 } 
             }
         }
