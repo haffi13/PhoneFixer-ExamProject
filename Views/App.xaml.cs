@@ -25,10 +25,11 @@ namespace Views
             // For some reason the dialog box doesn't appear in the center of the 
             // MainWindow even if MainWindow is set as owner here, and the 
             // ItemDialogWindow startup location is set to center of owner.
+            // Might be the startup uri...
             IDialogService dialogService = new DialogService(MainWindow);
 
             dialogService.Register<ItemDialogViewModel, ItemDialogView>();
-            
+            dialogService.Register<MessageBoxDialogViewModel, MessageBoxDialogView>();
 
             var viewModel = new MainWindowViewModel(dialogService);
             var view = new MainWindow { DataContext = viewModel };
