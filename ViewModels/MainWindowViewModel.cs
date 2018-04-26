@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ViewModels.DialogServices;
 //using Models;
 namespace ViewModels
 {
@@ -12,8 +13,11 @@ namespace ViewModels
         // Gets populated with tab items. The UI gets the Header and the Content
         // of the tabs from here. Header is the title, Content is the ViewModel.
         private ObservableCollection<ITabItem> tabViewModels = new ObservableCollection<ITabItem>();
-
-        // Maybe change the name of TabItems to be more specific/descriptive.
+        private ITabItem selectedTab;
+        
+        // Collection of view models inheriting the ITabItem inteface. 
+        // Those view models are then displayed in corresponding tabs in the MainWindow.
+        // The tab control in the MainWindow is bound to this property.
         public ObservableCollection<ITabItem> TabViewModels
         {
             get { return tabViewModels; }
@@ -24,11 +28,25 @@ namespace ViewModels
             }
         }
 
-        public MainWindowViewModel()
+        public ITabItem SelectedTab
         {
-            TabViewModels.Add(new InventoryViewModel { Header = "Inventory" });
-            TabViewModels.Add(new ServiceViewModel   { Header = "Service" });
-            TabViewModels.Add(new CustomerViewModel  { Header = "Customers" });   
+            get { return selectedTab; }
+            set
+            {
+                selectedTab = value;
+                OnPropertyChanged();
+            }
+        }
+
+        // Constructor adds view models to an ObservableCollection bound to a tab control 
+        // in the MainWindow.
+        public MainWindowViewModel(IDialogService dialogService)
+        {
+            TabViewModels.Add(new InventoryViewModel(dialogService) { Header = "Inventory" });
+            TabViewModels.Add(new ServiceViewModel(dialogService)   { Header = "Service" });
+            TabViewModels.Add(new CustomerViewModel(dialogService)  { Header = "Customers" });
+
+            SelectedTab = TabViewModels[0];
         }   
     }
 }

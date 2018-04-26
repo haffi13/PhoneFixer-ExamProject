@@ -3,10 +3,20 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:vm="clr-namespace:ViewModels;assembly=ViewModels"
         xmlns:local="clr-namespace:Views"
         mc:Ignorable="d"
-        Title="ItemDialogView" Height="250" Width="500">
-    <Grid>
+        Title="Manage Inventory" 
+        SizeToContent="WidthAndHeight"
+        MinWidth="500" MinHeight="250"
+        WindowStartupLocation="CenterOwner"
+        >
+    
+        <!-- The DataContext is set in the codebehind where it is called 
+             in the InventoryView
+         -->
+    
+        <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="2*"/>
             <ColumnDefinition Width="3*"/>
@@ -114,19 +124,23 @@
                  Margin="0, 2"
                  />
 
-        <Button Content="{Binding ConfirmButton}"
+        <Button Content="{Binding ConfirmButtonContent}"
                 Grid.Column="3"
                 Grid.Row="2"
                 Grid.RowSpan="2"
+                IsDefault="True"
                 Command="{Binding ConfirmCommand}"
                 />
-        <Button Content="{Binding CancelButton}"
+        <!--Might not have to bind the button to a command as the IsCancel property should
+            take care of handling it.
+        -->
+        <Button Content="{Binding CancelButtonContent}"
                 Grid.Column="3"
                 Grid.Row="5"
                 Grid.RowSpan="2"
+                IsCancel="True"
                 Command="{Binding CancelCommand}"
                 />
-
     </Grid>
 </Window>
 

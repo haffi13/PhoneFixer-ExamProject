@@ -10,27 +10,18 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
-using ViewModels;
-using ViewModels.DialogServices;
 
 namespace Views
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for MessageBoxDialogView.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MessageBoxDialogView : Window
     {
-        public MainWindow()
+        public MessageBoxDialogView()
         {
             InitializeComponent();
-            //IDialogService dialogService = new DialogService(this);
-
-            //dialogService.Register<ItemDialogViewModel, ItemDialogView>();
-
-            //var viewModel = new MainWindowViewModel(dialogService);
-            //var view = this.DataContext = viewModel;
         }
     }
 }

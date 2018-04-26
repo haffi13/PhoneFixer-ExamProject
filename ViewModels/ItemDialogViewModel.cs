@@ -1,19 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Models;
+using ViewModels.DialogServices;
 
 namespace ViewModels
 {
-    // This should maybe inherit from a specific dialog base which would
-    // in turn inherit the base view model...inception!
-    public class ItemDialogViewModel : BaseViewModel
+    public class ItemDialogViewModel : BaseViewModel, IDialogRequestClose
     {
         private DatabaseWriter databaseWriter = new DatabaseWriter();
         private Item item;
-
+        
         // Price and number available have a string variable to store the string value
         // from the corresponding textboxes in the ItemDialogView. 
         // They cannot be stored in a  item object as those objects are of type int and decimal.
@@ -23,13 +18,28 @@ namespace ViewModels
         private string confirmButtonContent;
         private string cancelButtonContent;
 
+        private bool isEdit; // no properties.
+        
         private bool barcodeIsEditable;
         private bool barcodeIsReadOnly;
         private bool priceCanParse;
         private bool numberAvailableCanParse;
 
-        public RelayCommand ConfirmCommand { get; set; }
-        public RelayCommand CancelCommand { get; set; }
+        // Private variables who point out what values are not valid in the 
+        // textboxes in the ItemDialogView.
+        private bool barcodeIsValid = true;
+        private bool nameIsValid = true;
+        private bool descriptionIsValid = true;
+        private bool priceIsValid = true;
+        private bool categoryIsValid = true;
+        private bool modelIsValid = true;
+        private bool numberAvailableIsValid = true;
+
+        // Handles requests to close the dialog box
+        public event EventHandler<DialogCloseRequestedEventArgs> CloseRequested;
+
+        public RelayCommand ConfirmCommand { get; } // just get, doesnt need set
+        public RelayCommand CancelCommand { get; }
 
         // Bool which returns if the value in the Price textbox in the ItemDialogView
         // can be parced to a decimal value.
@@ -38,6 +48,8 @@ namespace ViewModels
             get { return priceCanParse; }
             set { priceCanParse = value; }
         }
+        
+        
         // Bool which returns if the value in the NumberAvailable textbox in the ItemDialogView
         // can be parced to a Int value.
         public bool NumberAvailableCanParse
@@ -121,6 +133,7 @@ namespace ViewModels
             get { return price; }
             set
             {
+                this.price = value.Trim();
                 priceCanParse = false;
                 if (decimal.TryParse(value, out decimal price))
                 {
@@ -153,6 +166,7 @@ namespace ViewModels
             get { return numberAvailable; }
             set
             {
+                this.numberAvailable = value.Trim();
                 numberAvailableCanParse = false;
                 if (Int32.TryParse(value, out int numberAvailable))
                 {
@@ -165,6 +179,81 @@ namespace ViewModels
         #endregion
 
 
+        // bool? maybe...
+        #region Input validity checks
+
+        public bool BarcodeIsValid 
+        {
+            get { return barcodeIsValid; }
+            set
+            {
+                barcodeIsValid = value;
+                OnPropertyChanged();
+            }
+        } 
+
+        public bool NameIsValid
+        {
+            get { return nameIsValid; }
+            set
+            {
+                nameIsValid = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public bool DescriptionIsValid
+        {
+            get { return descriptionIsValid; }
+            set
+            {
+                descriptionIsValid = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public bool PriceIsValid
+        {
+            get { return priceIsValid; }
+            set
+            {
+                priceIsValid = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public bool CategoryIsValid
+        {
+            get { return categoryIsValid; }
+            set
+            {
+                categoryIsValid = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public bool ModelIsValid
+        {
+            get { return modelIsValid; }
+            set
+            {
+                modelIsValid = value;
+                OnPropertyChanged();
+            }
+        }
+        
+        public bool NumberAvailableIsValid
+        {
+            get { return numberAvailableIsValid; }
+            set
+            {
+                numberAvailableIsValid = value;
+                OnPropertyChanged();
+            }
+        }
+
+        #endregion
+
         // Constructor used when the dialog is to be used to add a item.
         public ItemDialogViewModel()
         {
@@ -174,6 +263,8 @@ namespace ViewModels
             if(item == null)
             {
                 item = new Item();
+
+                isEdit = false;
 
                 BarcodeIsReadOnly = false;
                 BarcodeIsEditable = true;
@@ -186,6 +277,9 @@ namespace ViewModels
         public ItemDialogViewModel(Item item)
         {
             this.item = item;
+
+            isEdit = true;
+
             BarcodeIsReadOnly = true;
             BarcodeIsEditable = false;
 
@@ -210,59 +304,69 @@ namespace ViewModels
         // The ItemUpdate stored procedure can handle adding and editing items
         private void Confirm()
         {
-            //if (ItemDataIsCorrectFormat())
-            //{
-            //    databaseWriter.AddItemToInventory(item);
-            //    ClearPublicProperties();
-            //    item = new Item();
-            //}
-            databaseWriter.UpdateItem(item);
-            ClearPublicProperties();
-            item = new Item();
+            if (ItemDataIsCorrectFormat())
+            {
+                databaseWriter.UpdateItem(item);
+                ClearPublicProperties();
+                item = new Item();
+
+                // When editing a specific item the window closes when user confirms changes.
+                if (isEdit)
+                {
+                    CloseRequested.Invoke(this, new DialogCloseRequestedEventArgs(true));
+                }
+            }
         }
 
         // Method called when the Cancel button is clicked.
         private void Cancel()
         {
-
+            CloseRequested.Invoke(this, new DialogCloseRequestedEventArgs(false));
         }
-        // No item properties except Description allow nulls.
+        
 
         // This method is currently public for testing purposes. Shall be private!
+        // This method checks if the input in the ItemDialogView is of values and size the 
+        // item table in the database accepts.
         public bool ItemDataIsCorrectFormat()
         {
-            // This needs to be tested
             bool ret = true;
 
             if(Barcode == string.Empty || Barcode.Length > 15)
             {
                 ret = false;
+                BarcodeIsValid = false;
             }
             else if(Name == string.Empty || Name.Length > 50)
             {
                 ret = false;
+                NameIsValid = false;
             }
             else if(Description.Length > 150)
             {
                 ret = false;
+                DescriptionIsValid = false;
             }
             else if(!PriceCanParse)
             {
                 ret = false;
+                PriceIsValid = false;
             }
             else if(Category == string.Empty || Category.Length > 20)
             {
                 ret = false;
+                CategoryIsValid = false;
             }
             else if(Model == string.Empty || Model.Length > 30)
             {
                 ret = false;
+                ModelIsValid = false;
             }
             else if(!NumberAvailableCanParse)
             {
                 ret = false;
+                NumberAvailableIsValid = false;
             }
-
             return ret;
         }
 
