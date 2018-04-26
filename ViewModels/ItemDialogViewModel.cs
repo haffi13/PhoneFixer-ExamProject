@@ -7,7 +7,6 @@ namespace ViewModels
 {
     public class ItemDialogViewModel : BaseViewModel, IDialogRequestClose
     {
-        private DatabaseWriter databaseWriter = new DatabaseWriter();
         private Item item;
         
         // Price and number available have a string variable to store the string value
@@ -18,6 +17,7 @@ namespace ViewModels
 
         private string confirmButtonContent;
         private string cancelButtonContent;
+        private string itemDialogMessage;
 
         private bool isEdit; // no properties.
         
@@ -96,6 +96,16 @@ namespace ViewModels
             set
             {
                 cancelButtonContent = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public string ItemDialogMessage
+        {
+            get { return itemDialogMessage; }
+            set
+            {
+                itemDialogMessage = value;
                 OnPropertyChanged();
             }
         }
@@ -276,6 +286,9 @@ namespace ViewModels
         // Constructor used when the dialog is to be used to edit a item.
         public ItemDialogViewModel(Item item)
         {
+            ConfirmCommand = new RelayCommand(Confirm);
+            CancelCommand = new RelayCommand(Cancel);
+
             this.item = item;
 
             isEdit = true;
@@ -306,12 +319,12 @@ namespace ViewModels
         {
             //if (ItemDataIsCorrectFormat())
             //{
-                string errorMessage = databaseWriter.UpdateItem(item);
+                string errorMessage = DatabaseWriter.UpdateItem(item);
                 //
                 //  Insert bool to check if database operation goes smooooooth.
                 if(errorMessage == string.Empty)
                 {
-                    
+                   
                     ClearPublicProperties();
                     item = new Item();
 
@@ -319,19 +332,16 @@ namespace ViewModels
                     {
                         CloseRequested.Invoke(this, new DialogCloseRequestedEventArgs(true));
                     }
+                    
+                    // Only reaches here if adding a item.
+                    // Timer...
+                    ItemDialogMessage = Message.AddItemSuccess;
                 }
                 else
                 {
                     // Change to our own message box
                     MessageBox.Show(errorMessage);
-                }
-                
-                //
-                //ClearPublicProperties();
-                //item = new Item();
-
-                // When editing a specific item the window closes when user confirms changes.
-                
+                } 
            // }
         }
 

@@ -5,7 +5,7 @@ using System.Windows;
 
 namespace ViewModels
 {
-    public class DatabaseWriter
+    public static class DatabaseWriter
     {
         private static string url      = "EALSQL1.eal.local";
         private static string database = "DB2017_B12";
@@ -16,7 +16,7 @@ namespace ViewModels
             ("Server={0}; Database={1}; User Id={2}; Password={3};", url, database, username, password);
 
         // Creates a new or updates an existing object in the Item table in the database.
-        public string UpdateItem(Item item)
+        public static string UpdateItem(Item item)
         {
             string ret = string.Empty;
             using (SqlConnection connection = new SqlConnection(connectionString))
@@ -49,7 +49,7 @@ namespace ViewModels
             return ret;
         }
 
-        public void DeleteItem(Item item)
+        public static void DeleteItem(Item item)
         {
             using (SqlConnection connection = new SqlConnection(connectionString))
             {

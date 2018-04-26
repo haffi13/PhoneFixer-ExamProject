@@ -16,6 +16,8 @@ namespace Models
         // Success Messsages
         public static string AddItemSuccess =
             "Item added to inventory!";
+        
+        // Might not need this as if it's a success the dialog window should close.
         public static string EditItemSuccess =
             "Item edited successfully!";
     }

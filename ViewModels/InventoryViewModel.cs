@@ -7,7 +7,6 @@ namespace ViewModels
     public class InventoryViewModel : BaseViewModel, ITabItem
     {
         private DatabaseReader databaseReader = new DatabaseReader();
-        private DatabaseWriter databaseWriter = new DatabaseWriter();
         private ObservableCollection<Item> inventory = new ObservableCollection<Item>();
         private Item selectedItem;
 
@@ -86,7 +85,7 @@ namespace ViewModels
         {
             if(SelectedItem != null)
             {
-                databaseWriter.DeleteItem(SelectedItem);
+                DatabaseWriter.DeleteItem(SelectedItem);
                 RefreshInventory();
             }
         }
