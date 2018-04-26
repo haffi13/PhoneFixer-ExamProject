@@ -59,7 +59,7 @@ namespace ViewModels
         // Populates the datagrid with all the items in the Item table in the database.
         private void RefreshInventory()
         {
-            Inventory = new ObservableCollection<Item>(databaseReader.ExecuteQuery());
+            Inventory = new ObservableCollection<Item>(databaseReader.GetInventory());
         }
 
         // Opens a dialog box for the user to add a Item to the database.
