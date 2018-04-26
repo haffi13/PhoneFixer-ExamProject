@@ -88,10 +88,13 @@ namespace ViewModels
                 string errorMessage = DatabaseWriter.DeleteItem(SelectedItem);
                 if(errorMessage != string.Empty)
                 {
-                    // implement our own message box for this...
-                    MessageBox.Show(errorMessage);
+                    bool? result = dialogService.ShowDialog
+                        (new MessageBoxDialogViewModel(errorMessage));
                 }
-                RefreshInventory();
+                else
+                {
+                    RefreshInventory();
+                }
             }
         }
     }
