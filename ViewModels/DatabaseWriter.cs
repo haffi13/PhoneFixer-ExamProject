@@ -22,7 +22,7 @@ namespace ViewModels
                 try
                 {
                     connection.Open();
-                    SqlCommand cmd = new SqlCommand("ItemUpdate", connection)
+                    SqlCommand cmd = new SqlCommand("UpdateItem", connection)
                     {
                         CommandType = CommandType.StoredProcedure
                     };
@@ -62,12 +62,12 @@ namespace ViewModels
                     // Might be redundant to ask for all the other stuffs.
                     cmd.Parameters.Add(new SqlParameter("@Barcode", item.Barcode));
                     // ------------------------------------------------------------
-                    cmd.Parameters.Add(new SqlParameter("@Name", item.Name));
-                    cmd.Parameters.Add(new SqlParameter("@Description", item.Description));
-                    cmd.Parameters.Add(new SqlParameter("@Price", item.Price));
-                    cmd.Parameters.Add(new SqlParameter("@Category", item.Category));
-                    cmd.Parameters.Add(new SqlParameter("@Model", item.Model));
-                    cmd.Parameters.Add(new SqlParameter("@NumberAvailable", item.NumberAvailable));
+                    //cmd.Parameters.Add(new SqlParameter("@Name", item.Name));
+                    //cmd.Parameters.Add(new SqlParameter("@Description", item.Description));
+                    //cmd.Parameters.Add(new SqlParameter("@Price", item.Price));
+                    //cmd.Parameters.Add(new SqlParameter("@Category", item.Category));
+                    //cmd.Parameters.Add(new SqlParameter("@Model", item.Model));
+                    //cmd.Parameters.Add(new SqlParameter("@NumberAvailable", item.NumberAvailable));
 
                     cmd.ExecuteNonQuery();
                     connection.Close();
