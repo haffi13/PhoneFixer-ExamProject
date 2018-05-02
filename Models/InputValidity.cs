@@ -13,145 +13,124 @@ namespace Models
         public static bool Barcode(string barcode)
         {
             barcode.Trim();
-            bool ret = true;
-
             if(barcode != null)
             {
                 if (barcode.Length < 1 || barcode.Length > 15)
                 {
-                    ret = false;
+                    return false;
                 }
             }
             else
             {
-                ret = false;
+                return false;
             }
-
-            return ret;
+            return true;
         }
 
         public static bool Name(string name)
         {
             name.Trim();
-            bool ret = true;
-
             if(name != null)
             {
                 if (name.Length < 1 || name.Length > 50)
                 {
-                    ret = false;
+                    return false;
                 }
             }
             else
             {
-                ret = false;
+                return false;
             }
 
-            return ret;
+            return true;
         }
 
+        // Test this, string.empty or null...for all of them...
         public static bool Description(string description)
         {
             description.Trim();
-            bool ret = true;
-
             if(description != null)
             {
                 if (description.Length > 150)
                 {
-                    ret = false;
+                    return false;
                 }
             }
             else
             {
-                ret = false;
+                return false;
             }
-
-            return ret;
+            return true;
         }
 
         public static bool Price(string price)
         {
             price.Trim();
-            bool ret = true;
-            if(price != null)
+            if (price != null)
             {
-                ret = IntCanParse(price);
+                return DecimalCanParse(price);
             }
             else
             {
-                ret = false;
+                return false;
             }
-
-            return ret;
         }
 
         public static bool Category(string category)
         {
             category.Trim();
-            bool ret = true;
             if(category != null)
             {
                 if(category.Length < 1 || category.Length > 20)
                 {
-                    ret = false;
+                    return false;
                 }
             }
             else
             {
-                ret = false;
+                return false;
             }
-
-            return ret;
+            return true;
         }
 
         public static bool Model(string model)
         {
             model.Trim();
-            bool ret = true;
             if(model != null)
             {
                 if(model.Length < 1 || model.Length > 30)
                 {
-                    ret = false;
+                    return false;
                 }
             }
             else
             {
-                ret = false;
+                return false;
             }
-
-            return ret;
+            return true;
         }
 
         public static bool NumberAvailable(string numberAvailable)
         {
             numberAvailable.Trim();
-            bool ret = true;
             if(numberAvailable != null)
             {
-                ret = DecimalCanParse(numberAvailable);
+                return IntCanParse(numberAvailable);
             }
             else
             {
-                ret = false;
+                return false;
             }
-
-            return ret;
         }
 
         private static bool DecimalCanParse(string input)
         {
-            bool ret = decimal.TryParse(input, out decimal result);
-
-            return ret;
+            return decimal.TryParse(input, out decimal result);
         }
 
         private static bool IntCanParse(string input)
         {
-            bool ret = int.TryParse(input, out int result);
-
-            return ret;
+            return int.TryParse(input, out int result);
         }
     }
 }

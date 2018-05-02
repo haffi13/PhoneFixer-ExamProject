@@ -19,35 +19,17 @@ namespace ViewModels
     public class ItemDialogViewModel : BaseViewModel, IDialogRequestClose
     {
         private Item item;
+        private ItemValidity itemValidity;
         private readonly IDialogService dialogService;
-        
-        // Price and number available have a string variable to store the string value
-        // from the corresponding textboxes in the ItemDialogView. 
-        // They cannot be stored in a  item object as those objects are of type int and decimal.
-        private string price;
-        private string priceWithTax;
-        private string numberAvailable;
 
         private string confirmButtonContent;
         private string cancelButtonContent;
         private string itemDialogMessage;
 
         private bool isEdit; // no properties.
-        
+
         private bool barcodeIsEditable;
         private bool barcodeIsReadOnly;
-        private bool priceCanParse;
-        private bool numberAvailableCanParse;
-
-        // Private variables who point out what values are not valid in the 
-        // textboxes in the ItemDialogView.
-        private bool barcodeIsValid = true;
-        private bool nameIsValid = true;
-        private bool descriptionIsValid = true;
-        private bool priceIsValid = true;
-        private bool categoryIsValid = true;
-        private bool modelIsValid = true;
-        private bool numberAvailableIsValid = true;
 
         // Handles requests to close the dialog box
         public event EventHandler<DialogCloseRequestedEventArgs> CloseRequested;
@@ -55,22 +37,26 @@ namespace ViewModels
         public RelayCommand ConfirmCommand { get; } // just get, doesnt need set
         public RelayCommand CancelCommand { get; }
 
+        #region OBSOLETE
+        // OBSOLETE!
+
         // Bool which returns if the value in the Price textbox in the ItemDialogView
         // can be parced to a decimal value.
-        public bool PriceCanParse
-        {
-            get { return priceCanParse; }
-            set { priceCanParse = value; }
-        }
-        
+        //public bool PriceCanParse
+        //{
+        //    get { return priceCanParse; }
+        //    set { priceCanParse = value; }
+        //}
+
         // Bool which returns if the value in the NumberAvailable textbox in the ItemDialogView
         // can be parced to a Int value.
-        public bool NumberAvailableCanParse
-        {
-            get { return numberAvailableCanParse; }
-            set { numberAvailableCanParse = value; }
-        }
+        //public bool NumberAvailableCanParse
+        //{
+        //    get { return numberAvailableCanParse; }
+        //    set { numberAvailableCanParse = value; }
+        //}
         // Bound to the Barcode textbox in the ItemDialogView. Makes it un-editable.
+        #endregion
         public bool BarcodeIsReadOnly
         {
             get { return barcodeIsReadOnly; }
@@ -78,7 +64,7 @@ namespace ViewModels
             {
                 barcodeIsReadOnly = value;
                 OnPropertyChanged();
-            } 
+            }
         }
         // Bound to the Barcode textbox in the ItemDialogView. Makes it un-selectable.
         public bool BarcodeIsEditable
@@ -113,6 +99,7 @@ namespace ViewModels
             }
         }
 
+        // Message that appears at the top of the dialog box.
         public string ItemDialogMessage
         {
             get { return itemDialogMessage; }
@@ -129,7 +116,15 @@ namespace ViewModels
             get { return item.Barcode; }
             set
             {
-                item.Barcode = value;
+                if (InputValidity.Barcode(value))
+                {
+                    item.Barcode = value;
+                    BarcodeIsValid = true;
+                }
+                else
+                {
+                    BarcodeIsValid = false;
+                }
                 OnPropertyChanged();
             }
         }
@@ -146,7 +141,7 @@ namespace ViewModels
                 else
                 {
                     NameIsValid = false;
-                }    
+                }
                 OnPropertyChanged();
             }
         }
@@ -169,32 +164,39 @@ namespace ViewModels
         }
         public string Price
         {
-            get { return price; }
+            get { return item.Price.ToString(); }
             set
             {
                 if (InputValidity.Price(value))
                 {
                     item.Price = decimal.Parse(value);
-                    PriceCanParse = true;
+                    PriceWithTax = ValueAddedTax.AddVAT(item.Price).ToString();
+                    PriceIsValid = true;
                 }
                 else
                 {
-                    DescriptionIsValid = false;
+                    PriceIsValid = false;
                 }
                 OnPropertyChanged();
-                OnPropertyChanged(nameof(PriceWithTax));
             }
         }
 
         public string PriceWithTax
         {
-            get { return priceWithTax; }
+            get { return item.PriceWithTax.ToString(); }
             set
             {
                 if (InputValidity.Price(value))
                 {
                     item.PriceWithTax = decimal.Parse(value);
+                    Price = ValueAddedTax.RemoveVAT(item.PriceWithTax).ToString();
+                    PriceIsValid = true;
                 }
+                else
+                {
+                    PriceIsValid = false;
+                }
+                OnPropertyChanged();
             }
         }
 
@@ -203,7 +205,15 @@ namespace ViewModels
             get { return item.Category; }
             set
             {
-                item.Category = value;
+                if (InputValidity.Category(value))
+                {
+                    item.Category = value;
+                    CategoryIsValid = true;
+                }
+                else
+                {
+                    CategoryIsValid = false;
+                }
                 OnPropertyChanged();
             }
         }
@@ -212,114 +222,117 @@ namespace ViewModels
             get { return item.Model; }
             set
             {
-                item.Model = value;
+                if (InputValidity.Model(value))
+                {
+                    item.Model = value;
+                    ModelIsValid = true;
+                }
+                else
+                {
+                    ModelIsValid = false;
+                }
                 OnPropertyChanged();
             }
         }
-        
+
         public string LastAddDate
         {
             get { return item.LastTimeAdded; }
             set
             {
-                item.LastTimeAdded = value;
+                item.LastTimeAdded = DateTime.Now.ToString();
                 OnPropertyChanged();
             }
         }
 
         public string NumberAvailable
         {
-            get { return numberAvailable; }
+            get { return item.NumberAvailable.ToString(); }
             set
             {
-                this.numberAvailable = value.Trim();
-                numberAvailableCanParse = false;
-                if (Int32.TryParse(value, out int numberAvailable))
+                if (InputValidity.NumberAvailable(value))
                 {
-                    item.NumberAvailable = numberAvailable;
-                    numberAvailableCanParse = true;
+                    item.NumberAvailable = int.Parse(value);
+                    NumberAvailableIsValid = true;
+                }
+                else
+                {
+                    NumberAvailableIsValid = false;
                 }
                 OnPropertyChanged();
             }
         }
         #endregion
 
-
         // bool? maybe...might make us get away with working with un-instanciated properties.
         #region Input validity checks
 
-        public bool BarcodeIsValid 
+        public bool BarcodeIsValid
         {
-            get { return barcodeIsValid; }
+            get { return itemValidity.BarcodeIsValid; }
             set
             {
-                barcodeIsValid = value;
+                itemValidity.BarcodeIsValid = value;
                 OnPropertyChanged();
             }
-        } 
-
+        }
         public bool NameIsValid
         {
-            get { return nameIsValid; }
+            get { return itemValidity.NameIsValid; }
             set
             {
-                nameIsValid = value;
+                itemValidity.NameIsValid = value;
                 OnPropertyChanged();
             }
         }
-
         public bool DescriptionIsValid
         {
-            get { return descriptionIsValid; }
+            get { return itemValidity.DescriptionIsValid; }
             set
             {
-                descriptionIsValid = value;
+                itemValidity.DescriptionIsValid = value;
                 OnPropertyChanged();
             }
         }
-
         public bool PriceIsValid
         {
-            get { return priceIsValid; }
+            get { return itemValidity.PriceIsValid; }
             set
             {
-                priceIsValid = value;
+                itemValidity.PriceIsValid = value;
                 OnPropertyChanged();
             }
         }
-
         public bool CategoryIsValid
         {
-            get { return categoryIsValid; }
+            get { return itemValidity.CategoryIsValid; }
             set
             {
-                categoryIsValid = value;
+                itemValidity.CategoryIsValid = value;
                 OnPropertyChanged();
             }
         }
-
         public bool ModelIsValid
         {
-            get { return modelIsValid; }
+            get { return itemValidity.ModelIsValid; }
             set
             {
-                modelIsValid = value;
+                itemValidity.ModelIsValid = value;
                 OnPropertyChanged();
             }
         }
-        
         public bool NumberAvailableIsValid
         {
-            get { return numberAvailableIsValid; }
+            get { return itemValidity.NumberAvailableIsValid; }
             set
             {
-                numberAvailableIsValid = value;
+                itemValidity.NumberAvailableIsValid = value;
                 OnPropertyChanged();
             }
         }
 
         #endregion
-
+        
         // Constructor used when the dialog is to be used to add a item.
         public ItemDialogViewModel(IDialogService dialogService)
         {
@@ -328,9 +341,10 @@ namespace ViewModels
 
             this.dialogService = dialogService;
 
-            if(item == null)
+            if (item == null)
             {
                 item = new Item();
+                itemValidity = new ItemValidity();
 
                 isEdit = false;
 
@@ -349,6 +363,7 @@ namespace ViewModels
 
             this.dialogService = dialogService;
             this.item = item;
+            itemValidity = new ItemValidity();
 
             isEdit = true;
 
@@ -378,20 +393,21 @@ namespace ViewModels
         {
             if (ItemDataIsCorrectFormat())
             {
-            string errorMessage = DatabaseWriter.UpdateItem(item);
+                string errorMessage = DatabaseWriter.UpdateItem(item);
                 //
                 //  Insert bool to check if database operation goes smooooooth.
-                if(errorMessage == string.Empty)
+                if (errorMessage == string.Empty)
                 {
-                   
+
                     ClearPublicProperties();
                     item = new Item();
+                    itemValidity = new ItemValidity();
 
                     if (isEdit)
                     {
                         CloseRequested.Invoke(this, new DialogCloseRequestedEventArgs(true));
                     }
-                    
+
                     // Only reaches here if adding a item.
                     // Timer...
                     ItemDialogMessage = Message.AddItemSuccess;
@@ -400,8 +416,14 @@ namespace ViewModels
                 {
                     bool? result = dialogService.ShowDialog
                        (new MessageBoxDialogViewModel(errorMessage, Message.InventoryErrorTitle));
-                } 
+                }
             }
+            else
+            {
+                // Make visible in UI where input is not valid.
+            }
+            
+
         }
 
         // Method called when the Cancel button is clicked.
@@ -415,46 +437,20 @@ namespace ViewModels
         // item table in the database accepts.
         public bool ItemDataIsCorrectFormat()
         {
-            bool ret = true;
-
-            // We need to handle potential null reference exception.
-
-            if(Barcode == string.Empty || Barcode.Length > 15)
+            if(BarcodeIsValid &&
+               NameIsValid &&
+               DescriptionIsValid &&
+               PriceIsValid &&
+               CategoryIsValid &&
+               ModelIsValid &&
+               NumberAvailableIsValid)
             {
-                ret = false;
-                BarcodeIsValid = false;
+                return true;
             }
-            else if(Name == string.Empty || Name.Length > 50)
+            else
             {
-                ret = false;
-                NameIsValid = false;
+                return false;
             }
-            else if(Description.Length > 150)
-            {
-                ret = false;
-                DescriptionIsValid = false;
-            }
-            else if(!PriceCanParse)
-            {
-                ret = false;
-                PriceIsValid = false;
-            }
-            else if(Category == string.Empty || Category.Length > 20)
-            {
-                ret = false;
-                CategoryIsValid = false;
-            }
-            else if(Model == string.Empty || Model.Length > 30)
-            {
-                ret = false;
-                ModelIsValid = false;
-            }
-            else if(!NumberAvailableCanParse)
-            {
-                ret = false;
-                NumberAvailableIsValid = false;
-            }
-            return ret;
         }
 
         // Clears the string properties bound to the textboxes in the ItemDialogView.
