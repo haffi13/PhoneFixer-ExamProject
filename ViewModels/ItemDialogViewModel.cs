@@ -10,6 +10,9 @@ namespace ViewModels
 
     // There is a problem with the items and the database.
 
+    // It might be better to keep the editing specific and adding
+    // specific stuff in seperate classes...
+
     // --------------------------------------------------
 
 
@@ -22,6 +25,7 @@ namespace ViewModels
         // from the corresponding textboxes in the ItemDialogView. 
         // They cannot be stored in a  item object as those objects are of type int and decimal.
         private string price;
+        private string priceWithTax;
         private string numberAvailable;
 
         private string confirmButtonContent;
@@ -162,6 +166,16 @@ namespace ViewModels
                 OnPropertyChanged();
             }
         }
+
+        public string PriceWithTax
+        {
+            get { return priceWithTax; }
+            set
+            {
+               
+            }
+        }
+
         public string Category
         {
             get { return item.Category; }
