@@ -138,7 +138,15 @@ namespace ViewModels
             get { return item.Name; }
             set
             {
-                item.Name = value;
+                if (InputValidity.Name(value))
+                {
+                    item.Name = value;
+                    NameIsValid = true;
+                }
+                else
+                {
+                    NameIsValid = false;
+                }    
                 OnPropertyChanged();
             }
         }
@@ -147,7 +155,15 @@ namespace ViewModels
             get { return item.Description; }
             set
             {
-                item.Description = value;
+                if (InputValidity.Description(value))
+                {
+                    item.Description = value;
+                    DescriptionIsValid = true;
+                }
+                else
+                {
+                    DescriptionIsValid = false;
+                }
                 OnPropertyChanged();
             }
         }
@@ -156,14 +172,17 @@ namespace ViewModels
             get { return price; }
             set
             {
-                this.price = value.Trim();
-                priceCanParse = false;
-                if (decimal.TryParse(value, out decimal price))
+                if (InputValidity.Price(value))
                 {
-                    item.Price = price;
-                    priceCanParse = true;
+                    item.Price = decimal.Parse(value);
+                    PriceCanParse = true;
+                }
+                else
+                {
+                    DescriptionIsValid = false;
                 }
                 OnPropertyChanged();
+                OnPropertyChanged(nameof(PriceWithTax));
             }
         }
 
@@ -172,7 +191,10 @@ namespace ViewModels
             get { return priceWithTax; }
             set
             {
-               
+                if (InputValidity.Price(value))
+                {
+                    item.PriceWithTax = decimal.Parse(value);
+                }
             }
         }
 
@@ -194,6 +216,17 @@ namespace ViewModels
                 OnPropertyChanged();
             }
         }
+        
+        public string LastAddDate
+        {
+            get { return item.LastTimeAdded; }
+            set
+            {
+                item.LastTimeAdded = value;
+                OnPropertyChanged();
+            }
+        }
+
         public string NumberAvailable
         {
             get { return numberAvailable; }

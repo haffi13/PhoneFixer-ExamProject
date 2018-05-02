@@ -12,6 +12,7 @@ namespace Models
         // Might fit better if we want to reuse these validity checks.
         public static bool Barcode(string barcode)
         {
+            barcode.Trim();
             bool ret = true;
 
             if(barcode != null)
@@ -31,6 +32,7 @@ namespace Models
 
         public static bool Name(string name)
         {
+            name.Trim();
             bool ret = true;
 
             if(name != null)
@@ -50,6 +52,7 @@ namespace Models
 
         public static bool Description(string description)
         {
+            description.Trim();
             bool ret = true;
 
             if(description != null)
@@ -69,6 +72,7 @@ namespace Models
 
         public static bool Price(string price)
         {
+            price.Trim();
             bool ret = true;
             if(price != null)
             {
@@ -84,8 +88,8 @@ namespace Models
 
         public static bool Category(string category)
         {
+            category.Trim();
             bool ret = true;
-
             if(category != null)
             {
                 if(category.Length < 1 || category.Length > 20)
@@ -103,8 +107,8 @@ namespace Models
 
         public static bool Model(string model)
         {
+            model.Trim();
             bool ret = true;
-
             if(model != null)
             {
                 if(model.Length < 1 || model.Length > 30)
@@ -122,8 +126,8 @@ namespace Models
 
         public static bool NumberAvailable(string numberAvailable)
         {
+            numberAvailable.Trim();
             bool ret = true;
-
             if(numberAvailable != null)
             {
                 ret = DecimalCanParse(numberAvailable);
