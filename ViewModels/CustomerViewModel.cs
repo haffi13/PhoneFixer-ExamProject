@@ -15,6 +15,11 @@ namespace ViewModels
 
         // Keeps an instance of the DialogService instanciated at startup.
         private readonly IDialogService dialogService;
+        
+        public RelayCommand AddCommand { get; }
+        public RelayCommand EditCommand { get; }
+        public RelayCommand DeleteCommand { get; }
+    
         public CustomerViewModel(IDialogService dialogService)
         {
             this.dialogService = dialogService;
@@ -22,6 +27,16 @@ namespace ViewModels
         public string Header { get; set; }
 
         public ObservableCollection<Customer> Customers
+        {
+            get { return customers; }
+            set
+            {
+                customers = value;
+                OnPropertyChanged();
+            }
+        }
+
+       
     }
         
         
