@@ -22,6 +22,9 @@ namespace ViewModels
         private ItemValidity itemValidity;
         private readonly IDialogService dialogService;
 
+        private string price;
+        private string priceWithTax;
+
         private string confirmButtonContent;
         private string cancelButtonContent;
         private string itemDialogMessage;
@@ -170,7 +173,7 @@ namespace ViewModels
                 if (InputValidity.Price(value))
                 {
                     item.Price = decimal.Parse(value);
-                    PriceWithTax = ValueAddedTax.AddVAT(item.Price).ToString();
+                    //PriceWithTax = ValueAddedTax.AddVAT(item.Price).ToString();
                     PriceIsValid = true;
                 }
                 else
@@ -178,9 +181,14 @@ namespace ViewModels
                     PriceIsValid = false;
                 }
                 OnPropertyChanged();
+
+                if (ValueAddedTax.AddVAT(item.Price) != item.PriceWithTax)
+                {
+                    PriceWithTax = ValueAddedTax.AddVAT(item.Price).ToString();
+                }
             }
         }
-
+        
         public string PriceWithTax
         {
             get { return item.PriceWithTax.ToString(); }
@@ -189,7 +197,7 @@ namespace ViewModels
                 if (InputValidity.Price(value))
                 {
                     item.PriceWithTax = decimal.Parse(value);
-                    Price = ValueAddedTax.RemoveVAT(item.PriceWithTax).ToString();
+                    //Price = ValueAddedTax.RemoveVAT(item.PriceWithTax).ToString();
                     PriceIsValid = true;
                 }
                 else
@@ -197,6 +205,11 @@ namespace ViewModels
                     PriceIsValid = false;
                 }
                 OnPropertyChanged();
+
+                if(ValueAddedTax.RemoveVAT(item.PriceWithTax) != item.Price)
+                {
+                    Price = ValueAddedTax.RemoveVAT(item.PriceWithTax).ToString();
+                }
             }
         }
 
@@ -235,12 +248,12 @@ namespace ViewModels
             }
         }
 
-        public string LastAddDate
+        public DateTime LastTimeAdded
         {
             get { return item.LastTimeAdded; }
             set
             {
-                item.LastTimeAdded = DateTime.Now.ToString();
+                item.LastTimeAdded = value;
                 OnPropertyChanged();
             }
         }
@@ -355,6 +368,7 @@ namespace ViewModels
                 CancelButtonContent = "Close";
             }
         }
+
         // Constructor used when the dialog is to be used to edit a item.
         public ItemDialogViewModel(Item item, IDialogService dialogService)
         {
@@ -382,8 +396,10 @@ namespace ViewModels
             Name = item.Name;
             Description = item.Description;
             Price = item.Price.ToString();
+            PriceWithTax = item.PriceWithTax.ToString();
             Category = item.Category;
             Model = item.Model;
+            LastTimeAdded = item.LastTimeAdded;
             NumberAvailable = item.NumberAvailable.ToString();
         }
 
@@ -391,16 +407,17 @@ namespace ViewModels
         // The ItemUpdate stored procedure can handle adding and editing items
         private void Confirm()
         {
+            
             if (ItemDataIsCorrectFormat())
             {
+                LastTimeAdded = DateTime.Now;
                 string errorMessage = DatabaseWriter.UpdateItem(item);
-                //
-                //  Insert bool to check if database operation goes smooooooth.
+
                 if (errorMessage == string.Empty)
                 {
 
-                    ClearPublicProperties();
                     item = new Item();
+                    ClearPublicProperties();
                     itemValidity = new ItemValidity();
 
                     if (isEdit)
@@ -432,6 +449,11 @@ namespace ViewModels
             CloseRequested.Invoke(this, new DialogCloseRequestedEventArgs(false));
         }
 
+        private void CreateNewItem()
+        {
+            item = new Item();
+        }
+
         // This method is currently public for testing purposes. Shall be private!
         // This method checks if the input in the ItemDialogView is of values and size the 
         // item table in the database accepts.
@@ -461,6 +483,7 @@ namespace ViewModels
             Name = string.Empty;
             Description = string.Empty;
             Price = string.Empty;
+            PriceWithTax = string.Empty;
             Category = string.Empty;
             Model = string.Empty;
             NumberAvailable = string.Empty;

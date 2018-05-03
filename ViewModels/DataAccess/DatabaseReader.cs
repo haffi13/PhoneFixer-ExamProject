@@ -41,23 +41,18 @@ namespace ViewModels
                     {
                         while (reader.Read())
                         {
-                            Item temp = new Item();
-
-                            string Barcode = reader["Barcode"].ToString();
-                            string ItemName = reader["Name"].ToString();
-                            string Description = reader["Description"].ToString();
-                            decimal Price = Convert.ToDecimal(reader["Price"].ToString());
-                            string Category = reader["Category"].ToString();
-                            string Model = reader["Model"].ToString();
-                            int NumberAvailable = Convert.ToInt32(reader["NumberAvailable"].ToString());
-
-                            temp.Barcode = Barcode;
-                            temp.Name = ItemName;
-                            temp.Description = Description;
-                            temp.Price = Price;
-                            temp.Category = Category;
-                            temp.Model = Model;
-                            temp.NumberAvailable = NumberAvailable;
+                            Item temp = new Item
+                            {
+                                Barcode = reader["Barcode"].ToString(),
+                                Name = reader["Name"].ToString(),
+                                Description = reader["Description"].ToString(),
+                                Price = decimal.Parse(reader["Price"].ToString()),
+                                PriceWithTax = decimal.Parse(reader["PriceWithTax"].ToString()),
+                                Category = reader["Category"].ToString(),
+                                Model = reader["Model"].ToString(),
+                                LastTimeAdded = DateTime.Parse(reader["LastAddDay"].ToString()),
+                                NumberAvailable = int.Parse(reader["NumberAvailable"].ToString())
+                            };
 
                             Items.Add(temp);
                         }
