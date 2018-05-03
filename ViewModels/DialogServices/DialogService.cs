@@ -8,7 +8,7 @@ namespace ViewModels.DialogServices
     // The ViewModels are registered to the views.
     public class DialogService : IDialogService
     {
-        private readonly Window owner;
+        private readonly Window owner;      
 
         public IDictionary<Type, Type> Mappings { get; }
         public DialogService(Window owner)

@@ -34,6 +34,7 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
         <Label Content="{Binding ItemDialogMessage}"
@@ -67,21 +68,28 @@
                HorizontalAlignment="Right"
                VerticalContentAlignment="Center"
                />
-        <Label Content="Category" 
+        <Label Content="PriceWithTax" 
                Grid.Column="0"
                Grid.Row="5"
                HorizontalAlignment="Right"
                VerticalContentAlignment="Center"
                />
-        <Label Content="Model" 
+
+        <Label Content="Category" 
                Grid.Column="0"
                Grid.Row="6"
                HorizontalAlignment="Right"
                VerticalContentAlignment="Center"
                />
-        <Label Content="Number Available" 
+        <Label Content="Model" 
                Grid.Column="0"
                Grid.Row="7"
+               HorizontalAlignment="Right"
+               VerticalContentAlignment="Center"
+               />
+        <Label Content="Number Available" 
+               Grid.Column="0"
+               Grid.Row="8"
                HorizontalAlignment="Right"
                VerticalContentAlignment="Center"
                />
@@ -112,21 +120,27 @@
                  VerticalContentAlignment="Center"
                  Margin="0, 2"
                  />
-        <TextBox Text="{Binding Category}"
+        <TextBox Text="{Binding PriceWithTax}"
                  Grid.Column="1"
                  Grid.Row="5"
                  VerticalContentAlignment="Center"
                  Margin="0, 2"
                  />
-        <TextBox Text="{Binding Model}"
+        <TextBox Text="{Binding Category}"
                  Grid.Column="1"
                  Grid.Row="6"
                  VerticalContentAlignment="Center"
                  Margin="0, 2"
                  />
-        <TextBox Text="{Binding NumberAvailable}"
+        <TextBox Text="{Binding Model}"
                  Grid.Column="1"
                  Grid.Row="7"
+                 VerticalContentAlignment="Center"
+                 Margin="0, 2"
+                 />
+        <TextBox Text="{Binding NumberAvailable}"
+                 Grid.Column="1"
+                 Grid.Row="8"
                  VerticalContentAlignment="Center"
                  Margin="0, 2"
                  />
