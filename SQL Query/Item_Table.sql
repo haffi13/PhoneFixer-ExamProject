@@ -21,14 +21,26 @@
 --CREATE TABLE CUSTOMER (
 --CustomerId		INT				PRIMARY KEY		IDENTITY	NOT NULL,
 --CustomerName	NVarchar(50)								NOT NULL,
---CustomerPhone	INT											NOT NULL,
---Email			NVarchar(50)								NOT NULL,
---Subscribed		Bit											NOT NULL	DEFAULT '0',
---AmountOfSales	INT											NOT NULL,
---AmountSpent		Decimal(18,2)								NOT NULL,
+--CustomerPhone	NVarchar(15)								NOT NULL	DEFAULT 'IKKE LISTED',
+--Email			NVarchar(50)								NOT NULL	DEFAULT 'IKKE LISTED',
+--Subscribed		BIT											NOT NULL	DEFAULT '0',
+--ItemInService	BIT											NOT NULL	DEFAULT '0',
 --);
 
+------Service table:
 
+--CREATE TABLE SERVICE (
+--ServiceNumber			INT				PRIMARY KEY		IDENTITY	NOT NULL,
+--ServiceName				NVarchar(30)								NOT NULL	DEFAULT 'SERVICE',
+--ServiceDescription		NVarchar(150)								NULL,
+--PriceNoTax				Decimal(18,2)								NOT NULL	DEFAULT '0.00',
+--PriceWithTax			Decimal(18,2)								NOT NULL	DEFAULT '0.00',
+--DayServiced				Datetime									NOT NULL,
+--DayUpdated				Datetime									NOT NULL,
+--CustomerId				INT				FOREIGN KEY 
+--							REFERENCES CUSTOMER(CustomerId)
+--								ON DELETE NO ACTION,
+--);
 ----Procedures:
 
 ----Get ALL items in the item table
@@ -139,6 +151,10 @@
 ------Mock data for customer table.
 
 --INSERT INTO CUSTOMER VALUES (
---'Hasse', '12345678', 'hasse@mail.dk', '0', '4', '10000');
+--'Hasse', '12345678', 'hasse@mail.dk', '0', '0');
 --INSERT INTO CUSTOMER VALUES (
---'Hafstein', '23456789', 'hafstein.fan@mail.dk', '1', '1', '149.95');
+--'Hafstein', '23456789', 'hafstein.fan@mail.dk', '1', '1');
+--INSERT INTO CUSTOMER VALUES (
+--'Faizan', '34567890', 'Faizan@mail.dk', '0', '1');
+--INSERT INTO CUSTOMER VALUES (
+--'JJ', '45678901', 'jonas@mail.dk', '1', '0');
