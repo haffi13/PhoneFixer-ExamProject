@@ -18,9 +18,15 @@
 
 ----CUSTOMER Tabel
 
-CREATE TABLE CUSTOMER (
-
-);
+--CREATE TABLE CUSTOMER (
+--CustomerId		INT				PRIMARY KEY		IDENTITY	NOT NULL,
+--CustomerName	NVarchar(50)								NOT NULL,
+--CustomerPhone	INT											NOT NULL,
+--Email			NVarchar(50)								NOT NULL,
+--Subscribed		Bit											NOT NULL	DEFAULT '0',
+--AmountOfSales	INT											NOT NULL,
+--AmountSpent		Decimal(18,2)								NOT NULL,
+--);
 
 
 ----Procedures:
@@ -129,3 +135,10 @@ CREATE TABLE CUSTOMER (
 --'91635103386', 'Samsung Gs 6 Cover', 'Samsung Galaxy 6 cover blå flip', '79.96', '99.95', 'Cover', 'Samsung', '03.05.2018', '5');
 --INSERT INTO ITEM VALUES (
 --'03746214497', 'Microsoft Surface 4 Cover', 'Microsoft Surface 4 Cover blå uden tastatur', '279.96', '349.99', 'Cover', 'Surface', '03.05.2018', '1');
+
+------Mock data for customer table.
+
+--INSERT INTO CUSTOMER VALUES (
+--'Hasse', '12345678', 'hasse@mail.dk', '0', '4', '10000');
+--INSERT INTO CUSTOMER VALUES (
+--'Hafstein', '23456789', 'hafstein.fan@mail.dk', '1', '1', '149.95');
