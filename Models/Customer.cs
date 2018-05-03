@@ -1,7 +1,7 @@
 ﻿namespace Models
 {
     // Comments indicate the variable type and constraints in the service table in the database.
-    class Customer
+    public class Customer
     {
         // Int not null
         public int CustomerID { get; set; }

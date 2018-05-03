@@ -15,7 +15,6 @@ namespace ViewModels
         private string windowTitle;
         
         public RelayCommand ConfirmCommand { get; }
-        public RelayCommand CancelCommand { get; }
 
         // Bound to the TextBlock in the MessageBoxDialogView.
         public string Message
@@ -34,16 +33,11 @@ namespace ViewModels
             Message = message;
             WindowTitle = windowTitle;
             ConfirmCommand = new RelayCommand(Confirm);
-            CancelCommand = new RelayCommand(Cancel);
         }
 
         private void Confirm()
         {
-            
-        }
-        private void Cancel()
-        {
-
+            CloseRequested.Invoke(this, new DialogCloseRequestedEventArgs(true));
         }
     }
 }

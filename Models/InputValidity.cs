@@ -12,9 +12,9 @@ namespace Models
         // Might fit better if we want to reuse these validity checks.
         public static bool Barcode(string barcode)
         {
-            barcode.Trim();
-            if(barcode != null)
+            if (barcode != null)
             {
+                barcode.Trim();
                 if (barcode.Length < 1 || barcode.Length > 15)
                 {
                     return false;
@@ -29,9 +29,9 @@ namespace Models
 
         public static bool Name(string name)
         {
-            name.Trim();
-            if(name != null)
+            if (name != null)
             {
+                name.Trim();
                 if (name.Length < 1 || name.Length > 50)
                 {
                     return false;
@@ -48,9 +48,9 @@ namespace Models
         // Test this, string.empty or null...for all of them...
         public static bool Description(string description)
         {
-            description.Trim();
-            if(description != null)
+            if (description != null)
             {
+                description.Trim();
                 if (description.Length > 150)
                 {
                     return false;
@@ -65,9 +65,9 @@ namespace Models
 
         public static bool Price(string price)
         {
-            price.Trim();
             if (price != null)
             {
+                price.Trim();
                 return DecimalCanParse(price);
             }
             else
@@ -78,10 +78,10 @@ namespace Models
 
         public static bool Category(string category)
         {
-            category.Trim();
-            if(category != null)
+            if (category != null)
             {
-                if(category.Length < 1 || category.Length > 20)
+                category.Trim();
+                if (category.Length < 1 || category.Length > 20)
                 {
                     return false;
                 }
@@ -95,10 +95,10 @@ namespace Models
 
         public static bool Model(string model)
         {
-            model.Trim();
-            if(model != null)
+            if (model != null)
             {
-                if(model.Length < 1 || model.Length > 30)
+                model.Trim();
+                if (model.Length < 1 || model.Length > 30)
                 {
                     return false;
                 }
@@ -112,9 +112,9 @@ namespace Models
 
         public static bool NumberAvailable(string numberAvailable)
         {
-            numberAvailable.Trim();
-            if(numberAvailable != null)
+            if (numberAvailable != null)
             {
+                numberAvailable.Trim();
                 return IntCanParse(numberAvailable);
             }
             else

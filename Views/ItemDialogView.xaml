@@ -3,6 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:system="clr-namespace:System;assembly=mscorlib"
         xmlns:vm="clr-namespace:ViewModels;assembly=ViewModels"
         xmlns:local="clr-namespace:Views"
         mc:Ignorable="d"
@@ -94,7 +95,7 @@
                VerticalContentAlignment="Center"
                />
 
-        <TextBox Text="{Binding Barcode}"
+        <TextBox Text="{Binding Barcode, UpdateSourceTrigger=PropertyChanged}"
                  Grid.Column="1"
                  Grid.Row="1"
                  VerticalContentAlignment="Center"
@@ -102,43 +103,56 @@
                  IsReadOnly="{Binding BarcodeIsReadOnly}"
                  IsEnabled="{Binding BarcodeIsEditable}"
                  />
-        <TextBox Text="{Binding Name}"
+        <TextBox Text="{Binding Name, 
+                                UpdateSourceTrigger=PropertyChanged}"
                  Grid.Column="1"
                  Grid.Row="2"
                  VerticalContentAlignment="Center"
                  Margin="0, 2"
                  />
-        <TextBox Text="{Binding Description}"
+        <TextBox Text="{Binding Description, 
+                                UpdateSourceTrigger=PropertyChanged}"
                  Grid.Column="1"
                  Grid.Row="3"
                  VerticalContentAlignment="Center"
                  Margin="0, 2"
                  />
-        <TextBox Text="{Binding Price}"
+            <!--The Price and PriceWithTax should not update before focus is lost-->
+            <!--Done as we didn't know a way to get one to update the other in real time-->
+            <!--without getting a stack overflow exception.-->
+        <TextBox Text="{Binding Price,
+                                UpdateSourceTrigger=PropertyChanged,
+                                TargetNullValue={x:Static system:String.Empty}}"
                  Grid.Column="1"
                  Grid.Row="4"
                  VerticalContentAlignment="Center"
                  Margin="0, 2"
                  />
-        <TextBox Text="{Binding PriceWithTax}"
+        <TextBox Text="{Binding PriceWithTax, 
+                                UpdateSourceTrigger=PropertyChanged,
+                                TargetNullValue={x:Static system:String.Empty}}"
                  Grid.Column="1"
                  Grid.Row="5"
                  VerticalContentAlignment="Center"
                  Margin="0, 2"
                  />
-        <TextBox Text="{Binding Category}"
+        <TextBox Text="{Binding Category, 
+                                UpdateSourceTrigger=PropertyChanged}"
                  Grid.Column="1"
                  Grid.Row="6"
                  VerticalContentAlignment="Center"
                  Margin="0, 2"
                  />
-        <TextBox Text="{Binding Model}"
+        <TextBox Text="{Binding Model, 
+                                UpdateSourceTrigger=PropertyChanged}"
                  Grid.Column="1"
                  Grid.Row="7"
                  VerticalContentAlignment="Center"
                  Margin="0, 2"
                  />
-        <TextBox Text="{Binding NumberAvailable}"
+        <TextBox Text="{Binding NumberAvailable, 
+                                UpdateSourceTrigger=PropertyChanged,
+                                TargetNullValue={x:Static system:String.Empty}}"
                  Grid.Column="1"
                  Grid.Row="8"
                  VerticalContentAlignment="Center"
