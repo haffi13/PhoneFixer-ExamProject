@@ -37,7 +37,7 @@ namespace ViewModels
 
         private void Confirm()
         {
-            
+            CloseRequested.Invoke(this, new DialogCloseRequestedEventArgs(true));
         }
     }
 }

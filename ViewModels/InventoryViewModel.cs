@@ -83,7 +83,7 @@ namespace ViewModels
         // Deletes the selected item in the datagrid in the InventoryView.
         private void DeleteItem()
         {
-            if(SelectedItem != null)
+            if (SelectedItem != null)
             {
                 string errorMessage = DatabaseWriter.DeleteItem(SelectedItem);
                 if(errorMessage != string.Empty)

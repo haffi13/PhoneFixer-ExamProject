@@ -34,6 +34,7 @@
                 Text="{Binding Message}"
                 Grid.Row="0"               
                 TextAlignment="Center"
+                VerticalAlignment="Center"
                 />
             
             <DockPanel

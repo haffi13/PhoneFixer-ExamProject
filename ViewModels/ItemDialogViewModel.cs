@@ -24,6 +24,7 @@ namespace ViewModels
 
         private string price;
         private string priceWithTax;
+        private string numberAvailable;
 
         private string confirmButtonContent;
         private string cancelButtonContent;
@@ -165,15 +166,19 @@ namespace ViewModels
                 OnPropertyChanged();
             }
         }
+
+        // There is a string variable for price so the textbox it is bound to 
+        // shows nothing instead of a 0 when the view is displayed.
+        // When Price is edited the PriceWithTax gets updated automatically.
         public string Price
         {
-            get { return item.Price.ToString(); }
+            get { return price; }
             set
             {
                 if (InputValidity.Price(value))
                 {
+                    price = value;
                     item.Price = decimal.Parse(value);
-                    //PriceWithTax = ValueAddedTax.AddVAT(item.Price).ToString();
                     PriceIsValid = true;
                 }
                 else
@@ -188,16 +193,19 @@ namespace ViewModels
                 }
             }
         }
-        
+
+        // There is a string variable for priceWithTax so the textbox it is bound to 
+        // shows nothing instead of a 0 when the view is displayed.
+        // When PriceWithTax is edited the Price gets updated automatically.
         public string PriceWithTax
         {
-            get { return item.PriceWithTax.ToString(); }
+            get { return priceWithTax; }
             set
             {
                 if (InputValidity.Price(value))
                 {
+                    priceWithTax = value;
                     item.PriceWithTax = decimal.Parse(value);
-                    //Price = ValueAddedTax.RemoveVAT(item.PriceWithTax).ToString();
                     PriceIsValid = true;
                 }
                 else
@@ -248,6 +256,10 @@ namespace ViewModels
             }
         }
 
+        // This gets set when the user confirms the item he's adding to the system.
+        
+            // Make sure to implement it correctly when editing a item. 
+
         public DateTime LastTimeAdded
         {
             get { return item.LastTimeAdded; }
@@ -258,13 +270,16 @@ namespace ViewModels
             }
         }
 
+        // There is a string variable for numberAvailable so the textbox it is bound to 
+        // shows nothing instead of a 0 when the view is displayed.
         public string NumberAvailable
         {
-            get { return item.NumberAvailable.ToString(); }
+            get { return numberAvailable; }
             set
             {
                 if (InputValidity.NumberAvailable(value))
                 {
+                    numberAvailable = value;
                     item.NumberAvailable = int.Parse(value);
                     NumberAvailableIsValid = true;
                 }
