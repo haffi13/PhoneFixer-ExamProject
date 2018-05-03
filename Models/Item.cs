@@ -1,4 +1,6 @@
-﻿namespace Models
+﻿using System;
+
+namespace Models
 {
     // Comments indicate the variable type and constraints in the service table in the database.
     public class Item
@@ -25,7 +27,7 @@
         public string Model { get; set; }
 
         // Datetime not null
-        public string LastTimeAdded { get; set; }
+        public DateTime LastTimeAdded { get; set; }
 
         // Int not null
         public int NumberAvailable { get; set; }

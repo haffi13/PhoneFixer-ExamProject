@@ -22,6 +22,10 @@ namespace ViewModels
         private ItemValidity itemValidity;
         private readonly IDialogService dialogService;
 
+        private string price;
+        private string priceWithTax;
+        private string numberAvailable;
+
         private string confirmButtonContent;
         private string cancelButtonContent;
         private string itemDialogMessage;
@@ -162,15 +166,19 @@ namespace ViewModels
                 OnPropertyChanged();
             }
         }
+
+        // There is a string variable for price so the textbox it is bound to 
+        // shows nothing instead of a 0 when the view is displayed.
+        // When Price is edited the PriceWithTax gets updated automatically.
         public string Price
         {
-            get { return item.Price.ToString(); }
+            get { return price; }
             set
             {
                 if (InputValidity.Price(value))
                 {
+                    price = value;
                     item.Price = decimal.Parse(value);
-                    PriceWithTax = ValueAddedTax.AddVAT(item.Price).ToString();
                     PriceIsValid = true;
                 }
                 else
@@ -178,18 +186,26 @@ namespace ViewModels
                     PriceIsValid = false;
                 }
                 OnPropertyChanged();
+
+                if (ValueAddedTax.AddVAT(item.Price) != item.PriceWithTax)
+                {
+                    PriceWithTax = ValueAddedTax.AddVAT(item.Price).ToString();
+                }
             }
         }
 
+        // There is a string variable for priceWithTax so the textbox it is bound to 
+        // shows nothing instead of a 0 when the view is displayed.
+        // When PriceWithTax is edited the Price gets updated automatically.
         public string PriceWithTax
         {
-            get { return item.PriceWithTax.ToString(); }
+            get { return priceWithTax; }
             set
             {
                 if (InputValidity.Price(value))
                 {
+                    priceWithTax = value;
                     item.PriceWithTax = decimal.Parse(value);
-                    Price = ValueAddedTax.RemoveVAT(item.PriceWithTax).ToString();
                     PriceIsValid = true;
                 }
                 else
@@ -197,6 +213,11 @@ namespace ViewModels
                     PriceIsValid = false;
                 }
                 OnPropertyChanged();
+
+                if(ValueAddedTax.RemoveVAT(item.PriceWithTax) != item.Price)
+                {
+                    Price = ValueAddedTax.RemoveVAT(item.PriceWithTax).ToString();
+                }
             }
         }
 
@@ -235,23 +256,30 @@ namespace ViewModels
             }
         }
 
-        public string LastAddDate
+        // This gets set when the user confirms the item he's adding to the system.
+        
+            // Make sure to implement it correctly when editing a item. 
+
+        public DateTime LastTimeAdded
         {
             get { return item.LastTimeAdded; }
             set
             {
-                item.LastTimeAdded = DateTime.Now.ToString();
+                item.LastTimeAdded = value;
                 OnPropertyChanged();
             }
         }
 
+        // There is a string variable for numberAvailable so the textbox it is bound to 
+        // shows nothing instead of a 0 when the view is displayed.
         public string NumberAvailable
         {
-            get { return item.NumberAvailable.ToString(); }
+            get { return numberAvailable; }
             set
             {
                 if (InputValidity.NumberAvailable(value))
                 {
+                    numberAvailable = value;
                     item.NumberAvailable = int.Parse(value);
                     NumberAvailableIsValid = true;
                 }
@@ -355,6 +383,7 @@ namespace ViewModels
                 CancelButtonContent = "Close";
             }
         }
+
         // Constructor used when the dialog is to be used to edit a item.
         public ItemDialogViewModel(Item item, IDialogService dialogService)
         {
@@ -382,8 +411,10 @@ namespace ViewModels
             Name = item.Name;
             Description = item.Description;
             Price = item.Price.ToString();
+            PriceWithTax = item.PriceWithTax.ToString();
             Category = item.Category;
             Model = item.Model;
+            LastTimeAdded = item.LastTimeAdded;
             NumberAvailable = item.NumberAvailable.ToString();
         }
 
@@ -391,16 +422,17 @@ namespace ViewModels
         // The ItemUpdate stored procedure can handle adding and editing items
         private void Confirm()
         {
+            
             if (ItemDataIsCorrectFormat())
             {
+                LastTimeAdded = DateTime.Now;
                 string errorMessage = DatabaseWriter.UpdateItem(item);
-                //
-                //  Insert bool to check if database operation goes smooooooth.
+
                 if (errorMessage == string.Empty)
                 {
 
-                    ClearPublicProperties();
                     item = new Item();
+                    ClearPublicProperties();
                     itemValidity = new ItemValidity();
 
                     if (isEdit)
@@ -432,6 +464,11 @@ namespace ViewModels
             CloseRequested.Invoke(this, new DialogCloseRequestedEventArgs(false));
         }
 
+        private void CreateNewItem()
+        {
+            item = new Item();
+        }
+
         // This method is currently public for testing purposes. Shall be private!
         // This method checks if the input in the ItemDialogView is of values and size the 
         // item table in the database accepts.
@@ -461,6 +498,7 @@ namespace ViewModels
             Name = string.Empty;
             Description = string.Empty;
             Price = string.Empty;
+            PriceWithTax = string.Empty;
             Category = string.Empty;
             Model = string.Empty;
             NumberAvailable = string.Empty;
