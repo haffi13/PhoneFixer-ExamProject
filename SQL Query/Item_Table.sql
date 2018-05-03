@@ -2,6 +2,8 @@
 
 ----Table creations:
 
+----ITEM tabel
+
 --CREATE TABLE ITEM (
 --Barcode				NVarchar(15)		PRIMARY KEY		NOT NULL,
 --Name				NVarchar(50)						NOT NULL,
@@ -13,6 +15,12 @@
 --LastAddDay			Datetime							NOT NULL,
 --NumberAvailable		INT									NOT NULL,
 --);
+
+----CUSTOMER Tabel
+
+CREATE TABLE CUSTOMER (
+
+);
 
 
 ----Procedures:
