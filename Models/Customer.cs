@@ -7,21 +7,18 @@
         public int CustomerID { get; set; }
 
         // Nvarchar(50) not null
-        public string Name { get; set; }
+        public string CustomerName { get; set; }
 
-        // Nvarchar(50)
-        public string Tlf { get; set; }
+        // Nvarchar(50) not null
+        public string CustomerPhone { get; set; }
 
-        // Nvarchar(50) 
+        // Nvarchar(50) not null
         public string Email { get; set; }
         
         // Bool not null
-        public bool Subscribed { get; set; } = false;
+        public bool Subscribed { get; set; } 
 
-        // Int not null
-        int AmountOfSales { get; set; }
-
-        // Int
-        int AmountSpent { get; set; }
+        // Bool not null
+        public bool ItemInService { get; set; }
     }
 }

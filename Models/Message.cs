@@ -11,6 +11,8 @@ namespace Models
         // Error Messages
         public static string AddItemError = 
             "The system could not add the item to the inventory.\nPlease check your input.";
+        public static string EditItemError = 
+            "The system could not update the item.\nPlease check your input.";
         public static string DeleteItemError =
             "The system could not delete the selected item from the inventory.";
 
@@ -26,6 +28,7 @@ namespace Models
         public static string InventoryErrorTitle =
             "Inventory Error";
 
+        // We need to fix how long strings are portraied in the MessageBox
         public static string LongStringForTest = "hnjehnjehnje " + DeleteItemError + AddItemError + AddItemSuccess + EditItemSuccess;
     }
 }

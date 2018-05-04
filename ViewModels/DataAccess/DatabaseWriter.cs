@@ -90,23 +90,27 @@ namespace ViewModels
                 try
                 {
                     connection.Open();
-                    SqlCommand cmd = new SqlCommand("UpdateItem", connection)
+                    SqlCommand cmd = new SqlCommand("UpdateCustomer", connection)
                     {
                         CommandType = CommandType.StoredProcedure
                     };
 
                     cmd.Parameters.Add(new SqlParameter("@CustomerId", customer.CustomerID));
-                    
+                    cmd.Parameters.Add(new SqlParameter("@CustomerName", customer.CustomerName));
+                    cmd.Parameters.Add(new SqlParameter("@CustomerPhone", customer.CustomerPhone));
+                    cmd.Parameters.Add(new SqlParameter("@Email", customer.Email));
+                    cmd.Parameters.Add(new SqlParameter("@Subscribed", customer.Subscribed));
+                    cmd.Parameters.Add(new SqlParameter("@ItemInService", customer.ItemInService));
+
                     cmd.ExecuteNonQuery();
                     connection.Close();
                 }
                 catch (SqlException e)
                 {
-                    ret = Message.AddItemError + "\n\n" +
+                    ret = Message.EditItemError + "\n\n" +
                                      e.Message;
                 }
             }
-
             return ret;
         }
     }

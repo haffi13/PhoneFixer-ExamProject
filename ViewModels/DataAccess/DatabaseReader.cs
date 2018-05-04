@@ -61,13 +61,55 @@ namespace ViewModels
 
                 catch (SqlException e)
                 {
+                    
+                }
+            }
+            return Items;
+        }
+
+        public static List<Customer> GetCustomers()
+        {
+            List<Customer> Customers = new List<Customer>();
+
+            using (SqlConnection con = new SqlConnection(connectionString))
+            {
+                try
+                {
+                    SqlCommand cmd = new SqlCommand("GetAllCustomers", con)
+                    {
+                        CommandType = CommandType.StoredProcedure
+                    };
+                    con.Open();
+                    SqlDataReader reader = cmd.ExecuteReader();
+                    if (reader.HasRows)
+                    {
+                        while (reader.Read())
+                        {
+                            Customer temp = new Customer
+                            {
+                                CustomerID = (int)reader["CustomerId"],
+                                CustomerName = (string)reader["CustomerName"],
+                                CustomerPhone = reader["CustomerPhone"].ToString(),
+                                Email = reader["Email"].ToString(),
+                                Subscribed = (bool)reader["Subscribed"],
+                                ItemInService = (bool)reader["ItemInService"]
+                            };
+
+                            Customers.Add(temp);
+                        }
+                    }
+                }
+
+                catch (SqlException e)
+                {
                     //----------------------------------
                     //      Deal with this!
                     //----------------------------------
                     MessageBox.Show(e.Message);
                 }
             }
-            return Items;
+
+            return Customers;
         }
     }
 }

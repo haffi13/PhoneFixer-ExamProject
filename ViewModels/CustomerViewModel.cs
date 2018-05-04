@@ -23,6 +23,13 @@ namespace ViewModels
         public CustomerViewModel(IDialogService dialogService)
         {
             this.dialogService = dialogService;
+
+            RefreshCustomers();
+
+            AddCommand = new RelayCommand(AddCustomer);
+            EditCommand = new RelayCommand(EditCustomer);
+            DeleteCommand = new RelayCommand(DeleteCustomer);
+
         }
         public string Header { get; set; }
 
@@ -35,6 +42,26 @@ namespace ViewModels
                 OnPropertyChanged();
             }
         }
+        private void RefreshCustomers()
+        {
+            Customers = new ObservableCollection<Customer>(DatabaseReader.GetCustomers());
+        }
+
+        private void AddCustomer()
+        {
+
+        }
+
+        private void EditCustomer()
+        {
+
+        }
+
+        private void DeleteCustomer()
+        {
+
+        }
+
 
        
     }
