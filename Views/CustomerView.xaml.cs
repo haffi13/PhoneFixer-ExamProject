@@ -24,7 +24,5 @@ namespace Views
         {
             InitializeComponent();
         }
-
-        
     }
 }

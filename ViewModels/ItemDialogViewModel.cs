@@ -25,6 +25,7 @@ namespace ViewModels
         private string price;
         private string priceWithTax;
         private string numberAvailable;
+        private string numberAvailableBeforeEdit;
 
         private string confirmButtonContent;
         private string cancelButtonContent;
@@ -184,6 +185,7 @@ namespace ViewModels
                 else
                 {
                     PriceIsValid = false;
+                    price = string.Empty;
                 }
                 OnPropertyChanged();
 
@@ -211,6 +213,7 @@ namespace ViewModels
                 else
                 {
                     PriceIsValid = false;
+                    priceWithTax = string.Empty;
                 }
                 OnPropertyChanged();
 
@@ -294,7 +297,9 @@ namespace ViewModels
 
         // bool? maybe...might make us get away with working with un-instanciated properties.
         #region Input validity checks
-
+        // These are here to bind to the boxes to show where the input was wrong.
+        // It should be done from the else statement in the Confirm method.
+        // If you are reading this comment that has yet to be done...
         public bool BarcodeIsValid
         {
             get { return itemValidity.BarcodeIsValid; }
@@ -416,21 +421,24 @@ namespace ViewModels
             Model = item.Model;
             LastTimeAdded = item.LastTimeAdded;
             NumberAvailable = item.NumberAvailable.ToString();
+            numberAvailableBeforeEdit = NumberAvailable;
         }
 
         // Method called when the Confirm button is clicked.
         // The ItemUpdate stored procedure can handle adding and editing items
         private void Confirm()
         {
-            
             if (ItemDataIsCorrectFormat())
             {
-                LastTimeAdded = DateTime.Now;
+                if ((isEdit && NumberAvailable != numberAvailableBeforeEdit) || (!isEdit))
+                {
+                    LastTimeAdded = DateTime.Now;
+                }
+                
                 string errorMessage = DatabaseWriter.UpdateItem(item);
 
-                if (errorMessage == string.Empty)
+                if (DatabaseWriter.UpdateItem(item) == string.Empty)
                 {
-
                     item = new Item();
                     ClearPublicProperties();
                     itemValidity = new ItemValidity();
@@ -462,11 +470,6 @@ namespace ViewModels
         private void Cancel()
         {
             CloseRequested.Invoke(this, new DialogCloseRequestedEventArgs(false));
-        }
-
-        private void CreateNewItem()
-        {
-            item = new Item();
         }
 
         // This method is currently public for testing purposes. Shall be private!

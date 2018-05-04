@@ -50,7 +50,7 @@
                 Content="Add" 
                 FontSize="25"
                 FontWeight="DemiBold"
-                Command="{Binding AddCommand}"
+                Command="{Binding AddItemCommand}"
                 />
         <Button 
                 Grid.Column="8"
@@ -59,7 +59,7 @@
                 Content="Edit" 
                 FontSize="25"
                 FontWeight="DemiBold"
-                Command="{Binding EditCommand}"
+                Command="{Binding EditItemCommand}"
                 />
         <Button 
                 Grid.Column="8"
@@ -68,7 +68,6 @@
                 Content="Delete" 
                 FontSize="25"
                 FontWeight="DemiBold"
-                Command="{Binding DeleteCommand}"
-            />
+                Command="{Binding DeleteItemCommand}"/>
     </Grid>
 </UserControl>

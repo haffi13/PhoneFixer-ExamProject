@@ -25,6 +25,7 @@ namespace Models
         // Window Titles
         public static string InventoryErrorTitle =
             "Inventory Error";
-        
+
+        public static string LongStringForTest = "hnjehnjehnje " + DeleteItemError + AddItemError + AddItemSuccess + EditItemSuccess;
     }
 }

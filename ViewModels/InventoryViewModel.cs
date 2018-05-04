@@ -65,7 +65,6 @@ namespace ViewModels
         private void AddItem()
         {
             bool? result = dialogService.ShowDialog(new ItemDialogViewModel(dialogService));
-
             RefreshInventory();
         }
 
