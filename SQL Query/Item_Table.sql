@@ -37,10 +37,12 @@
 --PriceWithTax			Decimal(18,2)								NOT NULL	DEFAULT '0.00',
 --DayServiced				Datetime									NOT NULL,
 --DayUpdated				Datetime									NOT NULL,
+--Repaired				BIT											NOT NULL	DEFAULT '0',
 --CustomerId				INT				FOREIGN KEY 
 --							REFERENCES CUSTOMER(CustomerId)
 --								ON DELETE NO ACTION,
 --);
+
 ----Procedures:
 
 ----Get ALL items in the item table
