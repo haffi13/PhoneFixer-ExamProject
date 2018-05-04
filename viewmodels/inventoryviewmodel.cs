@@ -39,9 +39,9 @@ namespace ViewModels
             }
         }
 
-        public RelayCommand AddItemCommand { get; }
-        public RelayCommand EditItemCommand { get; }
-        public RelayCommand DeleteItemCommand { get; }
+        public RelayCommand AddCommand { get; }
+        public RelayCommand EditCommand { get; }
+        public RelayCommand DeleteCommand { get; }
         
         
         public InventoryViewModel(IDialogService dialogService)
@@ -50,9 +50,9 @@ namespace ViewModels
 
             RefreshInventory();
 
-            AddItemCommand = new RelayCommand(AddItem);
-            EditItemCommand = new RelayCommand(EditItem);
-            DeleteItemCommand = new RelayCommand(DeleteItem);
+            AddCommand = new RelayCommand(AddItem);
+            EditCommand = new RelayCommand(EditItem);
+            DeleteCommand = new RelayCommand(DeleteItem);
         }
 
         // Populates the datagrid with all the items in the Item table in the database.
