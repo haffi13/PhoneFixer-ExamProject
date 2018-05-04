@@ -41,27 +41,7 @@ namespace ViewModels
 
         public RelayCommand ConfirmCommand { get; } // just get, doesnt need set
         public RelayCommand CancelCommand { get; }
-
-        #region OBSOLETE
-        // OBSOLETE!
-
-        // Bool which returns if the value in the Price textbox in the ItemDialogView
-        // can be parced to a decimal value.
-        //public bool PriceCanParse
-        //{
-        //    get { return priceCanParse; }
-        //    set { priceCanParse = value; }
-        //}
-
-        // Bool which returns if the value in the NumberAvailable textbox in the ItemDialogView
-        // can be parced to a Int value.
-        //public bool NumberAvailableCanParse
-        //{
-        //    get { return numberAvailableCanParse; }
-        //    set { numberAvailableCanParse = value; }
-        //}
-        // Bound to the Barcode textbox in the ItemDialogView. Makes it un-editable.
-        #endregion
+        
         public bool BarcodeIsReadOnly
         {
             get { return barcodeIsReadOnly; }

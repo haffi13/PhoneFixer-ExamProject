@@ -54,6 +54,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="CustomerDialogView.xaml.cs">
+      <DependentUpon>CustomerDialogView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ItemDialogView.xaml.cs">
       <DependentUpon>ItemDialogView.xaml</DependentUpon>
     </Compile>
@@ -63,6 +66,10 @@
     <Compile Include="ServiceView.xaml.cs">
       <DependentUpon>ServiceView.xaml</DependentUpon>
     </Compile>
+    <Page Include="CustomerDialogView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="CustomerView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

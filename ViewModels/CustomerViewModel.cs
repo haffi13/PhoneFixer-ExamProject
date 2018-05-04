@@ -12,6 +12,9 @@ namespace ViewModels
     public class CustomerViewModel : BaseViewModel, ITabItem
     {
         private ObservableCollection<Customer> customers = new ObservableCollection<Customer>();
+        private Customer selectedCustomer;
+
+        public string Header { get; set; }
 
         // Keeps an instance of the DialogService instanciated at startup.
         private readonly IDialogService dialogService;
@@ -19,6 +22,26 @@ namespace ViewModels
         public RelayCommand AddCommand { get; }
         public RelayCommand EditCommand { get; }
         public RelayCommand DeleteCommand { get; }
+
+        public ObservableCollection<Customer> Customers
+        {
+            get { return customers; }
+            set
+            {
+                customers = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public Customer SelectedCustomer
+        {
+            get { return selectedCustomer; }
+            set
+            {
+                selectedCustomer = value;
+                OnPropertyChanged();
+            }
+        }
     
         public CustomerViewModel(IDialogService dialogService)
         {
@@ -31,17 +54,8 @@ namespace ViewModels
             DeleteCommand = new RelayCommand(DeleteCustomer);
 
         }
-        public string Header { get; set; }
 
-        public ObservableCollection<Customer> Customers
-        {
-            get { return customers; }
-            set
-            {
-                customers = value;
-                OnPropertyChanged();
-            }
-        }
+        
         private void RefreshCustomers()
         {
             Customers = new ObservableCollection<Customer>(DatabaseReader.GetCustomers());
@@ -49,17 +63,34 @@ namespace ViewModels
 
         private void AddCustomer()
         {
-
+            bool? result = dialogService.ShowDialog(new CustomerDialogViewModel(dialogService));
+            RefreshCustomers();
         }
 
         private void EditCustomer()
         {
-
+            if(SelectedCustomer != null)
+            {
+                bool? result = dialogService.ShowDialog(new CustomerDialogViewModel(SelectedCustomer, dialogService));
+                RefreshCustomers();
+            }
         }
 
         private void DeleteCustomer()
         {
-
+            if (SelectedCustomer != null)
+            {
+                string errorMessage = DatabaseWriter.DeleteCustomer(SelectedCustomer);
+                if (errorMessage != string.Empty)
+                {
+                    bool? result = dialogService.ShowDialog
+                        (new MessageBoxDialogViewModel(errorMessage, Message.CustomerErrorTitle));
+                }
+                else
+                {
+                    RefreshCustomers();
+                }
+            }
         }
 
 

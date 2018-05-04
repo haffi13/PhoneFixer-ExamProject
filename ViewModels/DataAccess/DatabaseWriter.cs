@@ -113,5 +113,32 @@ namespace ViewModels
             }
             return ret;
         }
+
+        public static string DeleteCustomer(Customer customer)
+        {
+            string ret = string.Empty;
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                try
+                {
+                    connection.Open();
+                    SqlCommand cmd = new SqlCommand("DeleteCustomer", connection)
+                    {
+                        CommandType = CommandType.StoredProcedure
+                    };
+
+                    cmd.Parameters.Add(new SqlParameter("@CustomerId", customer.CustomerID));
+
+                    cmd.ExecuteNonQuery();
+                    connection.Close();
+                }
+                catch (SqlException e)
+                {
+                    ret = Message.DeleteCustomerError + "\n\n" +
+                                e.Message;
+                }
+            }
+            return ret;
+        }
     }
 }
