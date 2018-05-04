@@ -185,6 +185,62 @@
 --	DELETE FROM CUSTOMER WHERE CustomerId = @CustomerId
 --END
 
+----Get all services from SERVICE table
+
+--CREATE PROCEDURE GetAllServices
+
+--AS
+--BEGIN
+--	SELECT ServiceNumber, ServiceName, ServiceDescription, PriceNoTax, PriceWithTax, DayServiced, DayUpdated, Repaired, CustomerId FROM SERVICE
+--END
+
+----Delete a service from SERVICE
+
+--CREATE PROCEDURE DeleteService
+
+--	@ServiceNumber INT,
+--	@ServiceName NVarchar(30),
+--	@ServiceDescription NVarchar(150),
+--	@PriceNoTax Decimal(18,2),
+--	@PriceWithTax Decimal(8,2),
+--	@DayServiced Datetime,
+--	@DayUpdated Datetime,
+--	@Repaired BIT,
+--	@CustomerId INT
+
+--AS
+
+--BEGIN
+--	SET NOCOUNT ON;
+--	DELETE FROM SERVICE WHERE ServiceNumber = @ServiceNumber
+--END
+
+----Update or add new service to SERVICE table.
+
+--CREATE PROCEDURE UpdateService
+
+--	@ServiceNumber INT,
+--	@ServiceName NVarchar(30),
+--	@ServiceDescription NVarchar(150),
+--	@PriceNoTax Decimal(18,2),
+--	@PriceWithTax Decimal(18,2),
+--	@DayServiced Datetime,
+--	@DayUpdated Datetime,
+--	@Repaired BIT,
+--	@CustomerId INT
+
+--AS
+
+--BEGIN
+--	SET NOCOUNT ON;
+
+--	IF (SELECT TOP (1) 1 FROM SERVICE WHERE ServiceNumber = @ServiceNumber) IS NULL
+--		INSERT INTO SERVICE(ServiceNumber, ServiceName, ServiceDescription, PriceNoTax, PriceWithTax, DayServiced, DayUpdated, Repaired, CustomerId)
+--		VALUES(@ServiceNumber, @ServiceName, @ServiceDescription, @PriceNoTax, @PriceWithTax, @DayServiced, @DayUpdated, @Repaired, @CustomerId)
+--	ELSE
+--		UPDATE SERVICE SET ServiceName = @ServiceName, PriceNoTax = @PriceNoTax, PriceWithTax = @PriceWithTax, DayServiced = @DayServiced, DayUpdated = @DayUpdated, Repaired = @Repaired, CustomerId = @CustomerId
+--		WHERE ServiceNumber = @ServiceNumber
+--END
 
 ----MOCKDATA:
 
