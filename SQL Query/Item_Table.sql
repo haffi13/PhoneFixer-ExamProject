@@ -116,7 +116,7 @@
 
 --CREATE PROCEDURE SearchItemName
 
---	@barcode NVarchar(15),
+--	@Barcode NVarchar(15),
 --	@Name NVarchar(50),
 --	@Description NVarchar(150),
 --	@Price Decimal(18,2),
@@ -132,6 +132,59 @@
 --	SET NOCOUNT ON;
 --	SELECT * FROM ITEM WHERE Name = @Name
 --END
+
+----Get all customers from CUSTOMER table
+
+--CREATE PROCEDURE GetAllCustomers
+
+--AS
+
+--BEGIN
+--	SELECT CustomerId, CustomerName, Email, Subscribed, ItemInService FROM CUSTOMER
+--END
+
+----Update existing customer or update exsisting customer in CUSROMER table.
+
+--CREATE PROCEDURE UpdateCustomer
+
+--	@CustomerId INT,
+--	@CustomerName NVarchar(50),
+--	@CustomerPhone NVarchar(15),
+--	@Email NVarchar(50),
+--	@Subscribed BIT,
+--	@ItemInService BIT
+
+--AS
+
+--BEGIN
+--	SET NOCOUNT ON;
+
+--	IF (SELECT TOP (1) 1 FROM CUSTOMER WHERE CustomerId = @CustomerId) IS NULL
+--		INSERT INTO CUSTOMER(CustomerId, CustomerName, CustomerPhone, Email, Subscribed, ItemInService)
+--		VALUES(@CustomerId, @CustomerName, @CustomerPhone, @Email, @Subscribed, @ItemInService)
+--	ELSE
+--		UPDATE CUSTOMER SET CustomerName = @CustomerName, CustomerPhone = @CustomerPhone, Email = @Email, Subscribed = @Subscribed, ItemInService = @ItemInService
+--		WHERE CustomerId = @CustomerId
+--END
+
+----Delete Customer from CUSTOMER table
+
+--CREATE PROCEDURE DeleteCustomer
+
+--	@CustomerId INT,
+--	@CustomerName NVarchar(50),
+--	@CustomerPhone NVarchar(15),
+--	@Email NVarchar(50),
+--	@Subscribed BIT,
+--	@ItemInService BIT
+
+--AS
+
+--BEGIN
+--	SET NOCOUNT ON;
+--	DELETE FROM CUSTOMER WHERE CustomerId = @CustomerId
+--END
+
 
 ----MOCKDATA:
 
