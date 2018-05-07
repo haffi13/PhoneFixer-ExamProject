@@ -11,13 +11,14 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using ViewModels.DialogServices;
 
 namespace Views
 {
     /// <summary>
     /// Interaction logic for CustomerDialogView.xaml
     /// </summary>
-    public partial class CustomerDialogView : Window
+    public partial class CustomerDialogView : Window, IDialog
     {
         public CustomerDialogView()
         {

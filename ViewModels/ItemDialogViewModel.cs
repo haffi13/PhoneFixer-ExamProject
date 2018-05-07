@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Timers;
 using System.Windows;
 using Models;
 using ViewModels.DialogServices;
@@ -39,9 +40,9 @@ namespace ViewModels
         // Handles requests to close the dialog box
         public event EventHandler<DialogCloseRequestedEventArgs> CloseRequested;
 
-        public RelayCommand ConfirmCommand { get; } // just get, doesnt need set
+        public RelayCommand ConfirmCommand { get; }
         public RelayCommand CancelCommand { get; }
-        
+
         public bool BarcodeIsReadOnly
         {
             get { return barcodeIsReadOnly; }
@@ -197,7 +198,7 @@ namespace ViewModels
                 }
                 OnPropertyChanged();
 
-                if(ValueAddedTax.RemoveVAT(item.PriceWithTax) != item.Price)
+                if (ValueAddedTax.RemoveVAT(item.PriceWithTax) != item.Price)
                 {
                     Price = ValueAddedTax.RemoveVAT(item.PriceWithTax).ToString();
                 }
@@ -240,8 +241,8 @@ namespace ViewModels
         }
 
         // This gets set when the user confirms the item he's adding to the system.
-        
-            // Make sure to implement it correctly when editing a item. 
+
+        // Make sure to implement it correctly when editing a item. 
 
         public DateTime LastTimeAdded
         {
@@ -345,7 +346,7 @@ namespace ViewModels
         }
 
         #endregion
-        
+
         // Constructor used when the dialog is to be used to add a item.
         public ItemDialogViewModel(IDialogService dialogService)
         {
@@ -414,10 +415,10 @@ namespace ViewModels
                 {
                     LastTimeAdded = DateTime.Now;
                 }
-                
+
                 string errorMessage = DatabaseWriter.UpdateItem(item);
 
-                if (DatabaseWriter.UpdateItem(item) == string.Empty)
+                if (errorMessage == string.Empty)
                 {
                     item = new Item();
                     ClearPublicProperties();
@@ -430,20 +431,28 @@ namespace ViewModels
 
                     // Only reaches here if adding a item.
                     // Timer...
-                    ItemDialogMessage = Message.AddItemSuccess;
+                    //ItemDialogMessage = Message.AddItemSuccess;
                 }
                 else
                 {
+                    string customMessage;
+                    if (isEdit)
+                    {
+                        customMessage = Message.EditItemError + errorMessage;
+                    }
+                    else
+                    {
+                        customMessage = Message.AddItemError + errorMessage;
+                    }
+
                     bool? result = dialogService.ShowDialog
-                       (new MessageBoxDialogViewModel(errorMessage, Message.InventoryErrorTitle));
+                        (new MessageBoxDialogViewModel(customMessage, Message.InventoryErrorTitle));
                 }
             }
             else
             {
                 // Make visible in UI where input is not valid.
             }
-            
-
         }
 
         // Method called when the Cancel button is clicked.
@@ -457,7 +466,7 @@ namespace ViewModels
         // item table in the database accepts.
         public bool ItemDataIsCorrectFormat()
         {
-            if(BarcodeIsValid &&
+            if (BarcodeIsValid &&
                NameIsValid &&
                DescriptionIsValid &&
                PriceIsValid &&
@@ -486,5 +495,7 @@ namespace ViewModels
             Model = string.Empty;
             NumberAvailable = string.Empty;
         }
+
+        
     }
 }

@@ -1,8 +1,7 @@
 ﻿using Models;
 using System.Data;
 using System.Data.SqlClient;
-using System.Windows;
-
+            
 namespace ViewModels
 {
     public static class DatabaseWriter
@@ -46,8 +45,7 @@ namespace ViewModels
                 }
                 catch (SqlException e)
                 {
-                    ret = Message.AddItemError + "\n\n" +
-                                     e.Message;
+                    ret = Message.AddItemError + "\n\n" + e.Message;
                 }
             }
             return ret;
@@ -74,8 +72,7 @@ namespace ViewModels
                 }
                 catch (SqlException e)
                 {
-                    ret = Message.DeleteItemError + "\n\n" +
-                                e.Message;
+                    ret = Message.DeleteItemError + "\n\n" + e.Message;
                 }
             }
             return ret;
@@ -107,8 +104,7 @@ namespace ViewModels
                 }
                 catch (SqlException e)
                 {
-                    ret = Message.EditItemError + "\n\n" +
-                                     e.Message;
+                    ret = Message.EditItemError + "\n\n" + e.Message;
                 }
             }
             return ret;
@@ -134,8 +130,7 @@ namespace ViewModels
                 }
                 catch (SqlException e)
                 {
-                    ret = Message.DeleteCustomerError + "\n\n" +
-                                e.Message;
+                    ret = Message.DeleteCustomerError + "\n\n" + e.Message;
                 }
             }
             return ret;

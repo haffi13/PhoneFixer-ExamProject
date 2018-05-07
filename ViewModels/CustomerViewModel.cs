@@ -58,7 +58,17 @@ namespace ViewModels
         
         private void RefreshCustomers()
         {
-            Customers = new ObservableCollection<Customer>(DatabaseReader.GetCustomers());
+            Dictionary<List<Customer>, string> temp = DatabaseReader.GetCustomers();
+            string errorMessage = temp.Values.FirstOrDefault();
+            if(errorMessage == string.Empty)
+            {
+                Customers = new ObservableCollection<Customer>(temp.Keys.FirstOrDefault());
+            }
+            else
+            {
+                bool? result = dialogService.ShowDialog
+                        (new MessageBoxDialogViewModel(Message.GetCustomersError + errorMessage, Message.CustomerErrorTitle));
+            }
         }
 
         private void AddCustomer()
@@ -91,12 +101,6 @@ namespace ViewModels
                     RefreshCustomers();
                 }
             }
-        }
-
-
-       
+        }  
     }
-        
-        
-
 }
