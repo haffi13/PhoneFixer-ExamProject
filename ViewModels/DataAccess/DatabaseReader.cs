@@ -23,9 +23,11 @@ namespace ViewModels
 
 
         // Returns a list of all Item objects in the Item table in the database.
-        public static List<Item> GetInventory()
+        public static Dictionary<List<Item>, string> GetInventory()
         {
+            Dictionary<List<Item>, string> ret = new Dictionary<List<Item>, string>();
             List<Item> Items = new List<Item>();
+            string errorMessage = string.Empty;
 
             using (SqlConnection con = new SqlConnection(connectionString))
             {
@@ -46,12 +48,12 @@ namespace ViewModels
                                 Barcode = reader["Barcode"].ToString(),
                                 Name = reader["Name"].ToString(),
                                 Description = reader["Description"].ToString(),
-                                Price = decimal.Parse(reader["Price"].ToString()),
-                                PriceWithTax = decimal.Parse(reader["PriceWithTax"].ToString()),
+                                Price = (decimal)reader["Price"],
+                                PriceWithTax = (decimal)reader["PriceWithTax"],
                                 Category = reader["Category"].ToString(),
                                 Model = reader["Model"].ToString(),
-                                LastTimeAdded = DateTime.Parse(reader["LastAddDay"].ToString()),
-                                NumberAvailable = int.Parse(reader["NumberAvailable"].ToString())
+                                LastTimeAdded = (DateTime)reader["LastAddDay"],
+                                NumberAvailable = (int)reader["NumberAvailable"]
                             };
 
                             Items.Add(temp);
@@ -61,10 +63,11 @@ namespace ViewModels
 
                 catch (SqlException e)
                 {
-                    
+                    errorMessage = "\n\n" + e.Message;
                 }
             }
-            return Items;
+            ret.Add(Items, errorMessage);
+            return ret;
         }
 
 

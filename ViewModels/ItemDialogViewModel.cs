@@ -495,7 +495,5 @@ namespace ViewModels
             Model = string.Empty;
             NumberAvailable = string.Empty;
         }
-
-        
     }
 }
