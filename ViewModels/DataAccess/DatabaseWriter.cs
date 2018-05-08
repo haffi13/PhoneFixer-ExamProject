@@ -79,7 +79,7 @@ namespace ViewModels
         }
 
 
-        public static string AddCustomer(Customer customer)
+        public static string CreateCustomer(Customer customer)
         {
             string ret = string.Empty;
 
@@ -140,9 +140,7 @@ namespace ViewModels
                 }
             }
             return ret;
-        }
-
-        
+        }   
 
         public static string DeleteCustomer(Customer customer)
         {

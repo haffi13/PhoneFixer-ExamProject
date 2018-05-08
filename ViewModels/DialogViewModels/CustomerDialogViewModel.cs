@@ -157,7 +157,7 @@ namespace ViewModels
                 }
                 else
                 {
-                    errorMessage = DatabaseWriter.AddCustomer(customer);
+                    errorMessage = DatabaseWriter.CreateCustomer(customer);
                 }
 
                 if (errorMessage != string.Empty)

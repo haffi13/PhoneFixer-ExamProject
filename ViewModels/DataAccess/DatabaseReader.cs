@@ -45,13 +45,13 @@ namespace ViewModels
                         {
                             Item temp = new Item
                             {
-                                Barcode = reader["Barcode"].ToString(),
-                                Name = reader["Name"].ToString(),
-                                Description = reader["Description"].ToString(),
+                                Barcode = (string)reader["Barcode"],
+                                Name = (string)reader["Name"],
+                                Description = (string)reader["Description"],
                                 Price = (decimal)reader["Price"],
                                 PriceWithTax = (decimal)reader["PriceWithTax"],
                                 Category = reader["Category"].ToString(),
-                                Model = reader["Model"].ToString(),
+                                Model = (string)reader["Model"],
                                 LastTimeAdded = (DateTime)reader["LastAddDay"],
                                 NumberAvailable = (int)reader["NumberAvailable"]
                             };
@@ -60,7 +60,6 @@ namespace ViewModels
                         }
                     }
                 }
-
                 catch (SqlException e)
                 {
                     errorMessage = "\n\n" + e.Message;
@@ -95,12 +94,11 @@ namespace ViewModels
                             {
                                 CustomerID = (int)reader["CustomerId"],
                                 CustomerName = (string)reader["CustomerName"],
-                                CustomerPhone = reader["CustomerPhone"].ToString(),
-                                Email = reader["Email"].ToString(),
+                                CustomerPhone = (string)reader["CustomerPhone"],
+                                Email = (string)reader["Email"],
                                 Subscribed = (bool)reader["Subscribed"],
                                 ItemInService = (bool)reader["ItemInService"]
                             };
-
                             Customers.Add(temp);
                         }
                     }
@@ -137,8 +135,8 @@ namespace ViewModels
                             Service temp = new Service
                             {
                                 ServiceNumber = (int)reader["ServiceNumber"],
-                                ServiceName = reader["ServiceName"].ToString(),
-                                ServiceDescription = reader["ServiceDescription"].ToString(),
+                                ServiceName = (string)reader["ServiceName"],
+                                ServiceDescription = (string)reader["ServiceDescription"],
                                 PriceNoTax = (decimal)reader["PriceNoTax"],
                                 PriceWithTax = (decimal)reader["PriceWithTax"],
                                 DayServiced = (DateTime)reader["DayServiced"],
@@ -160,50 +158,5 @@ namespace ViewModels
             ret.Add(Services, errorMessage);
             return ret;
         }
-
-        //public static List<Customer> GetCustomers()
-        //{
-        //    List<Customer> Customers = new List<Customer>();
-
-        //    using (SqlConnection con = new SqlConnection(connectionString))
-        //    {
-        //        try
-        //        {
-        //            SqlCommand cmd = new SqlCommand("GetAllCustomers", con)
-        //            {
-        //                CommandType = CommandType.StoredProcedure
-        //            };
-        //            con.Open();
-        //            SqlDataReader reader = cmd.ExecuteReader();
-        //            if (reader.HasRows)
-        //            {
-        //                while (reader.Read())
-        //                {
-        //                    Customer temp = new Customer
-        //                    {
-        //                        CustomerID = (int)reader["CustomerId"],
-        //                        CustomerName = (string)reader["CustomerName"],
-        //                        CustomerPhone = reader["CustomerPhone"].ToString(),
-        //                        Email = reader["Email"].ToString(),
-        //                        Subscribed = (bool)reader["Subscribed"],
-        //                        ItemInService = (bool)reader["ItemInService"]
-        //                    };
-
-        //                    Customers.Add(temp);
-        //                }
-        //            }
-        //        }
-
-        //        catch (SqlException e)
-        //        {
-        //            //----------------------------------
-        //            //      Deal with this!
-        //            //----------------------------------
-        //            MessageBox.Show(e.Message);
-        //        }
-        //    }
-
-        //    return Customers;
-        //}
     }
 }
