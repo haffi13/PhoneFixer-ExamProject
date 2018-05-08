@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using ViewModels.DialogServices;
 using Models;
 
@@ -157,7 +153,7 @@ namespace ViewModels
                 }
                 else
                 {
-                    errorMessage = DatabaseWriter.AddCustomer(customer);
+                    errorMessage = DatabaseWriter.CreateCustomer(customer);
                 }
 
                 if (errorMessage != string.Empty)

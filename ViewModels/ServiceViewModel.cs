@@ -1,10 +1,7 @@
 ﻿using Models;
-using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using ViewModels.DialogServices;
 
 namespace ViewModels
@@ -54,7 +51,7 @@ namespace ViewModels
 
         private void RefreshService()
         {
-            Dictionary<List<Service>, string> temp = DatabaseReader.GetServices();
+            Dictionary<List<Service>, string> temp = DatabaseReader.GetService();
             string errorMessage = temp.Values.FirstOrDefault();
             if (errorMessage == string.Empty)
             {
