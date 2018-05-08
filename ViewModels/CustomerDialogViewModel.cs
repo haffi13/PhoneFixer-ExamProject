@@ -148,23 +148,22 @@ namespace ViewModels
 
         private void Confirm()
         {
+            string errorMessage = string.Empty;
             if (InputValidity.Name(CustomerName))
             {
-                string errorMessage = DatabaseWriter.UpdateCustomer(customer);
+                if (isEdit)
+                {
+                    errorMessage = DatabaseWriter.EditCustomer(customer);
+                }
+                else
+                {
+                    errorMessage = DatabaseWriter.AddCustomer(customer);
+                }
 
                 if (errorMessage != string.Empty)
                 {
-                    string customeMessage;
-                    if (isEdit)
-                    {
-                        customeMessage = Message.EditCustomerError + errorMessage;
-                    }
-                    else
-                    {
-                        customeMessage = Message.AddCustomerError + errorMessage;
-                    }
                     bool? result = dialogService.ShowDialog
-                           (new MessageBoxDialogViewModel(customeMessage, Message.CustomerErrorTitle));
+                           (new MessageBoxDialogViewModel(errorMessage, Message.CustomerErrorTitle));
                 }
                 else
                 {
@@ -173,8 +172,10 @@ namespace ViewModels
             }
             else
             {
-                // Check input
+                //check input
+
             }
+            
         }
 
         private void Cancel()

@@ -75,7 +75,7 @@
                 Grid.Row="5"
                 Margin="10"
                 Content="+" 
-                FontSize="100"
+                FontSize="70"
                 Command="{Binding AddToSaleCommand}"/>
     </Grid>
 </UserControl>

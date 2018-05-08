@@ -78,7 +78,8 @@ namespace ViewModels
             return ret;
         }
 
-        public static string UpdateCustomer(Customer customer)
+
+        public static string AddCustomer(Customer customer)
         {
             string ret = string.Empty;
 
@@ -87,19 +88,11 @@ namespace ViewModels
                 try
                 {
                     connection.Open();
-                    SqlCommand cmd = new SqlCommand("UpdateCustomer", connection)
+                    SqlCommand cmd = new SqlCommand("CreateCustomer", connection)
                     {
                         CommandType = CommandType.StoredProcedure
                     };
 
-                    if(customer.CustomerID == 0)
-                    {
-                        cmd.Parameters.Add(new SqlParameter("@CustomerId", null));
-                    }
-                    else
-                    {
-                        cmd.Parameters.Add(new SqlParameter("@CustomerId", customer.CustomerID));
-                    }
                     cmd.Parameters.Add(new SqlParameter("@CustomerName", customer.CustomerName));
                     cmd.Parameters.Add(new SqlParameter("@CustomerPhone", customer.CustomerPhone));
                     cmd.Parameters.Add(new SqlParameter("@Email", customer.Email));
@@ -111,11 +104,45 @@ namespace ViewModels
                 }
                 catch (SqlException e)
                 {
-                    ret = Message.EditItemError + "\n\n" + e.Message;
+                    ret = Message.AddCustomerError + "\n\n" + e.Message;
                 }
             }
             return ret;
         }
+
+        public static string EditCustomer(Customer customer)
+        {
+            string ret = string.Empty;
+
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                try
+                {
+                    connection.Open();
+                    SqlCommand cmd = new SqlCommand("EditCustomer", connection)
+                    {
+                        CommandType = CommandType.StoredProcedure
+                    };
+
+                    cmd.Parameters.Add(new SqlParameter("@CustomerId", customer.CustomerID));
+                    cmd.Parameters.Add(new SqlParameter("@CustomerName", customer.CustomerName));
+                    cmd.Parameters.Add(new SqlParameter("@CustomerPhone", customer.CustomerPhone));
+                    cmd.Parameters.Add(new SqlParameter("@Email", customer.Email));
+                    cmd.Parameters.Add(new SqlParameter("@Subscribed", customer.Subscribed));
+                    cmd.Parameters.Add(new SqlParameter("@ItemInService", customer.ItemInService));
+
+                    cmd.ExecuteNonQuery();
+                    connection.Close();
+                }
+                catch (SqlException e)
+                {
+                    ret = Message.EditCustomerError + "\n\n" + e.Message;
+                }
+            }
+            return ret;
+        }
+
+        
 
         public static string DeleteCustomer(Customer customer)
         {
