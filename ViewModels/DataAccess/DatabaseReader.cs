@@ -3,10 +3,6 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using Models;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
 
 
 namespace ViewModels
@@ -55,7 +51,6 @@ namespace ViewModels
                                 LastTimeAdded = (DateTime)reader["LastAddDay"],
                                 NumberAvailable = (int)reader["NumberAvailable"]
                             };
-
                             Items.Add(temp);
                         }
                     }
@@ -144,12 +139,10 @@ namespace ViewModels
                                 Repaired = (bool)reader["Repaired"],
                                 CustomerId = (int)reader["CustomerID"]
                             };
-
                             Services.Add(temp);
                         }
                     }
                 }
-
                 catch (SqlException e)
                 {
                     errorMessage = "\n\n" + e.Message;
