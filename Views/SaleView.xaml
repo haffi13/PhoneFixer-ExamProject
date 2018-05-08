@@ -31,10 +31,18 @@
             <RowDefinition Height="0.25*"/>
         </Grid.RowDefinitions>
 
+        <ListBox
+            Grid.Column="5"
+            Grid.ColumnSpan="3"
+            Grid.Row="1"
+            Grid.RowSpan="5"
+            />
+
+
         <DataGrid
             x:Name="InventoryDataGrid"
             Grid.Column="1"
-            Grid.ColumnSpan="7"
+            
             Grid.Row="1"
             Grid.RowSpan="5"
             Margin="10"
