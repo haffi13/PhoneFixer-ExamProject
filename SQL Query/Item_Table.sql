@@ -1,8 +1,8 @@
 ------SQL Query for 
 
-----Table creations:
+------Table creations:
 
-----ITEM tabel
+----ITEM table:
 
 --CREATE TABLE ITEM (
 --Barcode				NVarchar(15)		PRIMARY KEY		NOT NULL,
@@ -16,7 +16,7 @@
 --NumberAvailable		INT									NOT NULL,
 --);
 
-----CUSTOMER Tabel
+----CUSTOMER Table:
 
 --CREATE TABLE CUSTOMER (
 --CustomerId		INT				PRIMARY KEY		IDENTITY	NOT NULL,
@@ -27,7 +27,7 @@
 --ItemInService	BIT											NOT NULL	DEFAULT '0',
 --);
 
-------Service table:
+----Service table:
 
 --CREATE TABLE SERVICE (
 --ServiceNumber			INT				PRIMARY KEY		IDENTITY	NOT NULL,
@@ -43,9 +43,9 @@
 --								ON DELETE NO ACTION,
 --);
 
-----Procedures:
+------Procedures:
 
-----Get ALL items in the item table
+----Get ALL items in the item table:
 
 --CREATE PROCEDURE GetAllItems
 
@@ -54,7 +54,7 @@
 --		SELECT Barcode, Name, Description, Price, PriceWithTax, Category, Model, LastAddDay, NumberAvailable FROM ITEM
 --END
 
-----Add Item to dbo.ITEM table
+----Add Item to ITEM table:
 
 --CREATE PROCEDURE AddItem
 --				(@Barcode NVarchar(15), @Name NVarchar(50), @Description NVarchar(150), @Price Decimal(18,2), @PriceWithTax Decimal(18,2), @Category NVarchar(20), @Model NVarchar(30), @LastAddDay Datetime, @NumberAvailable INT)
@@ -64,7 +64,7 @@
 --		VALUES	(@Barcode, @Name, @Description, @Price, @PriceWithTax, @Category, @Model, @LastAddDay, @NumberAvailable)
 --END
 
-------Insert and update data in dbo.ITEM NB: This may make the AddItem procedure OBSOLETE!!!
+----Insert and update data in dbo.ITEM NB: This may make the AddItem procedure OBSOLETE!!!:
 
 --CREATE PROCEDURE UpdateItem
 
@@ -91,7 +91,7 @@
 --		WHERE Barcode = @Barcode
 --END
 
-----Delete Item from dbo.ITEM:
+----Delete Item from ITEM:
 
 --CREATE PROCEDURE DeleteItem
 
@@ -104,7 +104,7 @@
 --	DELETE FROM ITEM WHERE Barcode = @Barcode
 --END
 
-------Search table ITEM for a item based on a string:
+----Search ITEM table for a item based on a string:
 
 --CREATE PROCEDURE SearchItemName
 
@@ -125,7 +125,7 @@
 --	SELECT * FROM ITEM WHERE Name = @Name
 --END
 
-----Get all customers from CUSTOMER table
+----Get all customers from CUSTOMER table:
 
 --CREATE PROCEDURE GetAllCustomers
 
@@ -135,9 +135,9 @@
 --	SELECT CustomerId, CustomerName, CustomerPhone, Email, Subscribed, ItemInService FROM CUSTOMER
 --END
 
-----Update existing customer or update exsisting customer in CUSROMER table.
+----Update existing customer in CUSROMER table:
 
---CREATE PROCEDURE UpdateCustomer
+--CREATE PROCEDURE EditCustomer
 
 --	@CustomerId INT,
 --	@CustomerName NVarchar(50),
@@ -151,15 +151,31 @@
 --BEGIN
 --	SET NOCOUNT ON;
 
---	IF (SELECT TOP (1) 1 FROM CUSTOMER WHERE CustomerId = @CustomerId) IS NULL
---		INSERT INTO CUSTOMER(CustomerId, CustomerName, CustomerPhone, Email, Subscribed, ItemInService)
---		VALUES(@CustomerId, @CustomerName, @CustomerPhone, @Email, @Subscribed, @ItemInService)
---	ELSE
---		UPDATE CUSTOMER SET CustomerName = @CustomerName, CustomerPhone = @CustomerPhone, Email = @Email, Subscribed = @Subscribed, ItemInService = @ItemInService
---		WHERE CustomerId = @CustomerId
+--	UPDATE CUSTOMER SET CustomerName = @CustomerName, CustomerPhone = @CustomerPhone, Email = @Email, Subscribed = @Subscribed, ItemInService = @ItemInService
+--	WHERE CustomerId = @CustomerId
 --END
 
-----Delete Customer from CUSTOMER table
+----Create a new customer in the CUSTOMER table:
+
+--CREATE PROCEDURE CreateCustomer
+
+--	@CustomerName NVarchar(50),
+--	@CustomerPhone NVarchar(15),
+--	@Email NVarchar(50),
+--	@Subscribed BIT,
+--	@ItemInService BIT
+
+--AS
+
+--BEGIN
+--	SET NOCOUNT ON;
+
+--	INSERT INTO CUSTOMER(CustomerName, CustomerPhone, Email, Subscribed, ItemInService)
+--	VALUES(@CustomerName, @CustomerPhone, @Email, @Subscribed, @ItemInService)
+
+--END
+
+----Delete Customer from CUSTOMER table:
 
 --CREATE PROCEDURE DeleteCustomer
 
@@ -177,7 +193,7 @@
 --	DELETE FROM CUSTOMER WHERE CustomerId = @CustomerId
 --END
 
-----Get all services from SERVICE table
+----Get all services from SERVICE table:
 
 --CREATE PROCEDURE GetAllServices
 
@@ -186,7 +202,7 @@
 --	SELECT ServiceNumber, ServiceName, ServiceDescription, PriceNoTax, PriceWithTax, DayServiced, DayUpdated, Repaired, CustomerId FROM SERVICE
 --END
 
-----Delete a service from SERVICE
+----Delete a service from SERVICE table:
 
 --CREATE PROCEDURE DeleteService
 
@@ -207,9 +223,9 @@
 --	DELETE FROM SERVICE WHERE ServiceNumber = @ServiceNumber
 --END
 
-----Update or add new service to SERVICE table.
+----Update an existing service in the SERVICE table:
 
---CREATE PROCEDURE UpdateService
+--CREATE PROCEDURE EditService
 
 --	@ServiceNumber INT,
 --	@ServiceName NVarchar(30),
@@ -226,17 +242,36 @@
 --BEGIN
 --	SET NOCOUNT ON;
 
---	IF (SELECT TOP (1) 1 FROM SERVICE WHERE ServiceNumber = @ServiceNumber) IS NULL
---		INSERT INTO SERVICE(ServiceNumber, ServiceName, ServiceDescription, PriceNoTax, PriceWithTax, DayServiced, DayUpdated, Repaired, CustomerId)
---		VALUES(@ServiceNumber, @ServiceName, @ServiceDescription, @PriceNoTax, @PriceWithTax, @DayServiced, @DayUpdated, @Repaired, @CustomerId)
---	ELSE
---		UPDATE SERVICE SET ServiceName = @ServiceName, PriceNoTax = @PriceNoTax, PriceWithTax = @PriceWithTax, DayServiced = @DayServiced, DayUpdated = @DayUpdated, Repaired = @Repaired, CustomerId = @CustomerId
---		WHERE ServiceNumber = @ServiceNumber
+--	UPDATE SERVICE SET ServiceName = @ServiceName, PriceNoTax = @PriceNoTax, PriceWithTax = @PriceWithTax, DayServiced = @DayServiced, DayUpdated = @DayUpdated, Repaired = @Repaired, CustomerId = @CustomerId
+--	WHERE ServiceNumber = @ServiceNumber
+
 --END
 
-----MOCKDATA:
+----Create a new service in the SERVICE table:
 
-----Mock data Item table:
+--CREATE PROCEDURE CreateService
+
+--	@ServiceName NVarchar(30),
+--	@ServiceDescription NVarchar(150),
+--	@PriceNoTax Decimal(18,2),
+--	@PriceWithTax Decimal(18,2),
+--	@DayServiced Datetime,
+--	@DayUpdated Datetime,
+--	@Repaired BIT,
+--	@CustomerId  INT
+
+--AS
+
+--BEGIN
+--	SET NOCOUNT ON;
+
+--	INSERT INTO SERVICE(ServiceName, ServiceDescription, PriceNoTax, PriceWithTax, DayServiced, DayUpdated, Repaired, CustomerId)
+--	VALUES(@ServiceName, @ServiceDescription, @PriceNoTax, @PriceWithTax, @DayServiced, @DayUpdated, @Repaired, @CustomerId)
+--END
+
+------MOCKDATA:
+
+----Mock data for ITEM table:
 
 --INSERT INTO ITEM VALUES (
 --'57201760042', 'Skærm', 'Skærm til iPhone 6s hvid', '400.00', '500.00', 'Skærm IP', 'iPhone 6s', '03.05.2018', '2');
@@ -251,7 +286,7 @@
 --INSERT INTO ITEM VALUES (
 --'03746214497', 'Microsoft Surface 4 Cover', 'Microsoft Surface 4 Cover blå uden tastatur', '279.96', '349.99', 'Cover', 'Surface', '03.05.2018', '1');
 
-------Mock data for customer table.
+----Mock data for CUSTOMER table:
 
 --INSERT INTO CUSTOMER VALUES (
 --'Hasse', '12345678', 'hasse@mail.dk', '0', '0');
@@ -261,3 +296,15 @@
 --'Faizan', '34567890', 'Faizan@mail.dk', '0', '1');
 --INSERT INTO CUSTOMER VALUES (
 --'JJ', '45678901', 'jonas@mail.dk', '1', '0');
+
+----Mock data for SERVICE table:
+
+--INSERT INTO SERVICE VALUES (
+--'Skærmreperation', 'Ny skærm til en hvid Iphone 5s', '800.00', '1000.00', '07.05.2018', '08.05.2018', '1', '2')
+--INSERT INTO SERVICE VALUES (
+--'Skift ladestik', 'Nyt ladestik til en Samsung Galaxy S6', '800.00', '1000.00', '06.05.2018', '06.05.2018', '0', '1')
+--INSERT INTO SERVICE VALUES (
+--'Ny skærm til bærbar pc', 'Ny skærm monteres på en alienware bærbar pc', '1600.00', '2000.00', '05.05.2018', '06.05.2018', '0', '3')
+--INSERT INTO SERVICE VALUES (
+--'Standard blæser rens bærbar pc', 'Rens blæser på Asus Bærbar pc', '320.00', '400', '05.05.2018', '05.05.2018', '1', '4')
+
