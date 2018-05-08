@@ -25,6 +25,14 @@ namespace Models
             "The system could not edit the customer.\nPlease check your input.";
         public static string GetCustomersError =
             "The system could not retrieve customers from the database.";
+        public static string GetServiceError =
+            "The system could not retrieve services from the database";
+        public static string AddServiceError =
+            "The system could not add the service.\nPlease check your input.";
+        public static string EditServiceError =
+            "The system could not edit the service.\nPlease check your input.";
+        public static string DeleteServiceError =
+            "The system could not delete the delected service.";
         #endregion
 
         #region Success Messages
