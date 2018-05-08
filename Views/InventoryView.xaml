@@ -49,7 +49,7 @@
         <Button 
                 Grid.Column="9"
                 Grid.Row="1"
-                Margin="10,16,10,4"
+                Margin="10"
                 Content="Add" 
                 FontSize="25"
                 FontWeight="DemiBold"
