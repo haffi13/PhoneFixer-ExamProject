@@ -71,6 +71,16 @@
                 Content="Delete" 
                 FontSize="25"
                 FontWeight="DemiBold"
-                Command="{Binding DeleteCommand}"/>
+                Command="{Binding DeleteCommand}"
+            />
+
+        <Button 
+                Grid.Column="9"
+                Grid.Row="5"
+                Margin="10"
+                Content="+" 
+                FontSize="70"
+                Command="{Binding AddToSaleCommand}"
+            />
     </Grid>
 </UserControl>
