@@ -49,7 +49,7 @@
         <Button 
                 Grid.Column="9"
                 Grid.Row="1"
-                Margin="10,16,10,4"
+                Margin="10"
                 Content="Add" 
                 FontSize="25"
                 FontWeight="DemiBold"
@@ -71,6 +71,16 @@
                 Content="Delete" 
                 FontSize="25"
                 FontWeight="DemiBold"
-                Command="{Binding DeleteCommand}"/>
+                Command="{Binding DeleteCommand}"
+            />
+
+        <Button 
+                Grid.Column="9"
+                Grid.Row="5"
+                Margin="10"
+                Content="+" 
+                FontSize="70"
+                Command="{Binding AddToSaleCommand}"
+            />
     </Grid>
 </UserControl>
