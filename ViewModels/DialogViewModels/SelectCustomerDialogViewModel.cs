@@ -16,7 +16,7 @@ namespace ViewModels
         private readonly IDialogService dialogService;
         public event EventHandler<DialogCloseRequestedEventArgs> CloseRequested;
 
-        public RelayCommand Click { get; }
+        public RelayCommand ConfirmCommand { get; }
 
         public ObservableCollection<Customer> Customers
         {
@@ -41,8 +41,15 @@ namespace ViewModels
         {
             this.dialogService = dialogService;
 
-            Click = new RelayCommand(ClickBtn);
+            ConfirmCommand = new RelayCommand(Confirm);
 
+            RefreshCustomers();
+        }
+
+        
+
+        public void RefreshCustomers()
+        {
             Dictionary<List<Customer>, string> temp = DatabaseReader.GetCustomers();
             string errorMessage = temp.Values.FirstOrDefault();
             if (errorMessage == string.Empty)
@@ -56,9 +63,9 @@ namespace ViewModels
             }
         }
 
-        private void ClickBtn()
+        private void Confirm()
         {
-
+            CloseRequested.Invoke(this, new DialogCloseRequestedEventArgs(true));
         }
     }
 }

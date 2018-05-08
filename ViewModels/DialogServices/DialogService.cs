@@ -26,7 +26,8 @@ namespace ViewModels.DialogServices
             }
             Mappings.Add(typeof(TViewModel), typeof(TView));
         }
-
+        
+        
         // Shows a dialog box with the View that corresponds the viewmodel that gets passed
         // as a argument.
         public bool? ShowDialog<TViewModel>(TViewModel viewModel) where TViewModel : IDialogRequestClose

@@ -54,6 +54,8 @@ namespace Models
             "Customer Error";
         public static string ServiceErrorTitle = 
             "Service Error";
+        public static string AddServiceTitle = 
+            "";
         #endregion
 
 

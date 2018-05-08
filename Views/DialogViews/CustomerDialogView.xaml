@@ -7,7 +7,7 @@
         xmlns:vm="clr-namespace:ViewModels;assembly=ViewModels"
         xmlns:local="clr-namespace:Views"
         mc:Ignorable="d"
-        Title="Manage Inventory" 
+        Title="Customer" 
         SizeToContent="WidthAndHeight"
         MinWidth="500" MinHeight="250"
         WindowStartupLocation="CenterOwner"

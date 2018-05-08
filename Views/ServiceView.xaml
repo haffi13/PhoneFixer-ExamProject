@@ -48,6 +48,7 @@
             Margin="10"
             AutoGenerateColumns="True"
             IsReadOnly="True"
+            SelectionMode="Single"
             ItemsSource="{Binding Services}"
             SelectedItem="{Binding SelectedService}"
             />

@@ -104,7 +104,35 @@ namespace ViewModels
             }
         }
 
-       
+        public string CustomerName
+        {
+            get
+            {
+                if(SelectedCustomer != null)
+                {
+                    return SelectedCustomer.CustomerName;
+                }
+                else
+                {
+                    return string.Empty;
+                }
+            }
+        }
+
+       public Customer SelectedCustomer
+        {
+            // Make bool customer selected for checks.. 
+            get { return selectedCustomer; }
+            set
+            {
+                if(value != null)
+                {
+                    selectedCustomer = value;
+                    OnPropertyChanged();
+                    OnPropertyChanged(nameof(CustomerName));
+                }
+            }
+        }
         
 
         #endregion
@@ -124,17 +152,21 @@ namespace ViewModels
 
         private void Confirm()
         {
-
+            CloseRequested.Invoke(this, new DialogCloseRequestedEventArgs(true));
         }
         private void Cancel()
         {
-
+            CloseRequested.Invoke(this, new DialogCloseRequestedEventArgs(false));
         }
 
         private void SelectCustomer()
         {
-            bool? result = dialogService.ShowDialog
-                        (new SelectCustomerDialogViewModel(dialogService,windowTitle));
+            SelectCustomerDialogViewModel selectCustomerDialogViewModel = new SelectCustomerDialogViewModel(dialogService, "windowTitle");
+            if(dialogService.ShowDialog(selectCustomerDialogViewModel) == true)
+            {
+                SelectedCustomer = selectCustomerDialogViewModel.SelectedCustomer;
+            }
+             
         }
 
     }

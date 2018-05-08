@@ -14,5 +14,6 @@ namespace ViewModels.DialogServices
                                            where TView : IDialog;
 
         bool? ShowDialog<TViewModel>(TViewModel viewModel) where TViewModel : IDialogRequestClose;
+
     }
 }

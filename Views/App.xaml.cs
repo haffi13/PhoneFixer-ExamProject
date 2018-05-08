@@ -25,9 +25,9 @@ namespace Views
             dialogService.Register<ItemDialogViewModel, ItemDialogView>();
             dialogService.Register<CustomerDialogViewModel, CustomerDialogView>();
             dialogService.Register<ServiceDialogViewModel, ServiceDialogView>();
-            dialogService.Register<SelectCustomerDialogViewModel, SelectCustomerDialogView>();
             dialogService.Register<MessageBoxDialogViewModel, MessageBoxDialogView>();
             
+            dialogService.Register<SelectCustomerDialogViewModel, SelectCustomerDialogView>();
 
             var viewModel = new MainWindowViewModel(dialogService);
             var view = new MainWindow { DataContext = viewModel };

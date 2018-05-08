@@ -105,10 +105,20 @@
                  VerticalAlignment="Center"
                  Margin="20,0"
             />
+        <TextBox Text="{Binding CustomerName,
+                                Mode=OneWay,
+                                UpdateSourceTrigger=PropertyChanged}"
+                 Grid.Column="1"
+                 Grid.Row="6"
+                 VerticalContentAlignment="Center"
+                 Margin="0, 2"
+                 IsEnabled="False"
+                 />
+        
         <Button
             Content="Select a customer"
             Grid.Column="1"
-            Grid.Row="6"
+            Grid.Row="7"
             Command="{Binding SelectCustomerCommand}"
             />
         

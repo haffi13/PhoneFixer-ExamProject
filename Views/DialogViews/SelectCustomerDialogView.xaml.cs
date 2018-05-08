@@ -22,7 +22,8 @@ namespace Views
     {
         public SelectCustomerDialogView()
         {
-            //InitializeComponent();
+            InitializeComponent();
         }
+
     }
 }
