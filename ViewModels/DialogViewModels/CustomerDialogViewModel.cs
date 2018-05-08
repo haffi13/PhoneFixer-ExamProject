@@ -175,7 +175,6 @@ namespace ViewModels
                 //check input
 
             }
-            
         }
 
         private void Cancel()
