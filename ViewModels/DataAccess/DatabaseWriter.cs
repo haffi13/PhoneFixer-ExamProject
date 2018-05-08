@@ -92,7 +92,14 @@ namespace ViewModels
                         CommandType = CommandType.StoredProcedure
                     };
 
-                    cmd.Parameters.Add(new SqlParameter("@CustomerId", customer.CustomerID));
+                    if(customer.CustomerID == 0)
+                    {
+                        cmd.Parameters.Add(new SqlParameter("@CustomerId", null));
+                    }
+                    else
+                    {
+                        cmd.Parameters.Add(new SqlParameter("@CustomerId", customer.CustomerID));
+                    }
                     cmd.Parameters.Add(new SqlParameter("@CustomerName", customer.CustomerName));
                     cmd.Parameters.Add(new SqlParameter("@CustomerPhone", customer.CustomerPhone));
                     cmd.Parameters.Add(new SqlParameter("@Email", customer.Email));

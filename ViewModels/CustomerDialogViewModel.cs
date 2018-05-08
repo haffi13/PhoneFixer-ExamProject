@@ -166,6 +166,14 @@ namespace ViewModels
                     bool? result = dialogService.ShowDialog
                            (new MessageBoxDialogViewModel(customeMessage, Message.CustomerErrorTitle));
                 }
+                else
+                {
+                    CloseRequested.Invoke(this, new DialogCloseRequestedEventArgs(true));
+                }
+            }
+            else
+            {
+                // Check input
             }
         }
 
