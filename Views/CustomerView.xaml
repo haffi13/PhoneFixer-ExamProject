@@ -13,6 +13,7 @@
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="0.1*"/>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
@@ -33,7 +34,7 @@
         <DataGrid
             x:Name="InventoryDataGrid"
             Grid.Column="1"
-            Grid.ColumnSpan="6"
+            Grid.ColumnSpan="7"
             Grid.Row="1"
             Grid.RowSpan="5"
             Margin="10"
@@ -44,7 +45,7 @@
             />
 
         <Button 
-                Grid.Column="8"
+                Grid.Column="9"
                 Grid.Row="1"
                 Margin="10"
                 Content="Add" 
@@ -53,7 +54,7 @@
                 Command="{Binding AddCommand}"
                 />
         <Button 
-                Grid.Column="8"
+                Grid.Column="9"
                 Grid.Row="2"
                 Margin="10"
                 Content="Edit" 
@@ -62,12 +63,19 @@
                 Command="{Binding EditCommand}"
                 />
         <Button 
-                Grid.Column="8"
+                Grid.Column="9"
                 Grid.Row="3"
                 Margin="10"
                 Content="Delete" 
                 FontSize="25"
                 FontWeight="DemiBold"
                 Command="{Binding DeleteCommand}"/>
+        <Button 
+                Grid.Column="9"
+                Grid.Row="5"
+                Margin="10"
+                Content="+" 
+                FontSize="100"
+                Command="{Binding AddToSaleCommand}"/>
     </Grid>
 </UserControl>
