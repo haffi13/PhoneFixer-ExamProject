@@ -15,8 +15,16 @@ namespace Models
             "The system could not update the item.\nPlease check your input.";
         public static string DeleteItemError =
             "The system could not delete the selected item from the inventory.";
+        public static string GetItemError =
+            "The system could not retrieve the inventory from the database.";
         public static string DeleteCustomerError =
             "The system could not delete the selected customer.";
+        public static string AddCustomerError = 
+            "The system could not add the customer.\nPlease check your input.";
+        public static string EditCustomerError = 
+            "The system could not edit the customer.\nPlease check your input.";
+        public static string GetCustomersError =
+            "The system could not retrieve customers from the database.";
         #endregion
 
         #region Success Messages

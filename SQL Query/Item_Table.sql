@@ -95,15 +95,7 @@
 
 --CREATE PROCEDURE DeleteItem
 
---	@Barcode NVarchar(15),
---	@Name NVarchar(50),
---	@Description NVarchar(150),
---	@Price Decimal(18,2),
---	@PriceWithTax Decimal(18,2),
---	@Category NVarchar(20),
---	@Model NVarchar(30),
---	@LastAddDay Datetime,
---	@NumberAvailable INT
+--	@Barcode NVarchar(15)
 
 --AS
 
@@ -140,7 +132,7 @@
 --AS
 
 --BEGIN
---	SELECT CustomerId, CustomerName, Email, Subscribed, ItemInService FROM CUSTOMER
+--	SELECT CustomerId, CustomerName, CustomerPhone, Email, Subscribed, ItemInService FROM CUSTOMER
 --END
 
 ----Update existing customer or update exsisting customer in CUSROMER table.

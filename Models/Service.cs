@@ -1,21 +1,32 @@
-﻿namespace Models
+﻿using System;
+
+namespace Models
 {
     // Comments indicate the variable type and constraints in the service table in the database.
     public class Service
     {
         // Int
-        public int ServiceID { get; set; }
+        public int ServiceNumber { get; set; }
 
         // Nvarchar(150)
-        public string Description { get; set; }
+        public string ServiceDescription { get; set; }
 
         // Decimal(18, 2)
-        public decimal Price { get; set; }
-        
+        public decimal PriceNoTax { get; set; }
+
+        // Decimal(18, 2)
+        public decimal PriceWithTax { get; set; }
+
+        // DateTime
+        public DateTime DayServiced { get; set; }
+
+        // DateTime
+        public DateTime DayUpdated { get; set; }
+
         // Bool
-        public bool Done { get; set; } = false;
+        public bool Repaired { get; set; }
         
-        // Bool
-        public bool Pickup { get; set; } = false;
+        // Int - foregin key - connects the Service to the customer getting the service.
+        public int CustomerId { get; set; }
     }
 }

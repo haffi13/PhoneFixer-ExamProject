@@ -1,5 +1,6 @@
-﻿using System.Collections.ObjectModel;
-using System.Windows;
+﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
 using Models;
 using ViewModels.DialogServices;
 
@@ -56,9 +57,21 @@ namespace ViewModels
         }
 
         // Populates the datagrid with all the items in the Item table in the database.
+        // If there is an exception in the Database reader the error message is shown in a dialog box.
         private void RefreshInventory()
         {
-            Inventory = new ObservableCollection<Item>(DatabaseReader.GetInventory());
+            Dictionary<List<Item>, string> temp = DatabaseReader.GetInventory();
+            string errorMessage = temp.Values.FirstOrDefault();
+            if(errorMessage == string.Empty)
+            {
+                Inventory = new ObservableCollection<Item>(temp.Keys.FirstOrDefault());
+            }
+            else
+            {
+                bool? result = dialogService.ShowDialog
+                        (new MessageBoxDialogViewModel(Message.GetItemError + errorMessage, Message.InventoryErrorTitle));
+            }
+            
         }
 
         // Opens a dialog box for the user to add a Item to the database.

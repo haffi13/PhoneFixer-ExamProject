@@ -45,7 +45,6 @@ namespace Models
             return true;
         }
 
-        // Test this, string.empty or null...for all of them...
         public static bool Description(string description)
         {
             if (description != null)

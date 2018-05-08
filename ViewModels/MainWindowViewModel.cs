@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Models;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using ViewModels.DialogServices;
-//using Models;
+
 namespace ViewModels
 {
     public class MainWindowViewModel : BaseViewModel
@@ -14,6 +10,7 @@ namespace ViewModels
         // of the tabs from here. Header is the title, Content is the ViewModel.
         private ObservableCollection<ITabItem> tabViewModels = new ObservableCollection<ITabItem>();
         private ITabItem selectedTab;
+        private Sale sale;
         
         // Collection of view models inheriting the ITabItem inteface. 
         // Those view models are then displayed in corresponding tabs in the MainWindow.
@@ -42,9 +39,11 @@ namespace ViewModels
         // in the MainWindow.
         public MainWindowViewModel(IDialogService dialogService)
         {
+            // Sales instanciated here!! 
+                
             TabViewModels.Add(new InventoryViewModel(dialogService) { Header = "Inventory" });
-            TabViewModels.Add(new ServiceViewModel(dialogService)   { Header = "Service" });
             TabViewModels.Add(new CustomerViewModel(dialogService)  { Header = "Customers" });
+            TabViewModels.Add(new ServiceViewModel(dialogService)   { Header = "Service" });
 
             SelectedTab = TabViewModels[0];
         }   

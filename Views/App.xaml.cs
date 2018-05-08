@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
 using ViewModels.DialogServices;
 using ViewModels;
 
@@ -29,12 +23,13 @@ namespace Views
             IDialogService dialogService = new DialogService(MainWindow);
 
             dialogService.Register<ItemDialogViewModel, ItemDialogView>();
+            dialogService.Register<CustomerDialogViewModel, CustomerDialogView>();
             dialogService.Register<MessageBoxDialogViewModel, MessageBoxDialogView>();
 
             var viewModel = new MainWindowViewModel(dialogService);
             var view = new MainWindow { DataContext = viewModel };
 
-            view.ShowDialog();
+            view.Show();
         }
     }
 }

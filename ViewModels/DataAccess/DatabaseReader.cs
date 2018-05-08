@@ -23,9 +23,11 @@ namespace ViewModels
 
 
         // Returns a list of all Item objects in the Item table in the database.
-        public static List<Item> GetInventory()
+        public static Dictionary<List<Item>, string> GetInventory()
         {
+            Dictionary<List<Item>, string> ret = new Dictionary<List<Item>, string>();
             List<Item> Items = new List<Item>();
+            string errorMessage = string.Empty;
 
             using (SqlConnection con = new SqlConnection(connectionString))
             {
@@ -46,12 +48,12 @@ namespace ViewModels
                                 Barcode = reader["Barcode"].ToString(),
                                 Name = reader["Name"].ToString(),
                                 Description = reader["Description"].ToString(),
-                                Price = decimal.Parse(reader["Price"].ToString()),
-                                PriceWithTax = decimal.Parse(reader["PriceWithTax"].ToString()),
+                                Price = (decimal)reader["Price"],
+                                PriceWithTax = (decimal)reader["PriceWithTax"],
                                 Category = reader["Category"].ToString(),
                                 Model = reader["Model"].ToString(),
-                                LastTimeAdded = DateTime.Parse(reader["LastAddDay"].ToString()),
-                                NumberAvailable = int.Parse(reader["NumberAvailable"].ToString())
+                                LastTimeAdded = (DateTime)reader["LastAddDay"],
+                                NumberAvailable = (int)reader["NumberAvailable"]
                             };
 
                             Items.Add(temp);
@@ -61,15 +63,19 @@ namespace ViewModels
 
                 catch (SqlException e)
                 {
-                    
+                    errorMessage = "\n\n" + e.Message;
                 }
             }
-            return Items;
+            ret.Add(Items, errorMessage);
+            return ret;
         }
 
-        public static List<Customer> GetCustomers()
+
+        public static Dictionary<List<Customer>, string> GetCustomers()
         {
+            Dictionary<List<Customer>, string> ret = new Dictionary<List<Customer>, string>();
             List<Customer> Customers = new List<Customer>();
+            string errorMessage = string.Empty;
 
             using (SqlConnection con = new SqlConnection(connectionString))
             {
@@ -99,17 +105,58 @@ namespace ViewModels
                         }
                     }
                 }
-
                 catch (SqlException e)
                 {
-                    //----------------------------------
-                    //      Deal with this!
-                    //----------------------------------
-                    MessageBox.Show(e.Message);
+                    errorMessage = "\n\n" + e.Message;
                 }
             }
-
-            return Customers;
+            ret.Add(Customers, errorMessage);
+            return ret;
         }
+
+        //public static List<Customer> GetCustomers()
+        //{
+        //    List<Customer> Customers = new List<Customer>();
+
+        //    using (SqlConnection con = new SqlConnection(connectionString))
+        //    {
+        //        try
+        //        {
+        //            SqlCommand cmd = new SqlCommand("GetAllCustomers", con)
+        //            {
+        //                CommandType = CommandType.StoredProcedure
+        //            };
+        //            con.Open();
+        //            SqlDataReader reader = cmd.ExecuteReader();
+        //            if (reader.HasRows)
+        //            {
+        //                while (reader.Read())
+        //                {
+        //                    Customer temp = new Customer
+        //                    {
+        //                        CustomerID = (int)reader["CustomerId"],
+        //                        CustomerName = (string)reader["CustomerName"],
+        //                        CustomerPhone = reader["CustomerPhone"].ToString(),
+        //                        Email = reader["Email"].ToString(),
+        //                        Subscribed = (bool)reader["Subscribed"],
+        //                        ItemInService = (bool)reader["ItemInService"]
+        //                    };
+
+        //                    Customers.Add(temp);
+        //                }
+        //            }
+        //        }
+
+        //        catch (SqlException e)
+        //        {
+        //            //----------------------------------
+        //            //      Deal with this!
+        //            //----------------------------------
+        //            MessageBox.Show(e.Message);
+        //        }
+        //    }
+
+        //    return Customers;
+        //}
     }
 }

@@ -10,17 +10,17 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
-using ViewModels.DialogServices;
 
 namespace Views
 {
     /// <summary>
-    /// Interaction logic for CustomerDialogView.xaml
+    /// Interaction logic for SaleView.xaml
     /// </summary>
-    public partial class CustomerDialogView : Window, IDialog
+    public partial class SaleView : UserControl
     {
-        public CustomerDialogView()
+        public SaleView()
         {
             InitializeComponent();
         }
