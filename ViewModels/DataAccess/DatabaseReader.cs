@@ -114,6 +114,53 @@ namespace ViewModels
             return ret;
         }
 
+        public static Dictionary<List<Service>, string> GetService()
+        {
+            Dictionary<List<Service>, string> ret = new Dictionary<List<Service>, string>();
+            List<Service> Services= new List<Service>();
+            string errorMessage = string.Empty;
+
+            using (SqlConnection con = new SqlConnection(connectionString))
+            {
+                try
+                {
+                    SqlCommand cmd = new SqlCommand("GetAllServices", con)
+                    {
+                        CommandType = CommandType.StoredProcedure
+                    };
+                    con.Open();
+                    SqlDataReader reader = cmd.ExecuteReader();
+                    if (reader.HasRows)
+                    {
+                        while (reader.Read())
+                        {
+                            Service temp = new Service
+                            {
+                                ServiceNumber = (int)reader["ServiceNumber"],
+                                ServiceName = reader["ServiceName"].ToString(),
+                                ServiceDescription = reader["ServiceDescription"].ToString(),
+                                PriceNoTax = (decimal)reader["PriceNoTax"],
+                                PriceWithTax = (decimal)reader["PriceWithTax"],
+                                DayServiced = (DateTime)reader["DayServiced"],
+                                DayUpdated = (DateTime)reader["DayUpdated"],
+                                Repaired = (bool)reader["Repaired"],
+                                CustomerId = (int)reader["CustomerID"]
+                            };
+
+                            Services.Add(temp);
+                        }
+                    }
+                }
+
+                catch (SqlException e)
+                {
+                    errorMessage = "\n\n" + e.Message;
+                }
+            }
+            ret.Add(Services, errorMessage);
+            return ret;
+        }
+
         //public static List<Customer> GetCustomers()
         //{
         //    List<Customer> Customers = new List<Customer>();
