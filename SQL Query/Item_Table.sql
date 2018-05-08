@@ -31,7 +31,7 @@
 
 --CREATE TABLE SERVICE (
 --ServiceNumber			INT				PRIMARY KEY		IDENTITY	NOT NULL,
---ServiceName				NVarchar(30)								NOT NULL	DEFAULT 'SERVICE',
+--ServiceName				NVarchar(50)								NOT NULL	DEFAULT 'SERVICE',
 --ServiceDescription		NVarchar(150)								NULL,
 --PriceNoTax				Decimal(18,2)								NOT NULL	DEFAULT '0.00',
 --PriceWithTax			Decimal(18,2)								NOT NULL	DEFAULT '0.00',
@@ -269,6 +269,12 @@
 --	VALUES(@ServiceName, @ServiceDescription, @PriceNoTax, @PriceWithTax, @DayServiced, @DayUpdated, @Repaired, @CustomerId)
 --END
 
+------One Time Queries:
+
+----Reseed ServiceId in the SERVICE table:
+
+
+
 ------MOCKDATA:
 
 ----Mock data for ITEM table:
@@ -287,6 +293,12 @@
 --'03746214497', 'Microsoft Surface 4 Cover', 'Microsoft Surface 4 Cover blå uden tastatur', '279.96', '349.99', 'Cover', 'Surface', '03.05.2018', '1');
 
 ----Mock data for CUSTOMER table:
+
+----Reset ServiceId to 0:
+
+--DBCC CHECKIDENT ('SERVICE', RESEED, 0)
+
+
 
 --INSERT INTO CUSTOMER VALUES (
 --'Hasse', '12345678', 'hasse@mail.dk', '0', '0');
@@ -307,4 +319,5 @@
 --'Ny skærm til bærbar pc', 'Ny skærm monteres på en alienware bærbar pc', '1600.00', '2000.00', '05.05.2018', '06.05.2018', '0', '3')
 --INSERT INTO SERVICE VALUES (
 --'Standard blæser rens bærbar pc', 'Rens blæser på Asus Bærbar pc', '320.00', '400', '05.05.2018', '05.05.2018', '1', '4')
+
 
