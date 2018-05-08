@@ -69,14 +69,32 @@ namespace ViewModels
         }
         private void AddService()
         {
-
+            bool? result = dialogService.ShowDialog(new ServiceDialogViewModel(dialogService));
+            RefreshService();
         }
         private void EditService()
         {
-
+            if (SelectedService != null)
+            {
+                bool? result = dialogService.ShowDialog(new CustomerDialogViewModel(SelectedService, dialogService));
+                RefreshService();
+            }
         }
         private void DeleteService()
         {
+            if (SelectedService != null)
+            {
+                string errorMessage = DatabaseWriter.DeleteService(SelectedService);
+                if (errorMessage != string.Empty)
+                {
+                    bool? result = dialogService.ShowDialog
+                        (new MessageBoxDialogViewModel(errorMessage, Message.ServiceErrorTitle));
+                }
+                else
+                {
+                    RefreshService();
+                }
+            }
 
         }
         
