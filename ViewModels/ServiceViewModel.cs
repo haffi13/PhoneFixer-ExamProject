@@ -11,11 +11,9 @@ namespace ViewModels
     public class ServiceViewModel : BaseViewModel, ITabItem
     {
         private readonly IDialogService dialogService;
-        private Sale sale;
-        public ServiceViewModel(IDialogService dialogService, Sale sale)
+        public ServiceViewModel(IDialogService dialogService)
         {
             this.dialogService = dialogService;
-            this.sale = sale;
         }
         public string Header { get; set; }
     }

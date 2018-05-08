@@ -40,11 +40,10 @@ namespace ViewModels
         public MainWindowViewModel(IDialogService dialogService)
         {
             // Sales instanciated here!! 
-            sale = new Sale();
                 
-            TabViewModels.Add(new InventoryViewModel(dialogService, sale) { Header = "Inventory" });
+            TabViewModels.Add(new InventoryViewModel(dialogService) { Header = "Inventory" });
             TabViewModels.Add(new CustomerViewModel(dialogService)  { Header = "Customers" });
-            TabViewModels.Add(new ServiceViewModel(dialogService, sale)   { Header = "Service" });
+            TabViewModels.Add(new ServiceViewModel(dialogService)   { Header = "Service" });
 
             SelectedTab = TabViewModels[0];
         }   

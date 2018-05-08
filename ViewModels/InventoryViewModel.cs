@@ -10,7 +10,6 @@ namespace ViewModels
     {
         private ObservableCollection<Item> inventory = new ObservableCollection<Item>();
         private Item selectedItem;
-        private Sale sale;
 
         // Keeps an instance of the DialogService instanciated at startup.
         private readonly IDialogService dialogService;
@@ -46,10 +45,9 @@ namespace ViewModels
         public RelayCommand DeleteCommand { get; }
         
         
-        public InventoryViewModel(IDialogService dialogService, Sale sale)
+        public InventoryViewModel(IDialogService dialogService)
         {
             this.dialogService = dialogService;
-            this.sale = sale;
 
             RefreshInventory();
 
