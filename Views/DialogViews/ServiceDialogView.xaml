@@ -1,0 +1,117 @@
+﻿<Window x:Class="Views.ServiceDialogView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:system="clr-namespace:System;assembly=mscorlib"
+        xmlns:local="clr-namespace:Views"
+        mc:Ignorable="d"
+        Title="Manage Inventory" 
+        SizeToContent="WidthAndHeight"
+        MinWidth="500" MinHeight="250"
+        WindowStartupLocation="CenterOwner">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="3*"/>
+            <ColumnDefinition Width="0.1*"/>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="0.15*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Label Content="Title" 
+               Grid.Column="0"
+               Grid.Row="1"
+               HorizontalAlignment="Right"
+               VerticalContentAlignment="Center"
+               />
+        <Label Content="Description" 
+               Grid.Column="0"
+               Grid.Row="2"
+               HorizontalAlignment="Right"
+               VerticalContentAlignment="Center"
+               />
+        <Label Content="Price" 
+               Grid.Column="0"
+               Grid.Row="3"
+               HorizontalAlignment="Right"
+               VerticalContentAlignment="Center"
+               />
+        <Label Content="PriceWithTax" 
+               Grid.Column="0"
+               Grid.Row="4"
+               HorizontalAlignment="Right"
+               VerticalContentAlignment="Center"
+               />
+        <!--Done is bound to Repaired bool-->
+        <Label Content="Done" 
+               Grid.Column="0"
+               Grid.Row="5"
+               HorizontalAlignment="Right"
+               VerticalContentAlignment="Center"
+               />
+        <Label Content="Customer" 
+               Grid.Column="0"
+               Grid.Row="6"
+               HorizontalAlignment="Right"
+               VerticalContentAlignment="Center"
+               />
+        <TextBox Text="{Binding ServiceName, 
+                                UpdateSourceTrigger=PropertyChanged}"
+                 Grid.Column="1"
+                 Grid.Row="1"
+                 VerticalContentAlignment="Center"
+                 Margin="0, 2"
+                 />
+        <TextBox Text="{Binding ServiceDescription, 
+                                UpdateSourceTrigger=PropertyChanged}"
+                 Grid.Column="1"
+                 Grid.Row="2"
+                 VerticalContentAlignment="Center"
+                 Margin="0, 2"
+                 />
+        <TextBox Text="{Binding Price,
+                                UpdateSourceTrigger=PropertyChanged,
+                                TargetNullValue={x:Static system:String.Empty}}"
+                 Grid.Column="1"
+                 Grid.Row="3"
+                 VerticalContentAlignment="Center"
+                 Margin="0, 2"
+                 />
+        <TextBox Text="{Binding PriceWithTax,
+                                UpdateSourceTrigger=PropertyChanged,
+                                TargetNullValue={x:Static system:String.Empty}}"
+                 Grid.Column="1"
+                 Grid.Row="4"
+                 VerticalContentAlignment="Center"
+                 Margin="0, 2"
+                 />
+        <CheckBox
+                 IsChecked="{Binding Repaired,
+                             UpdateSourceTrigger=PropertyChanged}"
+                 Grid.Column="1"
+                 Grid.Row="5"
+                 HorizontalAlignment="Left"
+                 VerticalAlignment="Center"
+                 Margin="20,0"
+            />
+        <Button
+            Content="Select a customer"
+            Grid.Column="1"
+            Grid.Row="6"
+            Command="{Binding SelectCustomerCommand}"
+            />
+        
+
+    </Grid>
+</Window>

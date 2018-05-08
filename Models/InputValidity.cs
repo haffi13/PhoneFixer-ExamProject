@@ -10,7 +10,7 @@ namespace Models
     {
         // Might want more generic names, like varchar20 check
         // Might fit better if we want to reuse these validity checks.
-        public static bool Barcode(string barcode)
+        public static bool Varchar15NotNull(string barcode)
         {
             if (barcode != null)
             {
@@ -27,7 +27,7 @@ namespace Models
             return true;
         }
 
-        public static bool Name(string name)
+        public static bool Varchar50NotNull(string name)
         {
             if (name != null)
             {
@@ -45,7 +45,7 @@ namespace Models
             return true;
         }
 
-        public static bool Description(string description)
+        public static bool Varchar150Null(string description)
         {
             if (description != null)
             {
@@ -62,7 +62,7 @@ namespace Models
             return true;
         }
 
-        public static bool Price(string price)
+        public static bool DecimalNotNull(string price)
         {
             if (price != null)
             {
@@ -75,7 +75,7 @@ namespace Models
             }
         }
 
-        public static bool Category(string category)
+        public static bool Varchar20NotNull(string category)
         {
             if (category != null)
             {
@@ -92,7 +92,7 @@ namespace Models
             return true;
         }
 
-        public static bool Model(string model)
+        public static bool Varchar30NotNull(string model)
         {
             if (model != null)
             {
@@ -109,7 +109,7 @@ namespace Models
             return true;
         }
 
-        public static bool NumberAvailable(string numberAvailable)
+        public static bool IntNotNull(string numberAvailable)
         {
             if (numberAvailable != null)
             {

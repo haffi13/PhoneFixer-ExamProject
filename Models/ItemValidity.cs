@@ -10,11 +10,28 @@ namespace Models
     {
         private bool barcodeIsValid = false;
         private bool nameIsValid = false;
-        private bool descriptionIsValid = false;
         private bool priceIsValid = false;
         private bool categoryIsValid = false;
         private bool modelIsValid = false;
         private bool numberAvailableIsValid = false;
+
+        public bool ItemIsValid()
+        {
+            if(BarcodeIsValid &&
+               NameIsValid &&
+               PriceIsValid &&
+               CategoryIsValid &&
+               ModelIsValid &&
+               NumberAvailableIsValid
+                )
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
 
         public bool BarcodeIsValid
         {
@@ -26,12 +43,6 @@ namespace Models
         {
             get { return nameIsValid; }
             set { nameIsValid = value; }
-        }
-
-        public bool DescriptionIsValid
-        {
-            get { return descriptionIsValid; }
-            set { descriptionIsValid = value; }
         }
 
         public bool PriceIsValid

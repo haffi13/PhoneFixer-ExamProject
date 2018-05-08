@@ -54,22 +54,28 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="CustomerDialogView.xaml.cs">
+    <Compile Include="DialogViews\CustomerDialogView.xaml.cs">
       <DependentUpon>CustomerDialogView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ItemDialogView.xaml.cs">
+    <Compile Include="DialogViews\ItemDialogView.xaml.cs">
       <DependentUpon>ItemDialogView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="MessageBoxDialogView.xaml.cs">
+    <Compile Include="DialogViews\MessageBoxDialogView.xaml.cs">
       <DependentUpon>MessageBoxDialogView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="DialogViews\SelectCustomerDialogView.xaml.cs">
+      <DependentUpon>SelectCustomerDialogView.xaml</DependentUpon>
     </Compile>
     <Compile Include="SaleView.xaml.cs">
       <DependentUpon>SaleView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="DialogViews\ServiceDialogView.xaml.cs">
+      <DependentUpon>ServiceDialogView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ServiceView.xaml.cs">
       <DependentUpon>ServiceView.xaml</DependentUpon>
     </Compile>
-    <Page Include="CustomerDialogView.xaml">
+    <Page Include="DialogViews\CustomerDialogView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -77,11 +83,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="DialogViews\SelectCustomerDialogView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="InventoryView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ItemDialogView.xaml">
+    <Page Include="DialogViews\ItemDialogView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -103,11 +113,15 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="MessageBoxDialogView.xaml">
+    <Page Include="DialogViews\MessageBoxDialogView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="SaleView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="DialogViews\ServiceDialogView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

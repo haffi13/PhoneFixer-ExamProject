@@ -145,7 +145,7 @@ namespace ViewModels
         private void Confirm()
         {
             string errorMessage = string.Empty;
-            if (InputValidity.Name(CustomerName))
+            if (InputValidity.Varchar50NotNull(CustomerName))
             {
                 if (isEdit)
                 {

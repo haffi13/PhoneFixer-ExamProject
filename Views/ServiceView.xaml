@@ -30,7 +30,9 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="0.25*"/>
         </Grid.RowDefinitions>
+        
         <ListBox
+            x:Name="ServiceDetailsListBox"
             Grid.Column="1"
             Grid.ColumnSpan="3"
             Grid.Row="1"
@@ -38,7 +40,7 @@
             Margin="10"
             />
         <DataGrid
-            x:Name="InventoryDataGrid"
+            x:Name="ServiceDataGrid"
             Grid.Column="5"
             Grid.ColumnSpan="3"
             Grid.Row="1"
@@ -46,8 +48,8 @@
             Margin="10"
             AutoGenerateColumns="True"
             IsReadOnly="True"
-            ItemsSource="{Binding Customers}"
-            SelectedItem="{Binding SelectedCustomer}"
+            ItemsSource="{Binding Services}"
+            SelectedItem="{Binding SelectedService}"
             />
 
         <Button 

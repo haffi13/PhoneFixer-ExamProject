@@ -100,14 +100,14 @@ namespace ViewModels
             get { return item.Barcode; }
             set
             {
-                if (InputValidity.Barcode(value))
+                if (InputValidity.Varchar15NotNull(value))
                 {
                     item.Barcode = value;
-                    BarcodeIsValid = true;
+                    itemValidity.BarcodeIsValid = true;
                 }
                 else
                 {
-                    BarcodeIsValid = false;
+                    itemValidity.BarcodeIsValid = false;
                 }
                 OnPropertyChanged();
             }
@@ -117,14 +117,14 @@ namespace ViewModels
             get { return item.Name; }
             set
             {
-                if (InputValidity.Name(value))
+                if (InputValidity.Varchar50NotNull(value))
                 {
                     item.Name = value;
-                    NameIsValid = true;
+                    itemValidity.NameIsValid = true;
                 }
                 else
                 {
-                    NameIsValid = false;
+                    itemValidity.NameIsValid = false;
                 }
                 OnPropertyChanged();
             }
@@ -134,14 +134,9 @@ namespace ViewModels
             get { return item.Description; }
             set
             {
-                if (InputValidity.Description(value))
+                if (InputValidity.Varchar150Null(value))
                 {
                     item.Description = value;
-                    DescriptionIsValid = true;
-                }
-                else
-                {
-                    DescriptionIsValid = false;
                 }
                 OnPropertyChanged();
             }
@@ -155,16 +150,16 @@ namespace ViewModels
             get { return price; }
             set
             {
-                if (InputValidity.Price(value))
+                if (InputValidity.DecimalNotNull(value))
                 {
                     price = value;
                     item.Price = decimal.Parse(value);
-                    PriceIsValid = true;
+                    itemValidity.PriceIsValid = true;
                 }
                 else
                 {
-                    PriceIsValid = false;
                     price = string.Empty;
+                    itemValidity.PriceIsValid = false;
                 }
                 OnPropertyChanged();
 
@@ -183,16 +178,16 @@ namespace ViewModels
             get { return priceWithTax; }
             set
             {
-                if (InputValidity.Price(value))
+                if (InputValidity.DecimalNotNull(value))
                 {
                     priceWithTax = value;
                     item.PriceWithTax = decimal.Parse(value);
-                    PriceIsValid = true;
+                    itemValidity.PriceIsValid = true;
                 }
                 else
                 {
-                    PriceIsValid = false;
                     priceWithTax = string.Empty;
+                    itemValidity.PriceIsValid = false;
                 }
                 OnPropertyChanged();
 
@@ -208,14 +203,14 @@ namespace ViewModels
             get { return item.Category; }
             set
             {
-                if (InputValidity.Category(value))
+                if (InputValidity.Varchar20NotNull(value))
                 {
                     item.Category = value;
-                    CategoryIsValid = true;
+                    itemValidity.CategoryIsValid = true;
                 }
                 else
                 {
-                    CategoryIsValid = false;
+                    itemValidity.CategoryIsValid = false;
                 }
                 OnPropertyChanged();
             }
@@ -225,14 +220,14 @@ namespace ViewModels
             get { return item.Model; }
             set
             {
-                if (InputValidity.Model(value))
+                if (InputValidity.Varchar30NotNull(value))
                 {
                     item.Model = value;
-                    ModelIsValid = true;
+                    itemValidity.ModelIsValid = true;
                 }
                 else
                 {
-                    ModelIsValid = false;
+                    itemValidity.ModelIsValid = false;
                 }
                 OnPropertyChanged();
             }
@@ -259,91 +254,21 @@ namespace ViewModels
             get { return numberAvailable; }
             set
             {
-                if (InputValidity.NumberAvailable(value))
+                if (InputValidity.IntNotNull(value))
                 {
                     numberAvailable = value;
                     item.NumberAvailable = int.Parse(value);
-                    NumberAvailableIsValid = true;
+                    itemValidity.NumberAvailableIsValid = true;
                 }
                 else
                 {
-                    NumberAvailableIsValid = false;
+                    itemValidity.NumberAvailableIsValid = false;
                 }
                 OnPropertyChanged();
             }
         }
         #endregion
 
-        // bool? maybe...might make us get away with working with un-instanciated properties.
-        #region Input validity checks
-        // These are here to bind to the boxes to show where the input was wrong.
-        // It should be done from the else statement in the Confirm method.
-        // If you are reading this comment that has yet to be done...
-        public bool BarcodeIsValid
-        {
-            get { return itemValidity.BarcodeIsValid; }
-            set
-            {
-                itemValidity.BarcodeIsValid = value;
-                OnPropertyChanged();
-            }
-        }
-        public bool NameIsValid
-        {
-            get { return itemValidity.NameIsValid; }
-            set
-            {
-                itemValidity.NameIsValid = value;
-                OnPropertyChanged();
-            }
-        }
-        public bool DescriptionIsValid
-        {
-            get { return itemValidity.DescriptionIsValid; }
-            set
-            {
-                itemValidity.DescriptionIsValid = value;
-                OnPropertyChanged();
-            }
-        }
-        public bool PriceIsValid
-        {
-            get { return itemValidity.PriceIsValid; }
-            set
-            {
-                itemValidity.PriceIsValid = value;
-                OnPropertyChanged();
-            }
-        }
-        public bool CategoryIsValid
-        {
-            get { return itemValidity.CategoryIsValid; }
-            set
-            {
-                itemValidity.CategoryIsValid = value;
-                OnPropertyChanged();
-            }
-        }
-        public bool ModelIsValid
-        {
-            get { return itemValidity.ModelIsValid; }
-            set
-            {
-                itemValidity.ModelIsValid = value;
-                OnPropertyChanged();
-            }
-        }
-        public bool NumberAvailableIsValid
-        {
-            get { return itemValidity.NumberAvailableIsValid; }
-            set
-            {
-                itemValidity.NumberAvailableIsValid = value;
-                OnPropertyChanged();
-            }
-        }
-
-        #endregion
 
         // Constructor used when the dialog is to be used to add a item.
         public ItemDialogViewModel(IDialogService dialogService)
@@ -407,7 +332,7 @@ namespace ViewModels
         // The ItemUpdate stored procedure can handle adding and editing items
         private void Confirm()
         {
-            if (ItemDataIsCorrectFormat())
+            if (itemValidity.ItemIsValid())
             {
                 if ((isEdit && NumberAvailable != numberAvailableBeforeEdit) || (!isEdit))
                 {
@@ -459,26 +384,6 @@ namespace ViewModels
             CloseRequested.Invoke(this, new DialogCloseRequestedEventArgs(false));
         }
 
-        // This method is currently public for testing purposes. Shall be private!
-        // This method checks if the input in the ItemDialogView is of values and size the 
-        // item table in the database accepts.
-        public bool ItemDataIsCorrectFormat()
-        {
-            if (BarcodeIsValid &&
-               NameIsValid &&
-               DescriptionIsValid &&
-               PriceIsValid &&
-               CategoryIsValid &&
-               ModelIsValid &&
-               NumberAvailableIsValid)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
 
         // Clears the string properties bound to the textboxes in the ItemDialogView.
         // This method is called before a new instance of item is instanciated.

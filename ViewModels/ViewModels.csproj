@@ -52,6 +52,7 @@
     <Compile Include="CustomerViewModel.cs" />
     <Compile Include="DataAccess\DatabaseReader.cs" />
     <Compile Include="DataAccess\DatabaseWriter.cs" />
+    <Compile Include="DialogViewModels\SelectCustomerDialogViewModel.cs" />
     <Compile Include="InventoryViewModel.cs" />
     <Compile Include="ITabItem.cs" />
     <Compile Include="MainWindowViewModel.cs" />

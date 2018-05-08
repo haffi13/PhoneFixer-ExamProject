@@ -32,7 +32,7 @@
         </Grid.RowDefinitions>
 
         <DataGrid
-            x:Name="InventoryDataGrid"
+            
             Grid.Column="1"
             Grid.ColumnSpan="7"
             Grid.Row="1"
