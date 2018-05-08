@@ -54,6 +54,17 @@ namespace ViewModels
 
         private void RefreshService()
         {
+            Dictionary<List<Service>, string> temp = DatabaseReader.GetServices();
+            string errorMessage = temp.Values.FirstOrDefault();
+            if (errorMessage == string.Empty)
+            {
+                Services = new ObservableCollection<Service>(temp.Keys.FirstOrDefault());
+            }
+            else
+            {
+                bool? result = dialogService.ShowDialog
+                        (new MessageBoxDialogViewModel(Message.GetServiceError + errorMessage, Message.ServiceErrorTitle));
+            }
 
         }
         private void AddService()
