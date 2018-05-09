@@ -137,15 +137,13 @@
 
 -- Get a single customer matching the CustomerId in the parameter given.
 
---USE [DB2017_B12]
---GO
---CREATE PROCEDURE GetCustomer
---@CustomerId INT
---AS
---BEGIN
---SELECT CustomerName, CustomerPhone, Email, Subscribed, ItemInService FROM CUSTOMER
---WHERE @CustomerId = CustomerId
---END
+CREATE PROCEDURE [dbo].[GetCustomer]
+@CustomerId INT
+AS
+BEGIN
+SELECT CustomerId, CustomerName, CustomerPhone, Email, Subscribed, ItemInService FROM CUSTOMER
+WHERE @CustomerId = CustomerId
+END
 
 ----Update existing customer in CUSROMER table:
 
