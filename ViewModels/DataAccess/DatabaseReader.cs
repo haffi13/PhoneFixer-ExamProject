@@ -64,6 +64,45 @@ namespace ViewModels
             return ret;
         }
 
+        public static Dictionary<Customer, string> GetCustomer(int customerId)
+        {
+            Dictionary<Customer, string> ret = new Dictionary<Customer, string>();
+            Customer customer;// = new Customer();
+            string errorMessage = string.Empty;
+
+            using (SqlConnection con = new SqlConnection(connectionString))
+            {
+                try
+                {
+                    SqlCommand cmd = new SqlCommand("GetCustomer", con)
+                    {
+                        CommandType = CommandType.StoredProcedure
+                    };
+                    con.Open();
+                    SqlDataReader reader = cmd.ExecuteReader();
+                    if (reader.HasRows)
+                    {
+                        while (reader.Read())
+                        {
+                            customer = new Customer
+                            {
+                                CustomerID = (int)reader["CustomerId"],
+                                CustomerName = (string)reader["CustomerName"],
+                                CustomerPhone = (string)reader["CustomerPhone"],
+                                Email = (string)reader["Email"],
+                                Subscribed = (bool)reader["Subscribed"],
+                                ItemInService = (bool)reader["ItemInService"]
+                            };
+                        }
+                    }
+                }
+                catch (SqlException e)
+                {
+                    errorMessage = "\n\n" + e.Message;
+                }
+            }
+            ret.Add(customer, errorMessage);
+        }
 
         public static Dictionary<List<Customer>, string> GetCustomers()
         {
