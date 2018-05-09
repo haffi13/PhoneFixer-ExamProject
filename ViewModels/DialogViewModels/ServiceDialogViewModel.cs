@@ -14,11 +14,14 @@ namespace ViewModels
         private Service service;
         private Customer selectedCustomer;
 
+
         public RelayCommand ConfirmCommand { get; }
         public RelayCommand CancelCommand { get; }
         public RelayCommand SelectCustomerCommand { get; }
 
         private string windowTitle;
+        private string confirmButtonContent;
+        private string cancelButtonContent;
 
         private string price;
         private string priceWithTax;
@@ -27,6 +30,29 @@ namespace ViewModels
         {
             get { return windowTitle; }
             set { windowTitle = value; }
+        }
+
+        // Bound to the Confirm button in the ServiceDialogView. Contains the button content
+        // "Add" if adding a service, "OK" if editing a service.
+        public string ConfirmButtonContent
+        {
+            get { return confirmButtonContent; }
+            set
+            {
+                confirmButtonContent = value;
+                OnPropertyChanged();
+            }
+        }
+        // Bound to the Cancel button in the ServiceDialogView. Contains the button content
+        // "Close" if adding a service, "Cancel" if editing a service.
+        public string CancelButtonContent
+        {
+            get { return cancelButtonContent; }
+            set
+            {
+                cancelButtonContent = value;
+                OnPropertyChanged();
+            }
         }
 
         #region Public Properties
@@ -138,10 +164,12 @@ namespace ViewModels
         #endregion
 
 
-        // Make a ctor that takes service as parameter to be able to add
+        // Ctor used to construct the view model when adding a new service.
         public ServiceDialogViewModel(string windowTitle, IDialogService dialogService)
         {
             WindowTitle = windowTitle;
+            ConfirmButtonContent = "Add";
+            CancelButtonContent = "Close";
             this.dialogService = dialogService;
 
             SelectCustomerCommand = new RelayCommand(SelectCustomer);
@@ -150,13 +178,15 @@ namespace ViewModels
                 service = new Service();
                 serviceValidity = new ServiceValidity();
                 SelectedCustomer = new Customer();
-
             }
         }
 
+        // Ctor used to construct the view model when editing an existing service.
         public ServiceDialogViewModel(string windowTitle, IDialogService dialogService, Service service)
         {
             WindowTitle = windowTitle;
+            ConfirmButtonContent = "Ok";
+            CancelButtonContent = "Close";
             this.dialogService = dialogService;
             this.service = service;
             SelectCustomerCommand = new RelayCommand(SelectCustomer);
@@ -176,9 +206,7 @@ namespace ViewModels
             else
             {
                 // Error message could not find selected customer.
-            }
-            
-            
+            }   
         }
 
         private void Confirm()
@@ -189,6 +217,7 @@ namespace ViewModels
             }
             CloseRequested.Invoke(this, new DialogCloseRequestedEventArgs(true));
         }
+
         private void Cancel()
         {
             CloseRequested.Invoke(this, new DialogCloseRequestedEventArgs(false));

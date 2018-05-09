@@ -27,8 +27,11 @@ namespace ViewModels
             get { return customer.CustomerName; }
             set
             {
-                customer.CustomerName = value;
-                OnPropertyChanged();
+                if (InputValidity.Varchar50NotNull(value))
+                {
+                    customer.CustomerName = value;
+                    OnPropertyChanged();
+                }
             }
         }
         public string CustomerPhone
@@ -36,8 +39,15 @@ namespace ViewModels
             get { return customer.CustomerPhone; }
             set
             {
-                customer.CustomerPhone = value;
-                OnPropertyChanged();
+                if (InputValidity.Varchar15NotNull(value))
+                {
+                    customer.CustomerPhone = value;
+                    OnPropertyChanged();
+                }
+                else
+                {
+                    customer.CustomerPhone = string.Empty;
+                }
             }
         }
         public string Email
@@ -45,8 +55,16 @@ namespace ViewModels
             get { return customer.Email; }
             set
             {
-                customer.Email = value;
-                OnPropertyChanged();
+                if (InputValidity.Varchar50NotNull(value))
+                {
+                    customer.Email = value;
+                    OnPropertyChanged();
+                }
+                else
+                {
+                    customer.Email = string.Empty;
+                }
+                
             }
         }
         public bool Subscribed

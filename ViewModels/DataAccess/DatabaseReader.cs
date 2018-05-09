@@ -148,7 +148,7 @@ namespace ViewModels
             return ret;
         }
 
-        public static Dictionary<List<Service>, string> GetService()
+        public static Dictionary<List<Service>, string> GetServices()
         {
             Dictionary<List<Service>, string> ret = new Dictionary<List<Service>, string>();
             List<Service> Services= new List<Service>();
@@ -176,8 +176,8 @@ namespace ViewModels
                                 ServiceDescription = (string)reader["ServiceDescription"],
                                 PriceNoTax = (decimal)reader["PriceNoTax"],
                                 PriceWithTax = (decimal)reader["PriceWithTax"],
+                                DayCreated = (DateTime)reader["DayCreated"],
                                 DayServiced = (DateTime)reader["DayServiced"],
-                                DayUpdated = (DateTime)reader["DayUpdated"],
                                 Repaired = (bool)reader["Repaired"],
                                 CustomerId = (int)reader["CustomerID"]
                             };

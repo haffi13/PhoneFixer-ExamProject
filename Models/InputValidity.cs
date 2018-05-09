@@ -10,12 +10,12 @@ namespace Models
     {
         // Might want more generic names, like varchar20 check
         // Might fit better if we want to reuse these validity checks.
-        public static bool Varchar15NotNull(string barcode)
+        public static bool Varchar15NotNull(string input)
         {
-            if (barcode != null)
+            if (input != null)
             {
-                barcode.Trim();
-                if (barcode.Length < 1 || barcode.Length > 15)
+                input.Trim();
+                if (input.Length < 1 || input.Length > 15)
                 {
                     return false;
                 }
@@ -27,12 +27,14 @@ namespace Models
             return true;
         }
 
-        public static bool Varchar50NotNull(string name)
+        
+
+        public static bool Varchar50NotNull(string input)
         {
-            if (name != null)
+            if (input != null)
             {
-                name.Trim();
-                if (name.Length < 1 || name.Length > 50)
+                input.Trim();
+                if (input.Length < 1 || input.Length > 50)
                 {
                     return false;
                 }
@@ -45,12 +47,12 @@ namespace Models
             return true;
         }
 
-        public static bool Varchar150Null(string description)
+        public static bool Varchar150Null(string input)
         {
-            if (description != null)
+            if (input != null)
             {
-                description.Trim();
-                if (description.Length > 150)
+                input.Trim();
+                if (input.Length > 150)
                 {
                     return false;
                 }
@@ -62,12 +64,12 @@ namespace Models
             return true;
         }
 
-        public static bool DecimalNotNull(string price)
+        public static bool DecimalNotNull(string input)
         {
-            if (price != null)
+            if (input != null)
             {
-                price.Trim();
-                return DecimalCanParse(price);
+                input.Trim();
+                return DecimalCanParse(input);
             }
             else
             {
@@ -75,12 +77,12 @@ namespace Models
             }
         }
 
-        public static bool Varchar20NotNull(string category)
+        public static bool Varchar20NotNull(string input)
         {
-            if (category != null)
+            if (input != null)
             {
-                category.Trim();
-                if (category.Length < 1 || category.Length > 20)
+                input.Trim();
+                if (input.Length < 1 || input.Length > 20)
                 {
                     return false;
                 }
@@ -92,12 +94,12 @@ namespace Models
             return true;
         }
 
-        public static bool Varchar30NotNull(string model)
+        public static bool Varchar30NotNull(string input)
         {
-            if (model != null)
+            if (input != null)
             {
-                model.Trim();
-                if (model.Length < 1 || model.Length > 30)
+                input.Trim();
+                if (input.Length < 1 || input.Length > 30)
                 {
                     return false;
                 }
@@ -109,12 +111,12 @@ namespace Models
             return true;
         }
 
-        public static bool IntNotNull(string numberAvailable)
+        public static bool IntNotNull(string input)
         {
-            if (numberAvailable != null)
+            if (input != null)
             {
-                numberAvailable.Trim();
-                return IntCanParse(numberAvailable);
+                input.Trim();
+                return IntCanParse(input);
             }
             else
             {
