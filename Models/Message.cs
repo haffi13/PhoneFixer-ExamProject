@@ -46,7 +46,7 @@ namespace Models
         #endregion
 
 
-        #region MessageBox Window Titles
+        #region DialogBox Window Titles
         // Window Titles
         public static string InventoryErrorTitle =
             "Inventory Error";
@@ -55,7 +55,9 @@ namespace Models
         public static string ServiceErrorTitle = 
             "Service Error";
         public static string AddServiceTitle = 
-            "";
+            "Add Service";
+        public static string EditServiceTitle = 
+            "Edit Service";
         #endregion
 
 

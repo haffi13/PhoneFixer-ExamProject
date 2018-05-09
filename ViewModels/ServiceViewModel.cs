@@ -67,16 +67,16 @@ namespace ViewModels
         }
         private void AddService()
         {
-            bool? result = dialogService.ShowDialog(new ServiceDialogViewModel("ServiceTitleAddme" ,dialogService));
+            bool? result = dialogService.ShowDialog(new ServiceDialogViewModel(Message.AddServiceTitle ,dialogService));
             RefreshService();
         }
         private void EditService()
         {
-            //if (SelectedService != null)
-            //{
-            //    bool? result = dialogService.ShowDialog(new ServiceDialogViewModel(SelectedService, dialogService));
-            //    RefreshService();
-            //}
+            if (SelectedService != null)
+            {
+                bool? result = dialogService.ShowDialog(new ServiceDialogViewModel(Message.EditServiceTitle, dialogService, SelectedService));
+                RefreshService();
+            }
         }
         private void DeleteService()
         {

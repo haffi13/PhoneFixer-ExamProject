@@ -10,7 +10,7 @@
         Title="Manage Inventory" 
         SizeToContent="WidthAndHeight"
         MinWidth="500" MinHeight="250"
-        WindowStartupLocation="CenterOwner"
+        WindowStartupLocation="CenterScreen"
         >
     
         <!-- The DataContext is set in the codebehind where it is paired

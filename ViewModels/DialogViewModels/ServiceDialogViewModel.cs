@@ -10,7 +10,7 @@ namespace ViewModels
         private readonly IDialogService dialogService;
         private ServiceValidity serviceValidity;
         private Service service;
-        private Customer selectedCustomer;
+        //private Customer selectedCustomer;
 
         public RelayCommand ConfirmCommand { get; }
         public RelayCommand CancelCommand { get; }
@@ -117,37 +117,63 @@ namespace ViewModels
                     return string.Empty;
                 }
             }
+            set
+            {
+                CustomerName = value;
+                OnPropertyChanged();
+            }
         }
 
        public Customer SelectedCustomer
         {
             // Make bool customer selected for checks.. 
-            get { return selectedCustomer; }
+            get { return service.Customer; }
             set
             {
                 if(value != null)
                 {
-                    selectedCustomer = value;
+                    service.Customer = value;
                     OnPropertyChanged();
                     OnPropertyChanged(nameof(CustomerName));
                 }
             }
         }
-        
-
         #endregion
 
 
         // Make a ctor that takes service as parameter to be able to add
         public ServiceDialogViewModel(string windowTitle, IDialogService dialogService)
         {
-            this.dialogService = dialogService;
             WindowTitle = windowTitle;
-            service = new Service();
-            serviceValidity = new ServiceValidity();
-            selectedCustomer = new Customer();
+            this.dialogService = dialogService;
 
             SelectCustomerCommand = new RelayCommand(SelectCustomer);
+            if(service == null)
+            {
+                service = new Service();
+                serviceValidity = new ServiceValidity();
+                SelectedCustomer = new Customer();
+
+            }
+        }
+
+        public ServiceDialogViewModel(string windowTitle, IDialogService dialogService, Service service)
+        {
+            WindowTitle = windowTitle;
+            this.dialogService = dialogService;
+            this.service = service;
+            SelectCustomerCommand = new RelayCommand(SelectCustomer);
+            serviceValidity = new ServiceValidity();
+
+            ServiceName = service.ServiceName;
+            ServiceDescription = service.ServiceDescription;
+            Price = service.PriceNoTax.ToString();
+            PriceWithTax = service.PriceWithTax.ToString();
+            Repaired = service.Repaired;
+            //CustomerName = service.Customer.CustomerName;
+            //SelectedCustomer = service.Customer;
+            
+            
         }
 
         private void Confirm()
@@ -165,9 +191,8 @@ namespace ViewModels
             if(dialogService.ShowDialog(selectCustomerDialogViewModel) == true)
             {
                 SelectedCustomer = selectCustomerDialogViewModel.SelectedCustomer;
-            }
-             
+                service.Customer = SelectedCustomer;
+            }    
         }
-
     }
 }

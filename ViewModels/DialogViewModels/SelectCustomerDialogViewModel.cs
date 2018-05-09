@@ -43,13 +43,6 @@ namespace ViewModels
 
             ConfirmCommand = new RelayCommand(Confirm);
 
-            RefreshCustomers();
-        }
-
-        
-
-        public void RefreshCustomers()
-        {
             Dictionary<List<Customer>, string> temp = DatabaseReader.GetCustomers();
             string errorMessage = temp.Values.FirstOrDefault();
             if (errorMessage == string.Empty)

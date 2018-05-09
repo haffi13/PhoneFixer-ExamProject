@@ -9,7 +9,7 @@
         Title="Manage Inventory" 
         SizeToContent="WidthAndHeight"
         MinWidth="500" MinHeight="250"
-        WindowStartupLocation="CenterOwner">
+        WindowStartupLocation="CenterScreen">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="2*"/>
