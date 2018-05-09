@@ -121,7 +121,23 @@
             Grid.Row="7"
             Command="{Binding SelectCustomerCommand}"
             />
-        
+
+        <Button Content="{Binding ConfirmButtonContent}"
+                Grid.Column="3"
+                Grid.Row="1"
+                Grid.RowSpan="2"
+                IsDefault="True"
+                Command="{Binding ConfirmCommand}"
+                />
+
+        <Button Content="{Binding CancelButtonContent}"
+                Grid.Column="3"
+                Grid.Row="4"
+                Grid.RowSpan="2"
+                IsCancel="True"
+                Command="{Binding CancelCommand}"
+                />
+
 
     </Grid>
 </Window>

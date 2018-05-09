@@ -52,7 +52,7 @@ namespace ViewModels
 
         private void RefreshService()
         {
-            Dictionary<List<Service>, string> temp = DatabaseReader.GetService();
+            Dictionary<List<Service>, string> temp = DatabaseReader.GetServices();
             string errorMessage = temp.Values.FirstOrDefault();
             if (errorMessage == string.Empty)
             {
