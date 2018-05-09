@@ -29,19 +29,20 @@
 
 ----Service table:
 
+--USE DB2017_b12
 --CREATE TABLE SERVICE (
 --ServiceNumber			INT				PRIMARY KEY		IDENTITY	NOT NULL,
 --ServiceName				NVarchar(50)								NOT NULL	DEFAULT 'SERVICE',
 --ServiceDescription		NVarchar(150)								NULL,
 --PriceNoTax				Decimal(18,2)								NOT NULL	DEFAULT '0.00',
 --PriceWithTax			Decimal(18,2)								NOT NULL	DEFAULT '0.00',
+--DayCreated				Datetime									NOT NULL,
 --DayServiced				Datetime									NOT NULL,
---DayUpdated				Datetime									NOT NULL,
 --Repaired				BIT											NOT NULL	DEFAULT '0',
 --CustomerId				INT				FOREIGN KEY 
 --							REFERENCES CUSTOMER(CustomerId)
 --								ON DELETE NO ACTION,
---);
+--								);
 
 ------Procedures:
 
