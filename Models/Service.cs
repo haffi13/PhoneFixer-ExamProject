@@ -30,7 +30,6 @@ namespace Models
         
         // Int - foregin key - connects the Service to the customer getting the service.
         public int CustomerId { get; set; }
-
-        public Customer Customer { get; set; }
+        
     }
 }

@@ -1,6 +1,8 @@
 ﻿using System;
 using ViewModels.DialogServices;
 using Models;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace ViewModels
 {
@@ -10,7 +12,7 @@ namespace ViewModels
         private readonly IDialogService dialogService;
         private ServiceValidity serviceValidity;
         private Service service;
-        //private Customer selectedCustomer;
+        private Customer selectedCustomer;
 
         public RelayCommand ConfirmCommand { get; }
         public RelayCommand CancelCommand { get; }
@@ -37,7 +39,7 @@ namespace ViewModels
                 if (InputValidity.Varchar50NotNull(value))
                 {
                     service.ServiceName = value;
-                    serviceValidity.nameIsValid = true;
+                    serviceValidity.NameIsValid = true;
                 }
                 OnPropertyChanged();
             }
@@ -64,11 +66,11 @@ namespace ViewModels
                 {
                     price = value;
                     service.PriceNoTax = decimal.Parse(value);
-                    serviceValidity.priceIsValid = true;
+                    serviceValidity.PriceIsValid = true;
                 }
                 else
                 {
-                    serviceValidity.priceIsValid = false;
+                    serviceValidity.PriceIsValid = false;
                     price = string.Empty;
                 }
             }
@@ -83,11 +85,11 @@ namespace ViewModels
                 {
                     priceWithTax = value;
                     service.PriceWithTax = decimal.Parse(value);
-                    serviceValidity.priceIsValid = true;
+                    serviceValidity.PriceIsValid = true;
                 }
                 else
                 {
-                    serviceValidity.priceIsValid = false;
+                    serviceValidity.PriceIsValid = false;
                     priceWithTax = string.Empty;
                 }
             }
@@ -117,22 +119,17 @@ namespace ViewModels
                     return string.Empty;
                 }
             }
-            set
-            {
-                CustomerName = value;
-                OnPropertyChanged();
-            }
         }
 
        public Customer SelectedCustomer
         {
             // Make bool customer selected for checks.. 
-            get { return service.Customer; }
+            get { return selectedCustomer; }
             set
             {
                 if(value != null)
                 {
-                    service.Customer = value;
+                    selectedCustomer = value;
                     OnPropertyChanged();
                     OnPropertyChanged(nameof(CustomerName));
                 }
@@ -170,14 +167,26 @@ namespace ViewModels
             Price = service.PriceNoTax.ToString();
             PriceWithTax = service.PriceWithTax.ToString();
             Repaired = service.Repaired;
-            //CustomerName = service.Customer.CustomerName;
-            //SelectedCustomer = service.Customer;
+            
+            Dictionary<Customer, string> temp = DatabaseReader.GetCustomer(service.CustomerId);
+            if(temp.Values.FirstOrDefault() == string.Empty)
+            {
+                SelectedCustomer = temp.Keys.FirstOrDefault();
+            }
+            else
+            {
+                // Error message could not find selected customer.
+            }
             
             
         }
 
         private void Confirm()
         {
+            if (serviceValidity.ServiceIsValid())
+            {
+
+            }
             CloseRequested.Invoke(this, new DialogCloseRequestedEventArgs(true));
         }
         private void Cancel()
@@ -191,7 +200,6 @@ namespace ViewModels
             if(dialogService.ShowDialog(selectCustomerDialogViewModel) == true)
             {
                 SelectedCustomer = selectCustomerDialogViewModel.SelectedCustomer;
-                service.Customer = SelectedCustomer;
             }    
         }
     }

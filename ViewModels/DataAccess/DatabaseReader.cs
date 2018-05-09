@@ -34,6 +34,7 @@ namespace ViewModels
                         CommandType = CommandType.StoredProcedure
                     };
                     con.Open();
+
                     SqlDataReader reader = cmd.ExecuteReader();
                     if (reader.HasRows)
                     {
@@ -67,7 +68,7 @@ namespace ViewModels
         public static Dictionary<Customer, string> GetCustomer(int customerId)
         {
             Dictionary<Customer, string> ret = new Dictionary<Customer, string>();
-            Customer customer;// = new Customer();
+            Customer customer = new Customer();
             string errorMessage = string.Empty;
 
             using (SqlConnection con = new SqlConnection(connectionString))
@@ -76,23 +77,22 @@ namespace ViewModels
                 {
                     SqlCommand cmd = new SqlCommand("GetCustomer", con)
                     {
-                        CommandType = CommandType.StoredProcedure
+                        CommandType = CommandType.StoredProcedure,
                     };
+                    cmd.Parameters.Add("@CustomerId", SqlDbType.Int).Value = customerId;
                     con.Open();
+
                     SqlDataReader reader = cmd.ExecuteReader();
                     if (reader.HasRows)
                     {
                         while (reader.Read())
                         {
-                            customer = new Customer
-                            {
-                                CustomerID = (int)reader["CustomerId"],
-                                CustomerName = (string)reader["CustomerName"],
-                                CustomerPhone = (string)reader["CustomerPhone"],
-                                Email = (string)reader["Email"],
-                                Subscribed = (bool)reader["Subscribed"],
-                                ItemInService = (bool)reader["ItemInService"]
-                            };
+                            customer.CustomerID = (int)reader["CustomerId"];
+                            customer.CustomerName = (string)reader["CustomerName"];
+                            customer.CustomerPhone = (string)reader["CustomerPhone"];
+                            customer.Email = (string)reader["Email"];
+                            customer.Subscribed = (bool)reader["Subscribed"];
+                            customer.ItemInService = (bool)reader["ItemInService"];
                         }
                     }
                 }
@@ -102,6 +102,7 @@ namespace ViewModels
                 }
             }
             ret.Add(customer, errorMessage);
+            return ret;
         }
 
         public static Dictionary<List<Customer>, string> GetCustomers()
@@ -119,6 +120,7 @@ namespace ViewModels
                         CommandType = CommandType.StoredProcedure
                     };
                     con.Open();
+
                     SqlDataReader reader = cmd.ExecuteReader();
                     if (reader.HasRows)
                     {
@@ -161,6 +163,7 @@ namespace ViewModels
                         CommandType = CommandType.StoredProcedure
                     };
                     con.Open();
+
                     SqlDataReader reader = cmd.ExecuteReader();
                     if (reader.HasRows)
                     {

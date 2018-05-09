@@ -96,8 +96,8 @@ namespace ViewModels
                     cmd.Parameters.Add(new SqlParameter("@CustomerName", customer.CustomerName));
                     cmd.Parameters.Add(new SqlParameter("@CustomerPhone", customer.CustomerPhone));
                     cmd.Parameters.Add(new SqlParameter("@Email", customer.Email));
-                    cmd.Parameters.Add(new SqlParameter("@Subscribed", customer.Subscribed));
-                    cmd.Parameters.Add(new SqlParameter("@ItemInService", customer.ItemInService));
+                    cmd.Parameters.Add(new SqlParameter("@Subscribed", SqlDbType.Bit)).Value = customer.Subscribed;
+                    cmd.Parameters.Add(new SqlParameter("@ItemInService", SqlDbType.Bit)).Value = customer.ItemInService;
 
                     cmd.ExecuteNonQuery();
                     connection.Close();
