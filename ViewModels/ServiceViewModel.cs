@@ -80,19 +80,19 @@ namespace ViewModels
         }
         private void DeleteService()
         {
-            //if (SelectedService != null)
-            //{
-            //    string errorMessage = DatabaseWriter.DeleteService(SelectedService);
-            //    if (errorMessage != string.Empty)
-            //    {
-            //        bool? result = dialogService.ShowDialog
-            //            (new MessageBoxDialogViewModel(errorMessage, Message.ServiceErrorTitle));
-            //    }
-            //    else
-            //    {
-            //        RefreshService();
-            //    }
-            //}
+            if (SelectedService != null)
+            {
+                string errorMessage = DatabaseWriter.DeleteService(SelectedService);
+                if (errorMessage != string.Empty)
+                {
+                    bool? result = dialogService.ShowDialog
+                        (new MessageBoxDialogViewModel(errorMessage, Message.ServiceErrorTitle));
+                }
+                else
+                {
+                    RefreshService();
+                }
+            }
 
         }
         

@@ -225,9 +225,24 @@ namespace ViewModels
                     service.DayServiced = DateTime.Now;
                 }
 
-                if(DatabaseWriter.CreateService(service))
+                string errorMessage = DatabaseWriter.CreateService(service);
+                if (errorMessage == string.Empty)
+                {
+                    CloseRequested.Invoke(this, new DialogCloseRequestedEventArgs(true));
+                }
+                else
+                {
+                    string customMessage;
+                    if (isEdit)
+                    {
+                        customMessage = Message.EditServiceError + errorMessage;
+                    }
+                    else
+                    {
+                        customMessage = Message.AddServiceError + errorMessage;
+                    }
+                }
                 
-                CloseRequested.Invoke(this, new DialogCloseRequestedEventArgs(true));
             }
             else
             {
