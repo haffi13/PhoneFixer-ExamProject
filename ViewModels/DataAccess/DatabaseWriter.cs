@@ -168,7 +168,7 @@ namespace ViewModels
             return ret;
         }
 
-        public static string CreateService(Service service)
+        public static string DeleteService(Service service)
         {
             string ret = string.Empty;
             using (SqlConnection connection = new SqlConnection(connectionString))
@@ -176,11 +176,39 @@ namespace ViewModels
                 try
                 {
                     connection.Open();
-                    SqlCommand cmd = new SqlCommand("CreateService", connection)
+                    SqlCommand cmd = new SqlCommand("DeleteService", connection)
                     {
                         CommandType = CommandType.StoredProcedure
                     };
 
+                    cmd.Parameters.Add(new SqlParameter("@ServiceNumber", service.ServiceNumber));
+
+                    cmd.ExecuteNonQuery();
+                    connection.Close();
+                }
+                catch (SqlException e)
+                {
+                    ret = Message.DeleteServiceError + "\n\n" + e.Message;
+                }
+            }
+            return ret;
+        }
+
+        public static string EditService(Service service)
+        {
+            string ret = string.Empty;
+
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                try
+                {
+                    connection.Open();
+                    SqlCommand cmd = new SqlCommand("EditService", connection)
+                    {
+                        CommandType = CommandType.StoredProcedure
+                    };
+
+                    cmd.Parameters.Add(new SqlParameter("@ServiceNumber", service.ServiceNumber));
                     cmd.Parameters.Add(new SqlParameter("@ServiceName", service.ServiceName));
                     cmd.Parameters.Add(new SqlParameter("@ServiceDescription", service.ServiceDescription));
                     cmd.Parameters.Add(new SqlParameter("@PriceNoTax", service.PriceNoTax));
@@ -188,14 +216,14 @@ namespace ViewModels
                     cmd.Parameters.Add(new SqlParameter("@DayCreated", service.DayCreated));
                     cmd.Parameters.Add(new SqlParameter("@DayServiced", service.DayServiced));
                     cmd.Parameters.Add(new SqlParameter("@Repaired", service.Repaired));
-                    cmd.Parameters.Add(new SqlParameter("@CustomerId", service.CustomerId));
+                    cmd.Parameters.Add(new SqlParameter("@CustomerID", service.CustomerId));
 
                     cmd.ExecuteNonQuery();
                     connection.Close();
                 }
                 catch (SqlException e)
                 {
-                    ret = Message.AddServiceError + "\n\n" + e.Message;
+                    ret = Message.EditServiceError + "\n\n" + e.Message;
                 }
             }
             return ret;
