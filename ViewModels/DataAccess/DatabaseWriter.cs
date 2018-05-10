@@ -1,4 +1,5 @@
 ﻿using Models;
+using System;
 using System.Data;
 using System.Data.SqlClient;
             
@@ -186,7 +187,15 @@ namespace ViewModels
                     cmd.Parameters.Add(new SqlParameter("@PriceNoTax", service.PriceNoTax));
                     cmd.Parameters.Add(new SqlParameter("@PriceWithTax", service.PriceWithTax));
                     cmd.Parameters.Add(new SqlParameter("@DayCreated", service.DayCreated));
-                    cmd.Parameters.Add(new SqlParameter("@DayServiced", service.DayServiced));
+                    
+                    if(service.DayServiced == null)
+                    {
+                        cmd.Parameters.Add(new SqlParameter("@DayServiced", DBNull.Value));
+                    }
+                    else
+                    {
+                        cmd.Parameters.Add(new SqlParameter("@DayServiced", service.DayServiced));
+                    }
                     cmd.Parameters.Add(new SqlParameter("@Repaired", service.Repaired));
                     cmd.Parameters.Add(new SqlParameter("@CustomerId", service.CustomerId));
 

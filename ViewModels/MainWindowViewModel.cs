@@ -44,6 +44,8 @@ namespace ViewModels
             TabViewModels.Add(new SaleViewModel(dialogService)      { Header = "Sale" });
 
             SelectedTab = TabViewModels[0];
+
+            
         }   
     }
 }

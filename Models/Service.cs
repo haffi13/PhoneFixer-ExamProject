@@ -23,7 +23,7 @@ namespace Models
         public DateTime DayCreated { get; set; }
 
         // DateTime
-        public DateTime? DayServiced { get; set; }
+        public DateTime? DayServiced { get; set; } 
 
         // Bool
         public bool Repaired { get; set; }
