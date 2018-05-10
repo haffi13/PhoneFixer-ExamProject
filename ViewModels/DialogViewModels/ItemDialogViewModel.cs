@@ -22,7 +22,7 @@ namespace ViewModels
         private ItemValidity itemValidity;
         private readonly IDialogService dialogService;
 
-        private string price;
+        private string priceNoTax;
         private string priceWithTax;
         private string numberAvailable;
         private string numberAvailableBeforeEdit;
@@ -148,25 +148,25 @@ namespace ViewModels
         // When Price is edited the PriceWithTax gets updated automatically.
         public string Price
         {
-            get { return price; }
+            get { return priceNoTax; }
             set
             {
                 if (InputValidity.DecimalNotNull(value))
                 {
-                    price = value;
-                    item.Price = decimal.Parse(value);
+                    priceNoTax = value;
+                    item.PriceNoTax = decimal.Parse(value);
                     itemValidity.PriceIsValid = true;
                 }
                 else
                 {
-                    price = string.Empty;
+                    priceNoTax = string.Empty;
                     itemValidity.PriceIsValid = false;
                 }
                 OnPropertyChanged();
 
-                if (ValueAddedTax.AddVAT(item.Price) != item.PriceWithTax)
+                if (ValueAddedTax.AddVAT(item.PriceNoTax) != item.PriceWithTax)
                 {
-                    PriceWithTax = ValueAddedTax.AddVAT(item.Price).ToString();
+                    PriceWithTax = ValueAddedTax.AddVAT(item.PriceNoTax).ToString();
                 }
             }
         }
@@ -192,7 +192,7 @@ namespace ViewModels
                 }
                 OnPropertyChanged();
 
-                if (ValueAddedTax.RemoveVAT(item.PriceWithTax) != item.Price)
+                if (ValueAddedTax.RemoveVAT(item.PriceWithTax) != item.PriceNoTax)
                 {
                     Price = ValueAddedTax.RemoveVAT(item.PriceWithTax).ToString();
                 }
@@ -320,7 +320,7 @@ namespace ViewModels
             Barcode = item.Barcode;
             Name = item.Name;
             Description = item.Description;
-            Price = item.Price.ToString();
+            Price = item.PriceNoTax.ToString();
             PriceWithTax = item.PriceWithTax.ToString();
             Category = item.Category;
             Model = item.Model;
@@ -376,7 +376,9 @@ namespace ViewModels
             }
             else
             {
-                // Make visible in UI where input is not valid.
+                // Make visible in UI where input is not valid. 
+                bool? result = dialogService.ShowDialog
+                        (new MessageBoxDialogViewModel(Message.ItemInputError, Message.InventoryErrorTitle));
             }
         }
 

@@ -45,7 +45,7 @@ namespace ViewModels
                                 Barcode = (string)reader["Barcode"],
                                 Name = (string)reader["Name"],
                                 Description = (string)reader["Description"],
-                                Price = (decimal)reader["Price"],
+                                PriceNoTax = (decimal)reader["Price"],
                                 PriceWithTax = (decimal)reader["PriceWithTax"],
                                 Category = reader["Category"].ToString(),
                                 Model = (string)reader["Model"],
