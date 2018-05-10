@@ -27,9 +27,8 @@
 --ItemInService	BIT											NOT NULL	DEFAULT '0',
 --);
 
-----Service table:
+--Service table:
 
---USE DB2017_b12
 --CREATE TABLE SERVICE (
 --ServiceNumber			INT				PRIMARY KEY		IDENTITY	NOT NULL,
 --ServiceName				NVarchar(50)								NOT NULL	DEFAULT 'SERVICE',
@@ -37,12 +36,12 @@
 --PriceNoTax				Decimal(18,2)								NOT NULL	DEFAULT '0.00',
 --PriceWithTax			Decimal(18,2)								NOT NULL	DEFAULT '0.00',
 --DayCreated				Datetime									NOT NULL,
---DayServiced				Datetime									NOT NULL,
+--DayServiced				Datetime									NULL,
 --Repaired				BIT											NOT NULL	DEFAULT '0',
 --CustomerId				INT				FOREIGN KEY 
 --							REFERENCES CUSTOMER(CustomerId)
 --								ON DELETE NO ACTION,
---								);
+--);
 
 ------Procedures:
 
@@ -136,15 +135,18 @@
 --	SELECT CustomerId, CustomerName, CustomerPhone, Email, Subscribed, ItemInService FROM CUSTOMER
 --END
 
--- Get a single customer matching the CustomerId in the parameter given.
+----Get a single customer from the CUSTOMER table:
 
-CREATE PROCEDURE [dbo].[GetCustomer]
-@CustomerId INT
-AS
-BEGIN
-SELECT CustomerId, CustomerName, CustomerPhone, Email, Subscribed, ItemInService FROM CUSTOMER
-WHERE @CustomerId = CustomerId
-END
+--CREATE PROCEDURE GetCustomer
+
+--	@CustomerId INT
+
+--AS
+
+--BEGIN
+--	SELECT CustomerId, CustomerName, CustomerPhone, Email, Subscribed, ItemInService FROM CUSTOMER
+--	WHERE CustomerId = @CustomerId
+--END
 
 ----Update existing customer in CUSROMER table:
 
@@ -210,22 +212,14 @@ END
 
 --AS
 --BEGIN
---	SELECT ServiceNumber, ServiceName, ServiceDescription, PriceNoTax, PriceWithTax, DayServiced, DayUpdated, Repaired, CustomerId FROM SERVICE
+--	SELECT ServiceNumber, ServiceName, ServiceDescription, PriceNoTax, PriceWithTax, DayCreated, DayServiced, Repaired, CustomerId FROM SERVICE
 --END
 
 ----Delete a service from SERVICE table:
 
 --CREATE PROCEDURE DeleteService
 
---	@ServiceNumber INT,
---	@ServiceName NVarchar(30),
---	@ServiceDescription NVarchar(150),
---	@PriceNoTax Decimal(18,2),
---	@PriceWithTax Decimal(8,2),
---	@DayServiced Datetime,
---	@DayUpdated Datetime,
---	@Repaired BIT,
---	@CustomerId INT
+--	@ServiceNumber INT
 
 --AS
 
@@ -243,8 +237,8 @@ END
 --	@ServiceDescription NVarchar(150),
 --	@PriceNoTax Decimal(18,2),
 --	@PriceWithTax Decimal(18,2),
+--	@DayCreated Datetime,
 --	@DayServiced Datetime,
---	@DayUpdated Datetime,
 --	@Repaired BIT,
 --	@CustomerId INT
 
@@ -253,7 +247,7 @@ END
 --BEGIN
 --	SET NOCOUNT ON;
 
---	UPDATE SERVICE SET ServiceName = @ServiceName, PriceNoTax = @PriceNoTax, PriceWithTax = @PriceWithTax, DayServiced = @DayServiced, DayUpdated = @DayUpdated, Repaired = @Repaired, CustomerId = @CustomerId
+--	UPDATE SERVICE SET ServiceName = @ServiceName, PriceNoTax = @PriceNoTax, PriceWithTax = @PriceWithTax, DayCreated = @DayCreated, DayServiced = @DayServiced, Repaired = @Repaired, CustomerId = @CustomerId
 --	WHERE ServiceNumber = @ServiceNumber
 
 --END
@@ -266,8 +260,8 @@ END
 --	@ServiceDescription NVarchar(150),
 --	@PriceNoTax Decimal(18,2),
 --	@PriceWithTax Decimal(18,2),
+--	@DayCreated Datetime,
 --	@DayServiced Datetime,
---	@DayUpdated Datetime,
 --	@Repaired BIT,
 --	@CustomerId  INT
 
@@ -276,8 +270,8 @@ END
 --BEGIN
 --	SET NOCOUNT ON;
 
---	INSERT INTO SERVICE(ServiceName, ServiceDescription, PriceNoTax, PriceWithTax, DayServiced, DayUpdated, Repaired, CustomerId)
---	VALUES(@ServiceName, @ServiceDescription, @PriceNoTax, @PriceWithTax, @DayServiced, @DayUpdated, @Repaired, @CustomerId)
+--	INSERT INTO SERVICE(ServiceName, ServiceDescription, PriceNoTax, PriceWithTax, DayCreated, DayServiced, Repaired, CustomerId)
+--	VALUES(@ServiceName, @ServiceDescription, @PriceNoTax, @PriceWithTax, @DayCreated, @DayServiced, @Repaired, @CustomerId)
 --END
 
 ------One Time Queries:
@@ -307,6 +301,8 @@ END
 
 ----Reset ServiceId to 0:
 
+--DELETE FROM SERVICE;
+
 --DBCC CHECKIDENT ('SERVICE', RESEED, 0)
 
 
@@ -325,9 +321,9 @@ END
 --INSERT INTO SERVICE VALUES (
 --'Skærmreperation', 'Ny skærm til en hvid Iphone 5s', '800.00', '1000.00', '07.05.2018', '08.05.2018', '1', '2')
 --INSERT INTO SERVICE VALUES (
---'Skift ladestik', 'Nyt ladestik til en Samsung Galaxy S6', '800.00', '1000.00', '06.05.2018', '06.05.2018', '0', '1')
+--'Skift ladestik', 'Nyt ladestik til en Samsung Galaxy S6', '800.00', '1000.00', '06.05.2018', NULL, '0', '1')
 --INSERT INTO SERVICE VALUES (
---'Ny skærm til bærbar pc', 'Ny skærm monteres på en alienware bærbar pc', '1600.00', '2000.00', '05.05.2018', '06.05.2018', '0', '3')
+--'Ny skærm til bærbar pc', 'Ny skærm monteres på en alienware bærbar pc', '1600.00', '2000.00', '05.05.2018', NUll, '0', '3')
 --INSERT INTO SERVICE VALUES (
 --'Standard blæser rens bærbar pc', 'Rens blæser på Asus Bærbar pc', '320.00', '400', '05.05.2018', '05.05.2018', '1', '4')
 

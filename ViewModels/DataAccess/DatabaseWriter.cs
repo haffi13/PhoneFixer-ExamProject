@@ -33,7 +33,7 @@ namespace ViewModels
                     cmd.Parameters.Add(new SqlParameter("@Barcode", item.Barcode));
                     cmd.Parameters.Add(new SqlParameter("@Name", item.Name));
                     cmd.Parameters.Add(new SqlParameter("@Description", item.Description));
-                    cmd.Parameters.Add(new SqlParameter("@Price", item.Price));
+                    cmd.Parameters.Add(new SqlParameter("@Price", item.PriceNoTax));
                     cmd.Parameters.Add(new SqlParameter("@PriceWithTax", item.PriceWithTax));
                     cmd.Parameters.Add(new SqlParameter("@Category", item.Category));
                     cmd.Parameters.Add(new SqlParameter("@Model", item.Model));
