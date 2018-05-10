@@ -27,7 +27,7 @@
 --ItemInService	BIT											NOT NULL	DEFAULT '0',
 --);
 
-----Service table:
+--Service table:
 
 --CREATE TABLE SERVICE (
 --ServiceNumber			INT				PRIMARY KEY		IDENTITY	NOT NULL,
@@ -321,9 +321,9 @@
 --INSERT INTO SERVICE VALUES (
 --'Skærmreperation', 'Ny skærm til en hvid Iphone 5s', '800.00', '1000.00', '07.05.2018', '08.05.2018', '1', '2')
 --INSERT INTO SERVICE VALUES (
---'Skift ladestik', 'Nyt ladestik til en Samsung Galaxy S6', '800.00', '1000.00', '06.05.2018', '', '0', '1')
+--'Skift ladestik', 'Nyt ladestik til en Samsung Galaxy S6', '800.00', '1000.00', '06.05.2018', NULL, '0', '1')
 --INSERT INTO SERVICE VALUES (
---'Ny skærm til bærbar pc', 'Ny skærm monteres på en alienware bærbar pc', '1600.00', '2000.00', '05.05.2018', '', '0', '3')
+--'Ny skærm til bærbar pc', 'Ny skærm monteres på en alienware bærbar pc', '1600.00', '2000.00', '05.05.2018', NUll, '0', '3')
 --INSERT INTO SERVICE VALUES (
 --'Standard blæser rens bærbar pc', 'Rens blæser på Asus Bærbar pc', '320.00', '400', '05.05.2018', '05.05.2018', '1', '4')
 
