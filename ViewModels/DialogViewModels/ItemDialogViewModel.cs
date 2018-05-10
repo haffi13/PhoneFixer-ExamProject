@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 using Models;
 using ViewModels.DialogServices;
 
@@ -352,6 +353,7 @@ namespace ViewModels
                         CloseRequested.Invoke(this, new DialogCloseRequestedEventArgs(true));
                     }
 
+                    t.Start();
                     // Only reaches here if adding a item.
                     // Timer...
                     //ItemDialogMessage = Message.AddItemSuccess;

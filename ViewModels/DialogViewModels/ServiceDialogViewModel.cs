@@ -14,10 +14,7 @@ namespace ViewModels
         private Service service;
         private Customer selectedCustomer;
 
-
-        public RelayCommand ConfirmCommand { get; }
-        public RelayCommand CancelCommand { get; }
-        public RelayCommand SelectCustomerCommand { get; }
+        private bool isEdit;
 
         private string windowTitle;
         private string confirmButtonContent;
@@ -25,6 +22,10 @@ namespace ViewModels
 
         private string price;
         private string priceWithTax;
+
+        public RelayCommand ConfirmCommand { get; }
+        public RelayCommand CancelCommand { get; }
+        public RelayCommand SelectCustomerCommand { get; }
 
         public string WindowTitle
         {
@@ -171,6 +172,7 @@ namespace ViewModels
             ConfirmButtonContent = "Add";
             CancelButtonContent = "Close";
             this.dialogService = dialogService;
+            isEdit = false;
 
             SelectCustomerCommand = new RelayCommand(SelectCustomer);
             if(service == null)
@@ -189,6 +191,7 @@ namespace ViewModels
             CancelButtonContent = "Close";
             this.dialogService = dialogService;
             this.service = service;
+            isEdit = true;
             SelectCustomerCommand = new RelayCommand(SelectCustomer);
             serviceValidity = new ServiceValidity();
 
@@ -213,9 +216,23 @@ namespace ViewModels
         {
             if (serviceValidity.ServiceIsValid())
             {
+                if (!isEdit)
+                {
+                    service.DayCreated = DateTime.Now;
+                }
+                if (Repaired)
+                {
+                    service.DayServiced = DateTime.Now;
+                }
 
+                if(DatabaseWriter.CreateService(service))
+                
+                CloseRequested.Invoke(this, new DialogCloseRequestedEventArgs(true));
             }
-            CloseRequested.Invoke(this, new DialogCloseRequestedEventArgs(true));
+            else
+            {
+                // Service not valid
+            }
         }
 
         private void Cancel()
