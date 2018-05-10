@@ -188,7 +188,7 @@ namespace ViewModels
                 }
                 catch (SqlException e)
                 {
-                    ret = Message.DeleteCustomerError + "\n\n" + e.Message;
+                    ret = Message.DeleteServiceError + "\n\n" + e.Message;
                 }
             }
             return ret;
@@ -223,7 +223,7 @@ namespace ViewModels
                 }
                 catch (SqlException e)
                 {
-                    ret = Message.EditCustomerError + "\n\n" + e.Message;
+                    ret = Message.EditServiceError + "\n\n" + e.Message;
                 }
             }
             return ret;
