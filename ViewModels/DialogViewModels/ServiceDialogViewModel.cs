@@ -170,6 +170,7 @@ namespace ViewModels
                 if(value != null)
                 {
                     selectedCustomer = value;
+                    service.CustomerId = selectedCustomer.CustomerID;
                     OnPropertyChanged();
                     OnPropertyChanged(nameof(CustomerName));
                 }
@@ -187,6 +188,8 @@ namespace ViewModels
             this.dialogService = dialogService;
             isEdit = false;
 
+            ConfirmCommand = new RelayCommand(Confirm);
+            CancelCommand = new RelayCommand(Cancel);
             SelectCustomerCommand = new RelayCommand(SelectCustomer);
             if(service == null)
             {
@@ -205,8 +208,11 @@ namespace ViewModels
             this.dialogService = dialogService;
             this.service = service;
             isEdit = true;
-            SelectCustomerCommand = new RelayCommand(SelectCustomer);
             serviceValidity = new ServiceValidity();
+
+            ConfirmCommand = new RelayCommand(Confirm);
+            CancelCommand = new RelayCommand(Cancel);
+            SelectCustomerCommand = new RelayCommand(SelectCustomer);
 
             ServiceName = service.ServiceName;
             ServiceDescription = service.ServiceDescription;
@@ -229,40 +235,59 @@ namespace ViewModels
         {
             if (serviceValidity.ServiceIsValid())
             {
-                if (!isEdit)
-                {
-                    service.DayCreated = DateTime.Now;
-                }
                 if (Repaired)
                 {
                     service.DayServiced = DateTime.Now;
                 }
-
-                string errorMessage = DatabaseWriter.CreateService(service);
-                if (errorMessage == string.Empty)
+                else
                 {
-                    CloseRequested.Invoke(this, new DialogCloseRequestedEventArgs(true));
+                    service.DayServiced = null;
+                }
+
+                if (isEdit)
+                {
+                    EditService();
                 }
                 else
                 {
-                    string customMessage;
-                    if (isEdit)
-                    {
-                        customMessage = Message.EditServiceError + errorMessage;
-                    }
-                    else
-                    {
-                        customMessage = Message.AddServiceError + errorMessage;
-                    }
-                    bool? result = dialogService.ShowDialog
-                        (new MessageBoxDialogViewModel(customMessage, Message.ServiceErrorTitle));
+                    AddService();
                 }
-                
             }
             else
             {
                 bool? result = dialogService.ShowDialog
                         (new MessageBoxDialogViewModel(Message.ServiceInputError, Message.ServiceErrorTitle));
+            }
+        }
+
+        private void AddService()
+        {
+                    service.DayCreated = DateTime.Now;
+            string errorMessage = DatabaseWriter.CreateService(service);
+            if (errorMessage == string.Empty)
+            {
+                CloseRequested.Invoke(this, new DialogCloseRequestedEventArgs(true));
+            }
+            else
+            {
+                bool? result = dialogService.ShowDialog
+                    (new MessageBoxDialogViewModel(errorMessage, Message.ServiceErrorTitle));
+            }
+
+        }
+        // Could make the constructor direct the command to either add or edit depending on which one was used to instanciate
+        // the class.
+        private void EditService()
+        {
+            string errorMessage = DatabaseWriter.EditService(service);
+            if (errorMessage == string.Empty)
+            {
+                CloseRequested.Invoke(this, new DialogCloseRequestedEventArgs(true));
+            }
+            else
+            {
+                bool? result = dialogService.ShowDialog
+                    (new MessageBoxDialogViewModel(errorMessage, Message.ServiceErrorTitle));
             }
         }
 

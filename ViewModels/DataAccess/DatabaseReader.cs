@@ -169,18 +169,29 @@ namespace ViewModels
                     {
                         while (reader.Read())
                         {
-                            Service temp = new Service
+                            Service temp = new Service();
+
+                            temp.ServiceNumber = (int)reader["ServiceNumber"];
+                            temp.ServiceName = (string)reader["ServiceName"];
+                            temp.ServiceDescription = (string)reader["ServiceDescription"];
+                            temp.PriceNoTax = (decimal)reader["PriceNoTax"];
+                            temp.PriceWithTax = (decimal)reader["PriceWithTax"];
+                            temp.DayCreated = DateTime.Parse( reader["DayCreated"].ToString());
+
+                            //temp.DayServiced = (DateTime?)reader["DayServiced"];
+                            var test = reader["DayServiced"];
+                            if(reader["DayServiced"] == DBNull.Value)
                             {
-                                ServiceNumber = (int)reader["ServiceNumber"],
-                                ServiceName = (string)reader["ServiceName"],
-                                ServiceDescription = (string)reader["ServiceDescription"],
-                                PriceNoTax = (decimal)reader["PriceNoTax"],
-                                PriceWithTax = (decimal)reader["PriceWithTax"],
-                                DayCreated = (DateTime)reader["DayCreated"],
-                                DayServiced = (DateTime)reader["DayServiced"],
-                                Repaired = (bool)reader["Repaired"],
-                                CustomerId = (int)reader["CustomerID"]
-                            };
+                                temp.DayServiced = null;
+                            }
+                            else
+                            {
+                                temp.DayServiced = (DateTime?)reader["DayServiced"];
+                            }
+
+                            temp.Repaired = (bool)reader["Repaired"];
+                            temp.CustomerId = (int)reader["CustomerID"];
+                            
                             Services.Add(temp);
                         }
                     }
