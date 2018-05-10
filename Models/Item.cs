@@ -15,7 +15,7 @@ namespace Models
         public string Description { get; set; }
 
         // Decimal(18, 2) not null
-        public decimal Price { get; set; }
+        public decimal PriceNoTax { get; set; }
 
         // Decimal(18,2) not null
         public decimal PriceWithTax { get; set; }

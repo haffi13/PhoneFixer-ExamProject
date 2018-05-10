@@ -20,7 +20,7 @@ namespace ViewModels
         private string confirmButtonContent;
         private string cancelButtonContent;
 
-        private string price;
+        private string priceNoTax;
         private string priceWithTax;
 
         public RelayCommand ConfirmCommand { get; }
@@ -80,25 +80,32 @@ namespace ViewModels
                 if (InputValidity.Varchar150Null(value))
                 {
                     service.ServiceDescription = value;
-                }   
+                }
+                OnPropertyChanged();
             }
         }
 
         public string Price
         {
-            get { return price; }
+            get { return priceNoTax; }
             set
             {
                 if (InputValidity.DecimalNotNull(value))
                 {
-                    price = value;
+                    priceNoTax = value;
                     service.PriceNoTax = decimal.Parse(value);
                     serviceValidity.PriceIsValid = true;
                 }
                 else
                 {
+                    priceNoTax = string.Empty;
                     serviceValidity.PriceIsValid = false;
-                    price = string.Empty;
+                }
+                OnPropertyChanged();
+
+                if(ValueAddedTax.AddVAT(service.PriceNoTax) != service.PriceWithTax)
+                {
+                    PriceWithTax = ValueAddedTax.AddVAT(service.PriceNoTax).ToString();
                 }
             }
         }
@@ -116,8 +123,14 @@ namespace ViewModels
                 }
                 else
                 {
-                    serviceValidity.PriceIsValid = false;
                     priceWithTax = string.Empty;
+                    serviceValidity.PriceIsValid = false;
+                }
+                OnPropertyChanged();
+
+                if(ValueAddedTax.RemoveVAT(service.PriceWithTax) != service.PriceNoTax)
+                {
+                    Price = ValueAddedTax.RemoveVAT(service.PriceWithTax).ToString();
                 }
             }
         }
@@ -248,7 +261,8 @@ namespace ViewModels
             }
             else
             {
-                // Service not valid
+                bool? result = dialogService.ShowDialog
+                        (new MessageBoxDialogViewModel(Message.ServiceInputError, Message.ServiceErrorTitle));
             }
         }
 

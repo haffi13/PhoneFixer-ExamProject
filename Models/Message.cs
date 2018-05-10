@@ -15,6 +15,8 @@ namespace Models
             "The system could not update the item.\nPlease check your input.";
         public static string DeleteItemError =
             "The system could not delete the selected item from the inventory.";
+        public static string ItemInputError = 
+            "The system could not perform that action./nPlease check your input.";
         public static string GetItemError =
             "The system could not retrieve the inventory from the database.";
         public static string DeleteCustomerError =
@@ -31,6 +33,8 @@ namespace Models
             "The system could not add the service.\nPlease check your input.";
         public static string EditServiceError =
             "The system could not edit the service.\nPlease check your input.";
+        public static string ServiceInputError = 
+            "The system could not perform that action.\nPlease check your input.";
         public static string DeleteServiceError =
             "The system could not delete the delected service.";
         #endregion
