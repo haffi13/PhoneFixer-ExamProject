@@ -167,5 +167,66 @@ namespace ViewModels
             }
             return ret;
         }
+
+        public static string DeleteService(Service service)
+        {
+            string ret = string.Empty;
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                try
+                {
+                    connection.Open();
+                    SqlCommand cmd = new SqlCommand("DeleteService", connection)
+                    {
+                        CommandType = CommandType.StoredProcedure
+                    };
+
+                    cmd.Parameters.Add(new SqlParameter("@ServiceNumber", service.ServiceNumber));
+
+                    cmd.ExecuteNonQuery();
+                    connection.Close();
+                }
+                catch (SqlException e)
+                {
+                    ret = Message.DeleteCustomerError + "\n\n" + e.Message;
+                }
+            }
+            return ret;
+        }
+
+        public static string EditService(Service service)
+        {
+            string ret = string.Empty;
+
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                try
+                {
+                    connection.Open();
+                    SqlCommand cmd = new SqlCommand("EditService", connection)
+                    {
+                        CommandType = CommandType.StoredProcedure
+                    };
+
+                    cmd.Parameters.Add(new SqlParameter("@ServiceNumber", service.ServiceNumber));
+                    cmd.Parameters.Add(new SqlParameter("@ServiceName", service.ServiceName));
+                    cmd.Parameters.Add(new SqlParameter("@ServiceDescription", service.ServiceDescription));
+                    cmd.Parameters.Add(new SqlParameter("@PriceNoTax", service.PriceNoTax));
+                    cmd.Parameters.Add(new SqlParameter("@PriceWithTax", service.PriceWithTax));
+                    cmd.Parameters.Add(new SqlParameter("@DayCreated", service.DayCreated));
+                    cmd.Parameters.Add(new SqlParameter("@DayServiced", service.DayServiced));
+                    cmd.Parameters.Add(new SqlParameter("@Repaired", service.Repaired));
+                    cmd.Parameters.Add(new SqlParameter("@CustomerID", service.CustomerId));
+
+                    cmd.ExecuteNonQuery();
+                    connection.Close();
+                }
+                catch (SqlException e)
+                {
+                    ret = Message.EditCustomerError + "\n\n" + e.Message;
+                }
+            }
+            return ret;
+        }
     }
 }
