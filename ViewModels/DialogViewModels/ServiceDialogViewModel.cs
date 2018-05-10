@@ -241,6 +241,8 @@ namespace ViewModels
                     {
                         customMessage = Message.AddServiceError + errorMessage;
                     }
+                    bool? result = dialogService.ShowDialog
+                        (new MessageBoxDialogViewModel(customMessage, Message.ServiceErrorTitle));
                 }
                 
             }
