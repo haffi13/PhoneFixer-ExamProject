@@ -6,7 +6,7 @@
         xmlns:system="clr-namespace:System;assembly=mscorlib"
         xmlns:local="clr-namespace:Views"
         mc:Ignorable="d"
-        Title="Manage Inventory" 
+        Title="{Binding WindowTitle}" 
         SizeToContent="WidthAndHeight"
         MinWidth="500" MinHeight="250"
         WindowStartupLocation="CenterScreen">
