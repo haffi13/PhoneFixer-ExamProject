@@ -16,5 +16,10 @@ namespace ViewModels
 
             sale = Sale.Instance;
         }
+
+        private void CreateNewSale()
+        {
+            sale.NewInstance();
+        }
     }
 }

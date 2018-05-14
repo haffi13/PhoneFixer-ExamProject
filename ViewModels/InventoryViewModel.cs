@@ -44,6 +44,7 @@ namespace ViewModels
         public RelayCommand AddCommand { get; }
         public RelayCommand EditCommand { get; }
         public RelayCommand DeleteCommand { get; }
+        public RelayCommand AddToSaleCommand { get; }
         
         
         public InventoryViewModel(IDialogService dialogService)
@@ -55,6 +56,8 @@ namespace ViewModels
             AddCommand = new RelayCommand(AddItem);
             EditCommand = new RelayCommand(EditItem);
             DeleteCommand = new RelayCommand(DeleteItem);
+            AddToSaleCommand = new RelayCommand(AddToSale);
+
 
             sale = Sale.Instance;
         }
@@ -110,6 +113,15 @@ namespace ViewModels
                 {
                     RefreshInventory();
                 }
+            }
+        }
+
+        // Adds the selected item to the sale.
+        private void AddToSale()
+        {
+            if(selectedItem.NumberAvailable > 0)
+            {
+                sale.Items.Add(selectedItem);
             }
         }
     }

@@ -8,6 +8,7 @@ namespace Models
         // Int
         public int ServiceNumber { get; set; }
 
+        // NVarchar(50)
         public string ServiceName { get; set; }
 
         // Nvarchar(150)

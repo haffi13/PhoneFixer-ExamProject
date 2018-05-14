@@ -12,6 +12,10 @@ namespace Models
         private static Sale instance = null;
         private static readonly object padlock = new object();
 
+        public void NewInstance()
+        {
+            instance = new Sale();
+        }
         public static Sale Instance
         {
             get
@@ -27,7 +31,7 @@ namespace Models
             }
         }
         
-        // The constructor is private so an instance can only be created through Instance
+        // The constructor is private so an instance can only be created through the static Sale properties Instance
         private Sale()
         {
             Items = new List<Item>();

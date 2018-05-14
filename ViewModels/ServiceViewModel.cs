@@ -19,6 +19,7 @@ namespace ViewModels
         public RelayCommand AddCommand { get; }
         public RelayCommand EditCommand { get; }
         public RelayCommand DeleteCommand { get; }
+        public RelayCommand AddToSaleCommand { get; }
 
         public ObservableCollection<Service> Services
         {
@@ -49,6 +50,7 @@ namespace ViewModels
             AddCommand = new RelayCommand(AddService);
             EditCommand = new RelayCommand(EditService);
             DeleteCommand = new RelayCommand(DeleteService);
+            AddToSaleCommand = new RelayCommand(AddToSale);
 
             sale = Sale.Instance;
         }
@@ -96,8 +98,14 @@ namespace ViewModels
                     RefreshService();
                 }
             }
-
         }
-        
+
+        private void AddToSale()
+        {
+            if (!sale.Services.Contains(selectedService))
+            {
+                sale.Services.Add(selectedService);
+            }
+        }
     }
 }
