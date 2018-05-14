@@ -10,11 +10,30 @@ namespace ViewModels
     // Singleton pattern. Accessed from the ServiceViewModel, InventoryViewModel, SaleViewModel
     public sealed class SaleInstance
     {
-        Sale sale;
-        public SaleInstance()
-        {
-            sale = new Sale();
-        }
 
+        private static Sale instance = null;
+        private static readonly object padlock = new object();
+
+        private SaleInstance()
+        {
+
+        }
+        public static Sale Instance
+        {
+            get
+            {
+                lock (padlock)
+                {
+                    if (instance == null)
+                    {
+                        instance = new Sale();
+                    }
+                    return instance;
+                }
+
+            }
+        }
     }
 }
+    
+

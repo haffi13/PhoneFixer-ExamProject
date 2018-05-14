@@ -87,7 +87,7 @@ namespace ViewModels
         {
             if(SelectedItem != null)
             {
-                bool? result = dialogService.ShowDialog(new ItemDialogViewModel(SelectedItem, dialogService));
+                bool? result = dialogService.ShowDialog(new ItemDialogViewModel(dialogService, SelectedItem));
                 RefreshInventory();
             }
         }

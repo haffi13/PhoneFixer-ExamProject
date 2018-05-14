@@ -277,13 +277,12 @@ namespace ViewModels
             ConfirmCommand = new RelayCommand(Confirm);
             CancelCommand = new RelayCommand(Cancel);
 
+            itemValidity = new ItemValidity();
             this.dialogService = dialogService;
 
             if (item == null)
             {
                 item = new Item();
-                itemValidity = new ItemValidity();
-
                 isEdit = false;
 
                 BarcodeIsReadOnly = false;
@@ -295,15 +294,9 @@ namespace ViewModels
         }
 
         // Constructor used when the dialog is to be used to edit a item.
-        public ItemDialogViewModel(Item item, IDialogService dialogService)
+        public ItemDialogViewModel(IDialogService dialogService, Item item) : this(dialogService)
         {
-            ConfirmCommand = new RelayCommand(Confirm);
-            CancelCommand = new RelayCommand(Cancel);
-
-            this.dialogService = dialogService;
             this.item = item;
-            itemValidity = new ItemValidity();
-
             isEdit = true;
 
             BarcodeIsReadOnly = true;

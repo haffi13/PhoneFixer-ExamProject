@@ -183,36 +183,33 @@ namespace ViewModels
         public ServiceDialogViewModel(string windowTitle, IDialogService dialogService)
         {
             WindowTitle = windowTitle;
-            ConfirmButtonContent = "Add";
-            CancelButtonContent = "Close";
+            
             this.dialogService = dialogService;
-            isEdit = false;
 
             ConfirmCommand = new RelayCommand(Confirm);
             CancelCommand = new RelayCommand(Cancel);
             SelectCustomerCommand = new RelayCommand(SelectCustomer);
+            serviceValidity = new ServiceValidity();
+
             if(service == null)
             {
                 service = new Service();
-                serviceValidity = new ServiceValidity();
                 SelectedCustomer = new Customer();
+                isEdit = false;
+
+                ConfirmButtonContent = "Add";
+                CancelButtonContent = "Close";
             }
         }
 
         // Ctor used to construct the view model when editing an existing service.
-        public ServiceDialogViewModel(string windowTitle, IDialogService dialogService, Service service)
+        public ServiceDialogViewModel(string windowTitle, IDialogService dialogService, Service service) : this(windowTitle, dialogService)
         {
-            WindowTitle = windowTitle;
-            ConfirmButtonContent = "Ok";
-            CancelButtonContent = "Close";
-            this.dialogService = dialogService;
             this.service = service;
             isEdit = true;
-            serviceValidity = new ServiceValidity();
-
-            ConfirmCommand = new RelayCommand(Confirm);
-            CancelCommand = new RelayCommand(Cancel);
-            SelectCustomerCommand = new RelayCommand(SelectCustomer);
+         
+            ConfirmButtonContent = "Ok";
+            CancelButtonContent = "Close";
 
             ServiceName = service.ServiceName;
             ServiceDescription = service.ServiceDescription;
@@ -237,9 +234,12 @@ namespace ViewModels
             {
                 if (Repaired)
                 {
-                    service.DayServiced = DateTime.Now;
+                    if(service.DayServiced == null)
+                    {
+                        service.DayServiced = DateTime.Now;
+                    }
                 }
-                else
+                else // getur þetta ekki dílað við nulls  ?? 
                 {
                     service.DayServiced = null;
                 }
