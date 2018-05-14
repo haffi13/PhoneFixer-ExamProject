@@ -62,6 +62,8 @@ namespace Models
             "Add Service";
         public static string EditServiceTitle = 
             "Edit Service";
+        public static string SaleErrorTitle =
+            "Sale Error";
         #endregion
 
 

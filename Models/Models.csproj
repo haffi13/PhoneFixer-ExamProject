@@ -47,7 +47,6 @@
     <Compile Include="Item.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Sale.cs" />
-    <Compile Include="SaleManager.cs" />
     <Compile Include="Service.cs" />
     <Compile Include="ServiceValidity.cs" />
     <Compile Include="ValueAddedTax.cs" />

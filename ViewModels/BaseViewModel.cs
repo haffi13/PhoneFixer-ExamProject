@@ -10,7 +10,7 @@ namespace ViewModels
         public event PropertyChangedEventHandler PropertyChanged;
 
         // ([CallerMemberName]) gives OnPropertyChanged the name of the calling member
-        // without it having to be passed as a parameter to the method.
+        // without it having to be passed as a argument to the method.
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));

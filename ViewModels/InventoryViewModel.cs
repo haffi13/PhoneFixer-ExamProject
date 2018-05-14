@@ -121,7 +121,16 @@ namespace ViewModels
         {
             if(selectedItem.NumberAvailable > 0)
             {
-                SaleManager.AddItem(selectedItem);
+                string errorMessage = SaleManager.AddItem(selectedItem);
+                if(errorMessage != string.Empty)
+                {
+                    bool? result = dialogService.ShowDialog
+                        (new MessageBoxDialogViewModel(errorMessage, Message.InventoryErrorTitle));
+                }
+                else
+                {
+                    RefreshInventory();
+                }
             }
         }
     }
