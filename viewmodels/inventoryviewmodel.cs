@@ -121,7 +121,7 @@ namespace ViewModels
         {
             if(selectedItem.NumberAvailable > 0)
             {
-                sale.Items.Add(selectedItem);
+                SaleManager.AddItem(selectedItem);
             }
         }
     }
