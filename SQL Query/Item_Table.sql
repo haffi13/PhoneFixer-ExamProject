@@ -43,6 +43,40 @@
 --								ON DELETE NO ACTION,
 --);
 
+----Sale Table:
+
+--CREATE TABLE SALE (
+--SaleId				INT				PRIMARY KEY		IDENTITY		NOT NULL,
+--TimeOfSale			Datetime										NOT NULL,
+--PriceWithTax		Decimal(18,2)									NOT NULL,
+--TaxOnSale			Decimal(18,2)									NOT NULL,
+--Company				BIT												NOT NULL,
+--CreditCard			BIT												NOT NULL,
+--DiscountPercentage	INT												NOT NULL,
+--);
+
+----Junction table SALE and ITEM tables.
+
+--CREATE TABLE SALEITEM (
+--SaleId		INT					FOREIGN KEY
+--			REFERENCES SALE(SaleId)
+--				ON DELETE NO ACTION,
+--Barcode		NVarchar(15)		FOREIGN KEY
+--			REFERENCES ITEM(Barcode)
+--				ON DELETE NO ACTION,
+--);
+
+----Junction table SALE and SERVICE tables.
+
+--CREATE TABLE SALESERVICE (
+--SaleId		INT		FOREIGN KEY
+--			REFERENCES SALE(SaleId)
+--				ON DELETE NO ACTION,
+--ServiceId	INT		FOREIGN KEY
+--			REFERENCES SERVICE(ServiceNumber)
+--				ON DELETE NO ACTION,
+--);
+
 ------Procedures:
 
 ----Get ALL items in the item table:
