@@ -78,7 +78,7 @@ namespace ViewModels
         {
             if(SelectedCustomer != null)
             {
-                bool? result = dialogService.ShowDialog(new CustomerDialogViewModel(SelectedCustomer, dialogService));
+                bool? result = dialogService.ShowDialog(new CustomerDialogViewModel(dialogService, SelectedCustomer));
                 RefreshCustomers();
             }
         }

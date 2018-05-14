@@ -124,12 +124,10 @@ namespace ViewModels
 
         public CustomerDialogViewModel(IDialogService dialogService)
         {
-            this.dialogService = dialogService;
-            
-            isEdit = false;
-
             ConfirmCommand = new RelayCommand(Confirm);
             CancelCommand = new RelayCommand(Cancel);
+
+            this.dialogService = dialogService;
 
             if(customer == null)
             {
@@ -140,15 +138,10 @@ namespace ViewModels
                 CancelButtonContent = "Close";
             }
         }
-        public CustomerDialogViewModel(Customer customer ,IDialogService dialogService)
+        public CustomerDialogViewModel(IDialogService dialogService, Customer customer) : this(dialogService)
         {
-            this.dialogService = dialogService;
             this.customer = customer;
-
             isEdit = true;
-
-            ConfirmCommand = new RelayCommand(Confirm);
-            CancelCommand = new RelayCommand(Cancel);
 
             confirmButtonContent = "OK";
             CancelButtonContent = "Cancel";
