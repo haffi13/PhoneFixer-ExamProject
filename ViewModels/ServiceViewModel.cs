@@ -10,6 +10,7 @@ namespace ViewModels
     {
         private ObservableCollection<Service> services = new ObservableCollection<Service>();
         private Service selectedService;
+        private Sale sale;
 
         private readonly IDialogService dialogService;
 
@@ -48,6 +49,8 @@ namespace ViewModels
             AddCommand = new RelayCommand(AddService);
             EditCommand = new RelayCommand(EditService);
             DeleteCommand = new RelayCommand(DeleteService);
+
+            sale = Sale.Instance;
         }
 
         private void RefreshService()

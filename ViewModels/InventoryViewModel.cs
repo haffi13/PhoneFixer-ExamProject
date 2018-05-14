@@ -10,6 +10,7 @@ namespace ViewModels
     {
         private ObservableCollection<Item> inventory = new ObservableCollection<Item>();
         private Item selectedItem;
+        private Sale sale;
 
         // Keeps an instance of the DialogService instanciated at startup.
         private readonly IDialogService dialogService;
@@ -54,6 +55,8 @@ namespace ViewModels
             AddCommand = new RelayCommand(AddItem);
             EditCommand = new RelayCommand(EditItem);
             DeleteCommand = new RelayCommand(DeleteItem);
+
+            sale = Sale.Instance;
         }
 
         // Populates the datagrid with all the items in the Item table in the database.

@@ -6,9 +6,29 @@ using System.Threading.Tasks;
 
 namespace Models
 {
-    public class Sale
+    public sealed class Sale
     {
-        public Sale()
+        // Add comments to explain the padlock -----------------------------------------------------------------------------------
+        private static Sale instance = null;
+        private static readonly object padlock = new object();
+
+        public static Sale Instance
+        {
+            get
+            {
+                lock (padlock)
+                {
+                    if(instance == null)
+                    {
+                        instance = new Sale();
+                    }
+                    return instance;
+                }
+            }
+        }
+        
+        // The constructor is private so an instance can only be created through Instance
+        private Sale()
         {
             Items = new List<Item>();
             Services = new List<Service>();
