@@ -27,6 +27,7 @@ namespace Models
         public bool Company { get; set; }
         // DateTime
         public DateTime TimeOfSale { get; set; }
+        // Percentage
         public double DiscountPercent { get; set; }
         // Decimal(18,2) - the payment amount
         public decimal Payment { get; set; }

@@ -83,7 +83,9 @@
                 Grid.Column="9"
                 Grid.Row="5"
                 Margin="10"
-                Content="+" 
+                Content="+"
+                HorizontalContentAlignment="Center"
+                VerticalContentAlignment="Center"
                 FontSize="70"
                 Command="{Binding AddToSaleCommand}"/>
     </Grid>
