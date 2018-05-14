@@ -8,8 +8,6 @@ namespace Models
 {
     public static class InputValidity
     {
-        // Might want more generic names, like varchar20 check
-        // Might fit better if we want to reuse these validity checks.
         public static bool Varchar15NotNull(string input)
         {
             if (input != null)
@@ -71,10 +69,17 @@ namespace Models
                 input.Trim();
                 return DecimalCanParse(input);
             }
-            else
+            return false;
+        }
+
+        public static bool DoubleNotNull(string input)
+        {
+            if(input != null)
             {
-                return false;
+                input.Trim();
+                return DoubleCanParse(input);
             }
+            return false;
         }
 
         public static bool Varchar20NotNull(string input)
@@ -118,10 +123,7 @@ namespace Models
                 input.Trim();
                 return IntCanParse(input);
             }
-            else
-            {
-                return false;
-            }
+            return false;
         }
 
         private static bool DecimalCanParse(string input)
@@ -132,6 +134,11 @@ namespace Models
         private static bool IntCanParse(string input)
         {
             return int.TryParse(input, out int result);
+        }
+
+        private static bool DoubleCanParse(string input)
+        {
+            return double.TryParse(input, out double result);
         }
     }
 }
