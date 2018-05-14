@@ -50,9 +50,9 @@
 --TimeOfSale			Datetime										NOT NULL,
 --PriceWithTax		Decimal(18,2)									NOT NULL,
 --TaxOnSale			Decimal(18,2)									NOT NULL,
---Company				BIT												NOT NULL,
---CreditCard			BIT												NOT NULL,
---DiscountPercentage	INT												NOT NULL,
+--Company				BIT												NULL,
+--CreditCard			BIT												NULL,
+--DiscountPercentage	INT												NULL,
 --);
 
 ----Junction table SALE and ITEM tables.
