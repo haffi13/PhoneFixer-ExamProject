@@ -12,6 +12,7 @@ namespace ViewModels
         private Item selectedItem;
         private Service selectedService;
         private Sale sale;
+        private SaleManager saleManager;
 
         private string priceWithTax;
         private string priceWithoutTax;
@@ -27,7 +28,7 @@ namespace ViewModels
 
         public ObservableCollection<Item> Items
         {
-            get { return items; }
+            get { return new ObservableCollection<Item>(sale.Items); }
             set
             {
                 items = new ObservableCollection<Item>(sale.Items);
@@ -105,6 +106,7 @@ namespace ViewModels
             RemoveServiceCommand = new RelayCommand(RemoveService);
 
             sale = Sale.Instance;
+            saleManager = SaleManager.Instance;
         }
 
         private void Confirm()
@@ -123,7 +125,7 @@ namespace ViewModels
         {
             if(selectedItem != null)
             {
-                string errorMessage = SaleManager.RemoveItem(selectedItem);
+                string errorMessage = saleManager.RemoveItem(selectedItem);
                 if(errorMessage != string.Empty)
                 {
                     bool? result = dialogService.ShowDialog
@@ -131,14 +133,14 @@ namespace ViewModels
                 }
                 else
                 {
-                    // Refresh ?
+                    OnPropertyChanged(nameof(Items));
                 }
             }
         }
 
         private void RemoveService()
         {
-            SaleManager.RemoveService(selectedService);
+            saleManager.RemoveService(selectedService);
         }
     }
 }

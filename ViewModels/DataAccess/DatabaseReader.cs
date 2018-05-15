@@ -169,17 +169,15 @@ namespace ViewModels
                     {
                         while (reader.Read())
                         {
-                            Service temp = new Service();
-
-                            temp.ServiceNumber = (int)reader["ServiceNumber"];
-                            temp.ServiceName = (string)reader["ServiceName"];
-                            temp.ServiceDescription = (string)reader["ServiceDescription"];
-                            temp.PriceNoTax = (decimal)reader["PriceNoTax"];
-                            temp.PriceWithTax = (decimal)reader["PriceWithTax"];
-                            temp.DayCreated = DateTime.Parse( reader["DayCreated"].ToString());
-
-                            //temp.DayServiced = (DateTime?)reader["DayServiced"];
-                            var test = reader["DayServiced"];
+                            Service temp = new Service
+                            {
+                                ServiceNumber = (int)reader["ServiceNumber"],
+                                ServiceName = (string)reader["ServiceName"],
+                                ServiceDescription = (string)reader["ServiceDescription"],
+                                PriceNoTax = (decimal)reader["PriceNoTax"],
+                                PriceWithTax = (decimal)reader["PriceWithTax"],
+                                DayCreated = DateTime.Parse(reader["DayCreated"].ToString())
+                            };
                             if(reader["DayServiced"] == DBNull.Value)
                             {
                                 temp.DayServiced = null;

@@ -9,42 +9,36 @@
              >
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="0.25*"/>
+            <ColumnDefinition Width="0.05*"/>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="0.1*"/>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="0.25*"/>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="0.25*"/>
+            <ColumnDefinition Width="0.05*"/>
+            
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="0.25*"/>
+            <RowDefinition Height="0.05*"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="0.25*"/>
+            <RowDefinition Height="0.05*"/>
         </Grid.RowDefinitions>
 
-        <ListBox
-            Grid.Column="5"
-            Grid.ColumnSpan="3"
-            Grid.Row="1"
-            Grid.RowSpan="5"
-            />
+        <Grid Grid.Column="1"
+              Grid.ColumnSpan="2"
+              Grid.Row="1"
+              Grid.RowSpan="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="0.3*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
 
-
-        <DataGrid
-            x:Name="InventoryDataGrid"
-            Grid.Column="1"
-            
-            Grid.Row="1"
-            Grid.RowSpan="5"
+            <DataGrid
+            Grid.Column="0"
+            Grid.Row="0"
             Margin="10"
             AutoGenerateColumns="True"
             CanUserReorderColumns="True"
@@ -52,47 +46,106 @@
             CanUserResizeRows="False"
             CanUserSortColumns="True"
             IsReadOnly="True"
-            ItemsSource="{Binding Inventory}"
+            ItemsSource="{Binding Items}"
             SelectedItem="{Binding SelectedItem}"
             />
 
+            <DataGrid
+            Grid.Column="0"
+            Grid.Row="1"
+            Margin="10"
+            AutoGenerateColumns="True"
+            CanUserReorderColumns="True"
+            CanUserResizeColumns="True" 
+            CanUserResizeRows="False"
+            CanUserSortColumns="True"
+            IsReadOnly="True"
+            ItemsSource="{Binding Services}"
+            SelectedItem="{Binding SelectedService}"
+            />
+            <Grid 
+                Grid.Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
 
-
-        <Button 
-                Grid.Column="9"
+                <Button
+                Content="Remove"
+                Grid.Column="1"
                 Grid.Row="1"
-                Margin="10,16,10,4"
-                Content="Add" 
-                FontSize="25"
-                FontWeight="DemiBold"
-                Command="{Binding AddCommand}"
+                VerticalAlignment="Stretch"
+                Command="{Binding RemoveItemCommand}"
                 />
-        <Button 
-                Grid.Column="9"
-                Grid.Row="2"
-                Margin="10"
-                Content="Edit" 
-                FontSize="25"
-                FontWeight="DemiBold"
-                Command="{Binding EditCommand}"
+                
+            </Grid>
+            <Grid 
+                Grid.Row="1" 
+                Grid.Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                
+                <Button
+                Content="Remove"
+                Grid.Column="1"
+                Grid.Row="1"
+                VerticalAlignment="Stretch"
+                Command="{Binding RemoveServiceBinding}"
                 />
-        <Button 
-                Grid.Column="9"
-                Grid.Row="3"
-                Margin="10"
-                Content="Delete" 
-                FontSize="25"
-                FontWeight="DemiBold"
-                Command="{Binding DeleteCommand}"
-            />
+                
+            </Grid>
+            
+            </Grid>
 
-        <Button 
-                Grid.Column="9"
-                Grid.Row="5"
-                Margin="10"
-                Content="+" 
-                FontSize="70"
-                Command="{Binding AddToSaleCommand}"
-            />
+
+        <Grid
+            Grid.Column="3"
+            Grid.Row="1"
+            Grid.RowSpan="2"
+            >
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <ListBox
+                Grid.Column="0"
+                Grid.RowSpan="3"
+                Margin='10'>
+                
+            </ListBox>
+
+            <Grid
+                Grid.Row="3">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+
+                </Grid.ColumnDefinitions>
+
+                <Button
+                Content="Confirm"
+                Grid.Column="0"
+                VerticalAlignment="Center"
+                Padding="0,30"
+                Margin="10,0"
+                    Command="{Binding ConfirmCommand}"
+                    />
+                <Button
+                Content="Cancel"
+                Grid.Column="1"
+                VerticalAlignment="Center"
+                Padding="0,30"
+                Margin="10,0"
+                    Command="{Binding CancelCommand}"
+                    />
+            </Grid>
+        </Grid>
     </Grid>
 </UserControl>

@@ -85,7 +85,7 @@ namespace ViewModels
         }
 
         // Message that appears at the top of the dialog box.
-        public string ItemDialogMessage
+        public string ItemDialogMessage // Retire this unless we have time...
         {
             get { return itemDialogMessage; }
             set
@@ -101,16 +101,22 @@ namespace ViewModels
             get { return item.Barcode; }
             set
             {
-                if (InputValidity.Varchar15NotNull(value))
+                if (InputValidity.Varchar15NotNull(value) || value == string.Empty)
                 {
                     item.Barcode = value;
-                    itemValidity.BarcodeIsValid = true;
+                    if(value != string.Empty)
+                    {
+                        itemValidity.BarcodeIsValid = true;
+                    }
+                    else
+                    {
+                        itemValidity.BarcodeIsValid = false;
+                    }
                 }
                 else
                 {
                     itemValidity.BarcodeIsValid = false;
                 }
-                OnPropertyChanged();
             }
         }
         public string Name
@@ -118,16 +124,22 @@ namespace ViewModels
             get { return item.Name; }
             set
             {
-                if (InputValidity.Varchar50NotNull(value))
+                if (InputValidity.Varchar50NotNull(value) || value == string.Empty)
                 {
                     item.Name = value;
-                    itemValidity.NameIsValid = true;
+                    if(value != string.Empty)
+                    {
+                        itemValidity.NameIsValid = true;
+                    }
+                    else
+                    {
+                        itemValidity.NameIsValid = false;
+                    }
                 }
                 else
                 {
                     itemValidity.NameIsValid = false;
                 }
-                OnPropertyChanged();
             }
         }
         public string Description
@@ -139,7 +151,6 @@ namespace ViewModels
                 {
                     item.Description = value;
                 }
-                OnPropertyChanged();
             }
         }
 
@@ -151,11 +162,19 @@ namespace ViewModels
             get { return priceNoTax; }
             set
             {
-                if (InputValidity.DecimalNotNull(value))
+                if (InputValidity.DecimalNotNull(value) || value == string.Empty)
                 {
-                    priceNoTax = value;
-                    item.PriceNoTax = decimal.Parse(value);
-                    itemValidity.PriceIsValid = true;
+                    if(value != string.Empty)
+                    {
+                        priceNoTax = value;
+                        item.PriceNoTax = decimal.Parse(value);
+                        itemValidity.PriceIsValid = true;
+                    }
+                    else
+                    {
+                        priceNoTax = string.Empty;
+                        itemValidity.PriceIsValid = false;
+                    }
                 }
                 else
                 {
@@ -179,11 +198,19 @@ namespace ViewModels
             get { return priceWithTax; }
             set
             {
-                if (InputValidity.DecimalNotNull(value))
+                if (InputValidity.DecimalNotNull(value) || value == string.Empty)
                 {
-                    priceWithTax = value;
-                    item.PriceWithTax = decimal.Parse(value);
-                    itemValidity.PriceIsValid = true;
+                    if(value != string.Empty)
+                    {
+                        priceWithTax = value;
+                        item.PriceWithTax = decimal.Parse(value);
+                        itemValidity.PriceIsValid = true;
+                    }
+                    else
+                    {
+                        priceWithTax = string.Empty;
+                        itemValidity.PriceIsValid = false;
+                    }
                 }
                 else
                 {
@@ -204,16 +231,22 @@ namespace ViewModels
             get { return item.Category; }
             set
             {
-                if (InputValidity.Varchar20NotNull(value))
+                if (InputValidity.Varchar20NotNull(value) || value == string.Empty)
                 {
                     item.Category = value;
-                    itemValidity.CategoryIsValid = true;
+                    if(value != string.Empty)
+                    {
+                        itemValidity.CategoryIsValid = true;
+                    }
+                    else
+                    {
+                        itemValidity.CategoryIsValid = false;
+                    }
                 }
                 else
                 {
                     itemValidity.CategoryIsValid = false;
                 }
-                OnPropertyChanged();
             }
         }
         public string Model
@@ -221,16 +254,22 @@ namespace ViewModels
             get { return item.Model; }
             set
             {
-                if (InputValidity.Varchar30NotNull(value))
+                if (InputValidity.Varchar30NotNull(value) || value == string.Empty)
                 {
                     item.Model = value;
-                    itemValidity.ModelIsValid = true;
+                    if(value != string.Empty)
+                    {
+                        itemValidity.ModelIsValid = true;
+                    }
+                    else
+                    {
+                        itemValidity.ModelIsValid = false;
+                    }
                 }
                 else
                 {
                     itemValidity.ModelIsValid = false;
                 }
-                OnPropertyChanged();
             }
         }
 
@@ -244,7 +283,6 @@ namespace ViewModels
             set
             {
                 item.LastTimeAdded = value;
-                OnPropertyChanged();
             }
         }
 
@@ -255,11 +293,14 @@ namespace ViewModels
             get { return numberAvailable; }
             set
             {
-                if (InputValidity.IntNotNull(value))
+                if (InputValidity.IntNotNull(value) || value == string.Empty)
                 {
-                    numberAvailable = value;
-                    item.NumberAvailable = int.Parse(value);
-                    itemValidity.NumberAvailableIsValid = true;
+                    if(value != string.Empty)
+                    {
+                        numberAvailable = value;
+                        item.NumberAvailable = int.Parse(value);
+                        itemValidity.NumberAvailableIsValid = true;
+                    }
                 }
                 else
                 {

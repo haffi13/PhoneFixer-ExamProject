@@ -9,10 +9,6 @@ namespace Models
         private static Sale instance = null;
         private static readonly object padlock = new object();
 
-        public void NewInstance()
-        {
-            instance = new Sale();
-        }
         public static Sale Instance
         {
             get

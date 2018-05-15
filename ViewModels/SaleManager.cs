@@ -9,12 +9,30 @@ namespace ViewModels
     // This should be in the ViewModel layer where it can access the database.
     // Then it's possible to update the inventory when items are added to a sale.
 
-    public static class SaleManager
+    public sealed class SaleManager//singlt
     {
         // Decided to do this instead of creating a new instance.
         // As all relevant classes have access to the same instance of Sale it might be better
         // to clear all the values instead of creating a new instance as it might be problematic
         // to let the other classes know there is a new instance if one creates it.
+
+        private static SaleManager instance = null;
+        private static readonly object padlock = new object();
+
+        public static SaleManager Instance
+        {
+            get
+            {
+                lock (padlock)
+                {
+                    if(instance == null)
+                    {
+                        instance = new SaleManager();
+                    }
+                    return instance;
+                }
+            }
+        }
 
         public static void ClearSale()
         {
@@ -30,7 +48,7 @@ namespace ViewModels
             sale.DiscountPercent = 0;
         }
 
-        public static void CancelSale()
+        public void CancelSale()
         {
             Sale sale = Sale.Instance;
             foreach (var item in sale.Items)
@@ -44,7 +62,7 @@ namespace ViewModels
             ClearSale();
         }
 
-        public static string AddItem(Item item)
+        public string AddItem(Item item)
         {
             Sale sale = Sale.Instance;
             sale.Items.Add(item);
@@ -55,7 +73,7 @@ namespace ViewModels
             return DatabaseWriter.UpdateItem(item);
         }
 
-        public static string RemoveItem(Item item)
+        public string RemoveItem(Item item)
         {
             Sale sale = Sale.Instance;
             if (sale.Items.Contains(item))
@@ -71,14 +89,14 @@ namespace ViewModels
             }
         }
 
-        public static void AddService(Service service)
+        public void AddService(Service service)
         {
             Sale sale = Sale.Instance;
             sale.Services.Add(service);
             sale.PriceWithTax += service.PriceWithTax;
         }
 
-        public static void RemoveService(Service service)
+        public void RemoveService(Service service)
         {
             Sale sale = Sale.Instance;
             if (sale.Services.Contains(service))
@@ -88,7 +106,7 @@ namespace ViewModels
             }
         }
 
-        public static void FinalizeSale(bool company, bool creditCard, double discountPercent)
+        public void FinalizeSale(bool company, bool creditCard, double discountPercent)
         {
             Sale sale = Sale.Instance;
             sale.TimeOfSale = DateTime.Now;

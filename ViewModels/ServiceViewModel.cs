@@ -11,6 +11,7 @@ namespace ViewModels
         private ObservableCollection<Service> services = new ObservableCollection<Service>();
         private Service selectedService;
         private Sale sale;
+        private SaleManager saleManager;
 
         private readonly IDialogService dialogService;
 
@@ -53,6 +54,7 @@ namespace ViewModels
             AddToSaleCommand = new RelayCommand(AddToSale);
 
             sale = Sale.Instance;
+            saleManager = SaleManager.Instance;
         }
 
         private void RefreshService()
@@ -104,7 +106,7 @@ namespace ViewModels
         {
             if (!sale.Services.Contains(selectedService))
             {
-                SaleManager.AddService(selectedService);
+                saleManager.AddService(selectedService);
             }
         }
     }
