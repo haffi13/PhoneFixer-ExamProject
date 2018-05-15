@@ -51,13 +51,19 @@ namespace ViewModels
         public void CancelSale()
         {
             Sale sale = Sale.Instance;
-            foreach (var item in sale.Items)
+            if(sale.Items.Count > 0)
             {
-                RemoveItem(item);
+                for (int i = 0; i < sale.Items.Count; i++)
+                {
+                    RemoveItem(sale.Items[i]);
+                }
             }
-            foreach (var service in sale.Services)
+            if(sale.Services.Count > 0)
             {
-                RemoveService(service);
+                for (int i = 0; i < sale.Services.Count; i++)
+                {
+                    RemoveService(sale.Services[i]);
+                }
             }
             ClearSale();
         }
@@ -80,7 +86,7 @@ namespace ViewModels
             {
                 sale.Items.Remove(item);
                 sale.PriceWithTax -= item.PriceWithTax;
-                item.NumberAvailable += 1;
+                item.NumberAvailable += 1;              // Do not do this here, same for service.
                 return DatabaseWriter.UpdateItem(item);
             }
             else
@@ -109,11 +115,12 @@ namespace ViewModels
         public void FinalizeSale(bool company, bool creditCard, double discountPercent)
         {
             Sale sale = Sale.Instance;
-            sale.TimeOfSale = DateTime.Now;
-            sale.TaxOnSale = sale.PriceWithTax - ValueAddedTax.RemoveVAT(sale.PriceWithTax);
-            sale.Company = company;
-            sale.CreditCard = creditCard;
-            sale.DiscountPercent = discountPercent;
+            SaleValidity saleValidity = new SaleValidity();
+            if (saleValidity.SaleIsValid())
+            {
+                sale.TimeOfSale = DateTime.Now;
+                sale.TaxOnSale = sale.PriceWithTax - ValueAddedTax.RemoveVAT(sale.PriceWithTax);
+            }
         }
     }
 }

@@ -22,40 +22,50 @@ namespace ViewModels
 
         public RelayCommand ConfirmCommand { get; }
         public RelayCommand CancelCommand { get; }
-        public RelayCommand RemoveServiceCommand { get; }
-        public RelayCommand RemoveItemCommand { get; }
+        public RelayCommand RemoveProductCommand{ get; }
         
-
         public ObservableCollection<Item> Items
         {
             get { return new ObservableCollection<Item>(sale.Items); }
-            set
-            {
-                items = new ObservableCollection<Item>(sale.Items);
-                OnPropertyChanged();
-            }
         }
 
         public ObservableCollection<Service> Services
         {
-            get { return services; }
-            set
-            {
-                services = new ObservableCollection<Service>(sale.Services);
-                OnPropertyChanged();
-            }
+            get { return new ObservableCollection<Service>(sale.Services); }
         }
 
         public Item SelectedItem
         {
             get { return selectedItem; }
-            set { selectedItem = value; }
+            set
+            {
+                if(value != null)
+                {
+                    selectedItem = value;
+                    selectedService = null;
+                }
+                else
+                {
+                    selectedItem = null;
+                }
+            }
         }
 
         public Service SelectedService
         {
             get { return selectedService; }
-            set { selectedService = value; }
+            set
+            {
+                if(value != null)
+                {
+                    selectedService = value;
+                    SelectedItem = null;
+                }
+                else
+                {
+                    selectedService = null;
+                }
+            }
         }
 
         #region Public Properties
@@ -102,8 +112,8 @@ namespace ViewModels
 
             ConfirmCommand = new RelayCommand(Confirm);
             CancelCommand = new RelayCommand(Cancel);
-            RemoveItemCommand = new RelayCommand(RemoveItem);
-            RemoveServiceCommand = new RelayCommand(RemoveService);
+            RemoveProductCommand = new RelayCommand(RemoveProduct);
+            
 
             sale = Sale.Instance;
             saleManager = SaleManager.Instance;
@@ -111,19 +121,21 @@ namespace ViewModels
 
         private void Confirm()
         {
-            // Validity check
+            
 
 
         }
 
         private void Cancel()
         {
-            // Create new sale instance.
+            saleManager.CancelSale();
+            OnPropertyChanged(nameof(Items));
+            OnPropertyChanged(nameof(Services));
         }
 
-        private void RemoveItem()
+        private void RemoveProduct()
         {
-            if(selectedItem != null)
+            if(SelectedItem != null)
             {
                 string errorMessage = saleManager.RemoveItem(selectedItem);
                 if(errorMessage != string.Empty)
@@ -136,11 +148,20 @@ namespace ViewModels
                     OnPropertyChanged(nameof(Items));
                 }
             }
+            else if(SelectedService != null)
+            {
+                saleManager.RemoveService(selectedService);
+                OnPropertyChanged(nameof(Services));
+            }
         }
 
         private void RemoveService()
         {
-            saleManager.RemoveService(selectedService);
+            if(SelectedService != null)
+            {
+                saleManager.RemoveService(selectedService);
+                OnPropertyChanged(nameof(Services));
+            }
         }
     }
 }
