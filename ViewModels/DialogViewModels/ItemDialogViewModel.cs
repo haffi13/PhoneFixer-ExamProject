@@ -334,7 +334,7 @@ namespace ViewModels
             }
         }
 
-        // Constructor used when the dialog is to be used to edit a item.
+        // Overloaded constructor used when the dialog is to be used to edit a item. 
         public ItemDialogViewModel(IDialogService dialogService, Item item) : this(dialogService)
         {
             this.item = item;

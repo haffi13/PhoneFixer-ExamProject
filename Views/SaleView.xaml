@@ -74,9 +74,10 @@
                 <Button
                 Content="Remove"
                 Grid.Column="1"
-                Grid.Row="1"
+                Grid.Row="0"
+                Margin="0,10"
                 VerticalAlignment="Stretch"
-                Command="{Binding RemoveItemCommand}"
+                Command="{Binding RemoveProductCommand}"
                 />
                 
             </Grid>
@@ -89,13 +90,7 @@
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
                 
-                <Button
-                Content="Remove"
-                Grid.Column="1"
-                Grid.Row="1"
-                VerticalAlignment="Stretch"
-                Command="{Binding RemoveServiceBinding}"
-                />
+                
                 
             </Grid>
             

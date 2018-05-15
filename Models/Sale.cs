@@ -5,7 +5,7 @@ namespace Models
 {
     public sealed class Sale
     {
-        // Add comments to explain the padlock -----------------------------------------------------------------------------------
+        // Add comment to explain the padlock -----------------------------------------------------------------------------------
         private static Sale instance = null;
         private static readonly object padlock = new object();
 

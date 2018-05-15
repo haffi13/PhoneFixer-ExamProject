@@ -11,6 +11,7 @@ namespace ViewModels
         private ObservableCollection<Item> inventory = new ObservableCollection<Item>();
         private Item selectedItem;
         private Sale sale;
+        private SaleManager saleManager;
 
         // Keeps an instance of the DialogService instanciated at startup.
         private readonly IDialogService dialogService;
@@ -21,12 +22,23 @@ namespace ViewModels
         // Collection of items populated by the items table in the database and is
         // bound to the DataGrid in the InventoryView.
         public ObservableCollection<Item> Inventory
-        {
-            get { return inventory; }
-            set
+        {   
+            // The reason for doing this in the properties is so the ItemSource for the Datagrid gets updated 
+            // when the view is loaded. Had some 
+            get
             {
-                inventory = value;
-                OnPropertyChanged();
+                Dictionary<List<Item>, string> temp = DatabaseReader.GetInventory();
+                string errorMessage = temp.Values.FirstOrDefault();
+                if (errorMessage == string.Empty)
+                {
+                    inventory = new ObservableCollection<Item>(temp.Keys.FirstOrDefault());
+                }
+                else
+                {
+                    bool? result = dialogService.ShowDialog
+                            (new MessageBoxDialogViewModel(Message.GetItemError + errorMessage, Message.InventoryErrorTitle));
+                }
+                return inventory;
             }
         }
 
@@ -34,11 +46,7 @@ namespace ViewModels
         public Item SelectedItem
         {
             get { return selectedItem; }
-            set
-            {
-                selectedItem = value;
-                OnPropertyChanged();
-            }
+            set { selectedItem = value; }
         }
 
         public RelayCommand AddCommand { get; }
@@ -51,8 +59,6 @@ namespace ViewModels
         {
             this.dialogService = dialogService;
 
-            RefreshInventory();
-
             AddCommand = new RelayCommand(AddItem);
             EditCommand = new RelayCommand(EditItem);
             DeleteCommand = new RelayCommand(DeleteItem);
@@ -60,31 +66,14 @@ namespace ViewModels
 
 
             sale = Sale.Instance;
-        }
-
-        // Populates the datagrid with all the items in the Item table in the database.
-        // If there is an exception in the Database reader the error message is shown in a dialog box.
-        private void RefreshInventory()
-        {
-            Dictionary<List<Item>, string> temp = DatabaseReader.GetInventory();
-            string errorMessage = temp.Values.FirstOrDefault();
-            if(errorMessage == string.Empty)
-            {
-                Inventory = new ObservableCollection<Item>(temp.Keys.FirstOrDefault());
-            }
-            else
-            {
-                bool? result = dialogService.ShowDialog
-                        (new MessageBoxDialogViewModel(Message.GetItemError + errorMessage, Message.InventoryErrorTitle));
-            }
-            
+            saleManager = SaleManager.Instance;
         }
 
         // Opens a dialog box for the user to add a Item to the database.
         private void AddItem()
         {
             bool? result = dialogService.ShowDialog(new ItemDialogViewModel(dialogService));
-            RefreshInventory();
+            OnPropertyChanged(nameof(Inventory));
         }
 
         // Opens a dialog box for the user to edit the selected item in the datagrid in the
@@ -94,7 +83,7 @@ namespace ViewModels
             if(SelectedItem != null)
             {
                 bool? result = dialogService.ShowDialog(new ItemDialogViewModel(dialogService, SelectedItem));
-                RefreshInventory();
+                OnPropertyChanged(nameof(Inventory));
             }
         }
 
@@ -111,7 +100,7 @@ namespace ViewModels
                 }
                 else
                 {
-                    RefreshInventory();
+                    OnPropertyChanged(nameof(Inventory));
                 }
             }
         }
@@ -119,9 +108,9 @@ namespace ViewModels
         // Adds the selected item to the sale.
         private void AddToSale()
         {
-            if(selectedItem.NumberAvailable > 0)
+            if(SelectedItem != null && SelectedItem.NumberAvailable > 0)
             {
-                string errorMessage = SaleManager.AddItem(selectedItem);
+                string errorMessage = saleManager.AddItem(selectedItem);
                 if(errorMessage != string.Empty)
                 {
                     bool? result = dialogService.ShowDialog
@@ -129,7 +118,7 @@ namespace ViewModels
                 }
                 else
                 {
-                    RefreshInventory();
+                    OnPropertyChanged(nameof(Inventory));
                 }
             }
         }
