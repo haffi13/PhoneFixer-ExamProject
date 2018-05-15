@@ -86,7 +86,7 @@ namespace ViewModels
             {
                 sale.Items.Remove(item);
                 sale.PriceWithTax -= item.PriceWithTax;
-                item.NumberAvailable += 1;
+                item.NumberAvailable += 1;              // Do not do this here, same for service.
                 return DatabaseWriter.UpdateItem(item);
             }
             else
