@@ -9,10 +9,10 @@ namespace Models
     public static class Message
     {
         #region Error Messages
-        public static string AddItemError = 
-            "The system could not add the item to the inventory. Please check your input.";
-        public static string EditItemError = 
-            "The system could not update the item. Please check your input.";
+        public static string AddItemError =
+            "The system could not add the item to the inventory.\nPlease check your input.";
+        public static string EditItemError =
+            "The system could not update the item.\nPlease check your input.";
         public static string DeleteItemError =
             "The system could not delete the selected item from the inventory.";
         public static string ItemInputError = 
@@ -21,20 +21,20 @@ namespace Models
             "The system could not retrieve the inventory from the database.";
         public static string DeleteCustomerError =
             "The system could not delete the selected customer.";
-        public static string AddCustomerError = 
-            "The system could not add the customer. Please check your input.";
-        public static string EditCustomerError = 
-            "The system could not edit the customer. Please check your input.";
+        public static string AddCustomerError =
+            "The system could not add the customer.\nPlease check your input.";
+        public static string EditCustomerError =
+            "The system could not edit the customer.\nPlease check your input.";
         public static string GetCustomersError =
             "The system could not retrieve customers from the database.";
         public static string GetServiceError =
             "The system could not retrieve services from the database";
         public static string AddServiceError =
-            "The system could not add the service. Please check your input.";
+            "The system could not add the service.\nPlease check your input.";
         public static string EditServiceError =
-            "The system could not edit the service. Please check your input.";
+            "The system could not edit the service.\nPlease check your input.";
         public static string ServiceInputError = 
-            "The system could not perform that action. Please check your input.";
+            "The system could not perform that action.\nPlease check your input.";
         public static string DeleteServiceError =
             "The system could not delete the delected service.";
         #endregion

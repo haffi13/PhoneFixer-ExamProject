@@ -59,8 +59,6 @@ namespace ViewModels
         {
             this.dialogService = dialogService;
 
-            //RefreshInventory();
-
             AddCommand = new RelayCommand(AddItem);
             EditCommand = new RelayCommand(EditItem);
             DeleteCommand = new RelayCommand(DeleteItem);
@@ -71,30 +69,11 @@ namespace ViewModels
             saleManager = SaleManager.Instance;
         }
 
-        // Populates the datagrid with all the items in the Item table in the database.
-        // If there is an exception in the Database reader the error message is shown in a dialog box.
-        //private void RefreshInventory()
-        //{
-        //    Dictionary<List<Item>, string> temp = DatabaseReader.GetInventory();
-        //    string errorMessage = temp.Values.FirstOrDefault();
-        //    if(errorMessage == string.Empty)
-        //    {
-        //        Inventory = new ObservableCollection<Item>(temp.Keys.FirstOrDefault());
-        //    }
-        //    else
-        //    {
-        //        bool? result = dialogService.ShowDialog
-        //                (new MessageBoxDialogViewModel(Message.GetItemError + errorMessage, Message.InventoryErrorTitle));
-        //    }
-            
-        //}
-
         // Opens a dialog box for the user to add a Item to the database.
         private void AddItem()
         {
             bool? result = dialogService.ShowDialog(new ItemDialogViewModel(dialogService));
             OnPropertyChanged(nameof(Inventory));
-            //RefreshInventory();
         }
 
         // Opens a dialog box for the user to edit the selected item in the datagrid in the
@@ -104,7 +83,6 @@ namespace ViewModels
             if(SelectedItem != null)
             {
                 bool? result = dialogService.ShowDialog(new ItemDialogViewModel(dialogService, SelectedItem));
-                //RefreshInventory();
                 OnPropertyChanged(nameof(Inventory));
             }
         }
@@ -123,7 +101,6 @@ namespace ViewModels
                 else
                 {
                     OnPropertyChanged(nameof(Inventory));
-                    //RefreshInventory();
                 }
             }
         }
@@ -142,7 +119,6 @@ namespace ViewModels
                 else
                 {
                     OnPropertyChanged(nameof(Inventory));
-                    //RefreshInventory();
                 }
             }
         }
