@@ -122,7 +122,6 @@ namespace ViewModels
             {
                 sale.TimeOfSale = DateTime.Now;
                 sale.TaxOnSale = sale.PriceWithTax - ValueAddedTax.RemoveVAT(sale.PriceWithTax);
-                
                 foreach (var item in sale.Items)
                 {
                     item.NumberAvailable--;
@@ -133,7 +132,6 @@ namespace ViewModels
                     }
                 }
             }
-            
             // WRITE THE SALE TO THE DATABASE!
             // Write to the junction tables.
             ClearSale();
