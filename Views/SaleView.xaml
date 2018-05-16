@@ -45,6 +45,7 @@
             CanUserResizeColumns="True" 
             CanUserResizeRows="False"
             CanUserSortColumns="True"
+            SelectionMode="Single"
             IsReadOnly="True"
             ItemsSource="{Binding Items}"
             SelectedItem="{Binding SelectedItem}"
@@ -59,6 +60,7 @@
             CanUserResizeColumns="True" 
             CanUserResizeRows="False"
             CanUserSortColumns="True"
+            SelectionMode="Single"
             IsReadOnly="True"
             ItemsSource="{Binding Services}"
             SelectedItem="{Binding SelectedService}"
@@ -109,12 +111,16 @@
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
-            <ListBox
+            <ListView
                 Grid.Column="0"
+                Grid.Row="0"
                 Grid.RowSpan="3"
-                Margin='10'>
+                Margin="10"
+                ItemsSource="{Binding Receipt}"
+                >
                 
-            </ListBox>
+            </ListView>
+            
 
             <Grid
                 Grid.Row="3">

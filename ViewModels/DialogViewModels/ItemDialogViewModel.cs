@@ -117,6 +117,7 @@ namespace ViewModels
                 {
                     itemValidity.BarcodeIsValid = false;
                 }
+                OnPropertyChanged();
             }
         }
         public string Name
@@ -140,6 +141,7 @@ namespace ViewModels
                 {
                     itemValidity.NameIsValid = false;
                 }
+                OnPropertyChanged();
             }
         }
         public string Description
@@ -151,6 +153,7 @@ namespace ViewModels
                 {
                     item.Description = value;
                 }
+                OnPropertyChanged();
             }
         }
 
@@ -247,6 +250,7 @@ namespace ViewModels
                 {
                     itemValidity.CategoryIsValid = false;
                 }
+                OnPropertyChanged();
             }
         }
         public string Model
@@ -270,6 +274,7 @@ namespace ViewModels
                 {
                     itemValidity.ModelIsValid = false;
                 }
+                OnPropertyChanged();
             }
         }
 
@@ -295,11 +300,15 @@ namespace ViewModels
             {
                 if (InputValidity.IntNotNull(value) || value == string.Empty)
                 {
+                    numberAvailable = value;
                     if(value != string.Empty)
                     {
-                        numberAvailable = value;
                         item.NumberAvailable = int.Parse(value);
                         itemValidity.NumberAvailableIsValid = true;
+                    }
+                    else
+                    {
+                        itemValidity.NumberAvailableIsValid = false;
                     }
                 }
                 else

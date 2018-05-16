@@ -34,10 +34,14 @@ namespace ViewModels
 
         public Service SelectedService
         {
-            get { return selectedService; }
+            get
+            {
+                return selectedService;
+            }
             set
             {
                 selectedService = value;
+
                 OnPropertyChanged();
             }
         }

@@ -1,6 +1,7 @@
 ﻿using ViewModels.DialogServices;
 using Models;
 using System.Collections.ObjectModel;
+using System.Collections.Generic;
 
 namespace ViewModels
 {
@@ -18,6 +19,9 @@ namespace ViewModels
         private string priceWithoutTax;
         private string discountPercent;
 
+        private string receipt;
+
+        // Implementation of the ITabItem inteface
         public string Header { get; set; }
 
         public RelayCommand ConfirmCommand { get; }
@@ -26,12 +30,20 @@ namespace ViewModels
         
         public ObservableCollection<Item> Items
         {
-            get { return new ObservableCollection<Item>(sale.Items); }
+            get
+            {
+                OnPropertyChanged(nameof(Receipt));
+                return new ObservableCollection<Item>(sale.Items);
+            }
         }
 
         public ObservableCollection<Service> Services
         {
-            get { return new ObservableCollection<Service>(sale.Services); }
+            get
+            {
+                OnPropertyChanged(nameof(Receipt));
+                return new ObservableCollection<Service>(sale.Services);
+            }
         }
 
         public Item SelectedItem
@@ -104,6 +116,12 @@ namespace ViewModels
             }
         }
 
+        // Call onpropertychanged on the company bool and make if statement for which receipt to get.
+        public ObservableCollection<string> Receipt
+        {
+            get { return new ObservableCollection<string>(ReceiptBuilder.GetReceiptPerson()); }
+        }
+
         #endregion
 
         public SaleViewModel(IDialogService dialogService)
@@ -121,8 +139,12 @@ namespace ViewModels
 
         private void Confirm()
         {
-            
-
+            string errorMessage = saleManager.FinalizeSale();
+            if(errorMessage != string.Empty)
+            {
+                bool? result = dialogService.ShowDialog
+                    (new MessageBoxDialogViewModel(errorMessage, Message.SaleErrorTitle));
+            }
 
         }
 
@@ -137,7 +159,8 @@ namespace ViewModels
         {
             if(SelectedItem != null)
             {
-                string errorMessage = saleManager.RemoveItem(selectedItem);
+                string errorMessage = string.Empty;
+                //string errorMessage = saleManager.RemoveItem(selectedItem);
                 if(errorMessage != string.Empty)
                 {
                     bool? result = dialogService.ShowDialog

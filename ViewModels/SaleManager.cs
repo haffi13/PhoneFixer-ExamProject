@@ -34,6 +34,11 @@ namespace ViewModels
             }
         }
 
+        private SaleManager()
+        {
+
+        }
+
         public static void ClearSale()
         {
             Sale sale = Sale.Instance;
@@ -68,30 +73,26 @@ namespace ViewModels
             ClearSale();
         }
 
-        public string AddItem(Item item)
+        public void AddItem(Item item) 
         {
             Sale sale = Sale.Instance;
             sale.Items.Add(item);
 
             sale.PriceWithTax += item.PriceWithTax;
 
-            item.NumberAvailable -= 1;
-            return DatabaseWriter.UpdateItem(item);
+            //item.NumberAvailable -= 1;
+            //return DatabaseWriter.UpdateItem(item); // should not do this, not included on SD
         }
 
-        public string RemoveItem(Item item)
+        public void RemoveItem(Item item)
         {
             Sale sale = Sale.Instance;
             if (sale.Items.Contains(item))
             {
                 sale.Items.Remove(item);
                 sale.PriceWithTax -= item.PriceWithTax;
-                item.NumberAvailable += 1;              // Do not do this here, same for service.
-                return DatabaseWriter.UpdateItem(item);
-            }
-            else
-            {
-                return string.Empty;
+                //item.NumberAvailable += 1;              // Do not do this here, same for service.
+                //return DatabaseWriter.UpdateItem(item);
             }
         }
 
@@ -112,15 +113,29 @@ namespace ViewModels
             }
         }
 
-        public void FinalizeSale(bool company, bool creditCard, double discountPercent)
+        public string FinalizeSale()
         {
             Sale sale = Sale.Instance;
             SaleValidity saleValidity = new SaleValidity();
+            string errorMessage = string.Empty;
             if (saleValidity.SaleIsValid())
             {
                 sale.TimeOfSale = DateTime.Now;
                 sale.TaxOnSale = sale.PriceWithTax - ValueAddedTax.RemoveVAT(sale.PriceWithTax);
+                foreach (var item in sale.Items)
+                {
+                    item.NumberAvailable--;
+                    errorMessage = DatabaseWriter.UpdateItem(item);
+                    if(errorMessage != string.Empty) 
+                    {
+                        break;
+                    }
+                }
             }
+            // WRITE THE SALE TO THE DATABASE!
+            // Write to the junction tables.
+            ClearSale();
+            return errorMessage;
         }
     }
 }

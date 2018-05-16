@@ -10,7 +10,6 @@ namespace ViewModels
     {
         private ObservableCollection<Item> inventory = new ObservableCollection<Item>();
         private Item selectedItem;
-        private Sale sale;
         private SaleManager saleManager;
 
         // Keeps an instance of the DialogService instanciated at startup.
@@ -64,8 +63,6 @@ namespace ViewModels
             DeleteCommand = new RelayCommand(DeleteItem);
             AddToSaleCommand = new RelayCommand(AddToSale);
 
-
-            sale = Sale.Instance;
             saleManager = SaleManager.Instance;
         }
 
@@ -110,7 +107,9 @@ namespace ViewModels
         {
             if(SelectedItem != null && SelectedItem.NumberAvailable > 0)
             {
-                string errorMessage = saleManager.AddItem(selectedItem);
+                string errorMessage = string.Empty;
+                saleManager.AddItem(SelectedItem);
+                //string errorMessage = saleManager.AddItem(selectedItem);
                 if(errorMessage != string.Empty)
                 {
                     bool? result = dialogService.ShowDialog
