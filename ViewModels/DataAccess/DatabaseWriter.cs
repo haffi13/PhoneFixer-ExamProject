@@ -296,9 +296,8 @@ namespace ViewModels
 
                     cmd.Parameters.Add(new SqlParameter("@TimeOfSale", sale.TimeOfSale));
                     cmd.Parameters.Add(new SqlParameter("@PriceWithTax", sale.PriceWithTax));
-                    cmd.Parameters.Add(new SqlParameter("@PriceNoTax", sale.TaxOnSale));
-                    cmd.Parameters.Add(new SqlParameter("@PriceWithTax", sale.Company));
-                    cmd.Parameters.Add(new SqlParameter("@DayCreated", sale.CreditCard));
+                    cmd.Parameters.Add(new SqlParameter("@Company", sale.TaxOnSale));
+                    cmd.Parameters.Add(new SqlParameter("@CreditCard", sale.Company));
                     cmd.Parameters.Add(new SqlParameter("@DiscountPercent", sale.DiscountPercent));
 
                     cmd.ExecuteNonQuery();
