@@ -157,7 +157,7 @@ namespace ViewModels
 
         private void RemoveProduct()
         {
-            if(SelectedItem != null)
+            if(SelectedItem != null)// doesnt work like this atm
             {
                 string errorMessage = string.Empty;
                 //string errorMessage = saleManager.RemoveItem(selectedItem);

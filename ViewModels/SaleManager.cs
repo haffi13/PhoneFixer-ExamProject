@@ -145,12 +145,19 @@ namespace ViewModels
             string errorMessage = DatabaseWriter.CreateSale(sale);
             if(errorMessage == string.Empty)
             {
-                foreach (var item in sale.Items)
+                Dictionary<int, string> temp = DatabaseReader.GetSaleId();
+                errorMessage = temp.Values.FirstOrDefault();
+                
+                if(errorMessage == string.Empty)
                 {
-                    errorMessage = DatabaseWriter.AddToSaleItem(item);
-                    if (errorMessage != string.Empty)
+                    sale.SaleId = temp.Keys.FirstOrDefault();
+                    foreach (var item in sale.Items)
                     {
-                        break;
+                        errorMessage = DatabaseWriter.AddToSaleItem(item);
+                        if (errorMessage != string.Empty)
+                        {
+                            break;
+                        }
                     }
                 }
             }
