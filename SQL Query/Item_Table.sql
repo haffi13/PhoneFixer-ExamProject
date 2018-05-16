@@ -96,12 +96,12 @@
 --Create procedure AddToSaleService
 --(
 --@SaleId int,
---@ServiceId int
+--@ServiceNumber int
 --)
 --as 
 --begin
 --insert into SALESERVICE
---values(@SaleId, @ServiceId)
+--values(@SaleId, @ServiceNumber)
 --end
 
 
