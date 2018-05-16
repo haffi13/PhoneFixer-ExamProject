@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Models
+﻿namespace Models
 {
     public static class Message
     {
@@ -16,7 +10,7 @@ namespace Models
         public static string DeleteItemError =
             "The system could not delete the selected item from the inventory.";
         public static string ItemInputError = 
-            "The system could not perform that action. Please check your input.";
+            "The system could not perform that action.\nPlease check your input.";
         public static string GetItemError =
             "The system could not retrieve the inventory from the database.";
         public static string DeleteCustomerError =
@@ -39,14 +33,18 @@ namespace Models
             "The system could not delete the delected service.";
         #endregion
 
+        #region Confirmation Messages
+        public static string CancelSaleConfirmation = 
+            "Do you want to cancel the sale?";
+        public static string DeleteItemConfirmation = 
+            "Do you want to remove the item from the inventory?";
+        public static string DeleteServiceConfirmation = 
+            "Do you want to delete the service?";
+        #endregion
+
         #region Success Messages
         public static string AddItemSuccess =
             "Item added to inventory!";
-        // Might not need this as if it's a success the dialog window should close.
-        public static string EditItemSuccess =
-            "Item edited successfully!";
-        public static string AddCustomerSuccess = 
-            "Customer added successfully!";
         #endregion
 
 
@@ -66,8 +64,5 @@ namespace Models
             "Sale Error";
         #endregion
 
-
-        // We need to fix how long strings are portraied in the MessageBox
-        public static string LongStringForTest = "hnjehnjehnje " + DeleteItemError + AddItemError + AddItemSuccess + EditItemSuccess;
     }
 }

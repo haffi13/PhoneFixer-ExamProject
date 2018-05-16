@@ -50,9 +50,9 @@
 --TimeOfSale			Datetime										NOT NULL,
 --PriceWithTax		Decimal(18,2)									NOT NULL,
 --TaxOnSale			Decimal(18,2)									NOT NULL,
---Company				BIT												NULL,
---CreditCard			BIT												NULL,
---DiscountPercentage	INT												NULL,
+--Company				BIT												NOT NULL Default '0',
+--CreditCard			BIT												NOT NULL Default '0',
+--DiscountPercentage	INT												NOT NULL Default '0.00',
 --);
 
 ----Junction table SALE and ITEM tables.
@@ -78,6 +78,32 @@
 --);
 
 ------Procedures:
+
+----Add Item to the SALEITEM table
+
+--Create procedure AddToSaleItem
+--(
+--@SaleId int,
+--@Barcode nvarchar(15)
+--)
+--as 
+--begin
+--insert into SALEITEM
+--values(@SaleId, @Barcode)
+--end
+
+---- Add Service to the SALESERVICE table
+--Create procedure AddToSaleService
+--(
+--@SaleId int,
+--@ServiceNumber int
+--)
+--as 
+--begin
+--insert into SALESERVICE
+--values(@SaleId, @ServiceNumber)
+--end
+
 
 ----Get ALL items in the item table:
 

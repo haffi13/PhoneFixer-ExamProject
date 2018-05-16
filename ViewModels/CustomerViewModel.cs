@@ -49,7 +49,6 @@ namespace ViewModels
             AddCommand = new RelayCommand(AddCustomer);
             EditCommand = new RelayCommand(EditCustomer);
             DeleteCommand = new RelayCommand(DeleteCustomer);
-
         }
 
         
