@@ -334,6 +334,26 @@
 --	VALUES(@ServiceName, @ServiceDescription, @PriceNoTax, @PriceWithTax, @DayCreated, @DayServiced, @Repaired, @CustomerId)
 --END
 
+
+--ALTER PROCEDURE [dbo].[CreateSale]
+
+--	@TimeOfSale Datetime,
+--	@PriceWithTax Decimal(18,2),
+--	@TaxOnSale Decimal(18,2),
+--	@Company BIT,
+--	@CreditCard BIT,
+--	@DiscountPercentage INT
+
+--AS
+
+--BEGIN
+--	SET NOCOUNT ON;
+
+--	INSERT INTO SALE(TimeOfSale, PriceWithTax, TaxOnSale, Company, CreditCard, DiscountPercentage)
+--	VALUES(@TimeOfSale, @PriceWithTax, @TaxOnSale,@Company, @CreditCard, @DiscountPercentage)
+--END
+
+
 ------One Time Queries:
 
 ----Reseed ServiceId in the SERVICE table:
