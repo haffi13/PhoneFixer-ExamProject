@@ -79,6 +79,32 @@
 
 ------Procedures:
 
+----Add Item to the SALEITEM table
+
+--Create procedure AddToSaleItem
+--(
+--@SaleId int,
+--@Barcode nvarchar(15)
+--)
+--as 
+--begin
+--insert into SALEITEM
+--values(@SaleId, @Barcode)
+--end
+
+---- Add Service to the SALESERVICE table
+--Create procedure AddToSaleService
+--(
+--@SaleId int,
+--@ServiceId int
+--)
+--as 
+--begin
+--insert into SALESERVICE
+--values(@SaleId, @ServiceId)
+--end
+
+
 ----Get ALL items in the item table:
 
 --CREATE PROCEDURE GetAllItems

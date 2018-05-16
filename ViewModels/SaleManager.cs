@@ -132,6 +132,7 @@ namespace ViewModels
                     }
                 }
             }
+
             // WRITE THE SALE TO THE DATABASE!
             // Write to the junction tables.
             ClearSale();
