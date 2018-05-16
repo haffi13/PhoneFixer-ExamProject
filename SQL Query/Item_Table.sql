@@ -105,6 +105,18 @@
 --end
 
 
+---- Get a Sale
+
+--create procedure GetSaleIdWithTime
+--(
+--@TimeOfSale datetime
+--)
+--as
+--begin
+--select SaleId from SALE
+--where @TimeOfSale = TimeOfSale
+--end
+
 ----Get ALL items in the item table:
 
 --CREATE PROCEDURE GetAllItems
