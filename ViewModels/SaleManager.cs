@@ -50,7 +50,7 @@ namespace ViewModels
             sale.PriceWithTax = 0m;
             sale.Company = false;
             sale.CreditCard = false;
-            sale.DiscountPercent = 0;
+            sale.DiscountPercentage = 0;
         }
 
         public void CancelSale()
@@ -133,9 +133,38 @@ namespace ViewModels
                 }
             }
 
-            // WRITE THE SALE TO THE DATABASE!
-            // Write to the junction tables.
+            errorMessage = DocumentSale();
+            
             ClearSale();
+            return errorMessage;
+        }
+
+        private string DocumentSale()
+        {
+            Sale sale = Sale.Instance;
+            string errorMessage = DatabaseWriter.CreateSale(sale);
+            if(errorMessage == string.Empty)
+            {
+                foreach (var item in sale.Items)
+                {
+                    errorMessage = DatabaseWriter.AddToSaleItem(item);
+                    if (errorMessage != string.Empty)
+                    {
+                        break;
+                    }
+                }
+            }
+            if(errorMessage == string.Empty)
+            {
+                foreach (var service in sale.Services)
+                {
+                    errorMessage = DatabaseWriter.AddToSaleService(service);
+                    if(errorMessage != string.Empty)
+                    {
+                        break;
+                    }
+                }
+            }
             return errorMessage;
         }
     }

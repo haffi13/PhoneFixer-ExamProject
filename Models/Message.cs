@@ -31,6 +31,8 @@
             "The system could not perform that action.\nPlease check your input.";
         public static string DeleteServiceError =
             "The system could not delete the delected service.";
+        public static string AddSaleError = 
+            "The system could not add the sale to the database.";
         #endregion
 
         #region Confirmation Messages

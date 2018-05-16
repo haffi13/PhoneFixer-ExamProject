@@ -47,6 +47,6 @@ namespace Models
         // Bool - true if payment is with credit card and false if payment is with cash.
         public bool CreditCard { get; set; }
         // Percentage
-        public double DiscountPercent { get; set; }
+        public double DiscountPercentage { get; set; }
     }
 }

@@ -298,14 +298,70 @@ namespace ViewModels
                     cmd.Parameters.Add(new SqlParameter("@PriceWithTax", sale.PriceWithTax));
                     cmd.Parameters.Add(new SqlParameter("@Company", sale.TaxOnSale));
                     cmd.Parameters.Add(new SqlParameter("@CreditCard", sale.Company));
-                    cmd.Parameters.Add(new SqlParameter("@DiscountPercent", sale.DiscountPercent));
+                    cmd.Parameters.Add(new SqlParameter("@DiscountPercentage", sale.DiscountPercentage));
 
                     cmd.ExecuteNonQuery();
                     connection.Close();
                 }
                 catch (SqlException e)
                 {
-                    ret = Message.SaleErrorTitle + "\n\n" + e.Message;
+                    ret = Message.AddSaleError + "\n\n" + e.Message;
+                }
+            }
+            return ret;
+        }
+
+        public static string AddToSaleItem(Item item)
+        {
+            Sale sale = Sale.Instance;
+            string ret = string.Empty;
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                try
+                {
+                    connection.Open();
+                    SqlCommand cmd = new SqlCommand("AddToSaleItem", connection)
+                    {
+                        CommandType = CommandType.StoredProcedure
+                    };
+
+                    cmd.Parameters.Add(new SqlParameter("@SaleId", sale.SaleId));
+                    cmd.Parameters.Add(new SqlParameter("@Barcode", item.Barcode));
+
+                    cmd.ExecuteNonQuery();
+                    connection.Close();
+                }
+                catch (SqlException e)
+                {
+                    ret = Message.AddSaleError + "\n\n" + e.Message;
+                }
+            }
+            return ret;
+        }
+
+        public static string AddToSaleService(Service service)
+        {
+            Sale sale = Sale.Instance;
+            string ret = string.Empty;
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                try
+                {
+                    connection.Open();
+                    SqlCommand cmd = new SqlCommand("AddToSaleService", connection)
+                    {
+                        CommandType = CommandType.StoredProcedure
+                    };
+
+                    cmd.Parameters.Add(new SqlParameter("@SaleId", sale.SaleId));
+                    cmd.Parameters.Add(new SqlParameter("@ServiceNumber", service.ServiceNumber));
+
+                    cmd.ExecuteNonQuery();
+                    connection.Close();
+                }
+                catch (SqlException e)
+                {
+                    ret = Message.AddSaleError + "\n\n" + e.Message;
                 }
             }
             return ret;

@@ -110,7 +110,7 @@ namespace ViewModels
                 if (InputValidity.DoubleNotNull(value))
                 {
                     discountPercent = value;
-                    sale.DiscountPercent = double.Parse(value);
+                    sale.DiscountPercentage = double.Parse(value);
                     OnPropertyChanged();
                 }
             }
