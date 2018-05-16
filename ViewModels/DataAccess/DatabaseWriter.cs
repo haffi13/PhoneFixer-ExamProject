@@ -280,6 +280,37 @@ namespace ViewModels
             }
             return ret;
         }
+        //Draft..stored procedures need to be made
+        public static string CreateSale(Sale sale)
+        {
+            string ret = string.Empty;
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                try
+                {
+                    connection.Open();
+                    SqlCommand cmd = new SqlCommand("CreateSale", connection)
+                    {
+                        CommandType = CommandType.StoredProcedure
+                    };
+
+                    cmd.Parameters.Add(new SqlParameter("@TimeOfSale", sale.TimeOfSale));
+                    cmd.Parameters.Add(new SqlParameter("@PriceWithTax", sale.PriceWithTax));
+                    cmd.Parameters.Add(new SqlParameter("@PriceNoTax", sale.TaxOnSale));
+                    cmd.Parameters.Add(new SqlParameter("@PriceWithTax", sale.Company));
+                    cmd.Parameters.Add(new SqlParameter("@DayCreated", sale.CreditCard));
+                    cmd.Parameters.Add(new SqlParameter("@DiscountPercent", sale.DiscountPercent));
+
+                    cmd.ExecuteNonQuery();
+                    connection.Close();
+                }
+                catch (SqlException e)
+                {
+                    ret = Message.SaleErrorTitle + "\n\n" + e.Message;
+                }
+            }
+            return ret;
+        }
     }
 }
 
