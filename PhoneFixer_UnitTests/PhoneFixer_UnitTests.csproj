@@ -56,17 +56,17 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Models\Models.csproj">
+    <ProjectReference Include="..\Models\Model.csproj">
       <Project>{6167c487-2410-4e28-acda-582d28e58ecd}</Project>
-      <Name>Models</Name>
+      <Name>Model</Name>
     </ProjectReference>
-    <ProjectReference Include="..\ViewModels\ViewModels.csproj">
+    <ProjectReference Include="..\ViewModels\ViewModel.csproj">
       <Project>{8615966e-e798-420a-881e-eeae5fb204c8}</Project>
-      <Name>ViewModels</Name>
+      <Name>ViewModel</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Views\Views.csproj">
+    <ProjectReference Include="..\Views\View.csproj">
       <Project>{24734fc6-9fdc-4013-9027-1c4a863aea35}</Project>
-      <Name>Views</Name>
+      <Name>View</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />

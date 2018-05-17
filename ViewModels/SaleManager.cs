@@ -128,7 +128,7 @@ namespace ViewModels
                     errorMessage = DatabaseWriter.UpdateItem(item);
                     if(errorMessage != string.Empty) 
                     {
-                        break;
+                        return errorMessage;
                     }
                 }
             }
@@ -156,7 +156,7 @@ namespace ViewModels
                         errorMessage = DatabaseWriter.AddToSaleItem(item);
                         if (errorMessage != string.Empty)
                         {
-                            break;
+                            return errorMessage;
                         }
                     }
                 }
@@ -168,7 +168,7 @@ namespace ViewModels
                     errorMessage = DatabaseWriter.AddToSaleService(service);
                     if(errorMessage != string.Empty)
                     {
-                        break;
+                        return errorMessage;
                     }
                 }
             }

@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27130.2036
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ViewModels", "ViewModels\ViewModels.csproj", "{8615966E-E798-420A-881E-EEAE5FB204C8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ViewModel", "ViewModels\ViewModel.csproj", "{8615966E-E798-420A-881E-EEAE5FB204C8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Views", "Views\Views.csproj", "{24734FC6-9FDC-4013-9027-1C4A863AEA35}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "View", "Views\View.csproj", "{24734FC6-9FDC-4013-9027-1C4A863AEA35}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Models", "Models\Models.csproj", "{6167C487-2410-4E28-ACDA-582D28E58ECD}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Model", "Models\Model.csproj", "{6167C487-2410-4E28-ACDA-582D28E58ECD}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PhoneFixer_UnitTests", "PhoneFixer_UnitTests\PhoneFixer_UnitTests.csproj", "{C71E19E1-4F5C-4238-B227-BE147110A526}"
 EndProject

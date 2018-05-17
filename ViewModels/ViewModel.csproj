@@ -66,9 +66,9 @@
     <Compile Include="ServiceViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Models\Models.csproj">
+    <ProjectReference Include="..\Models\Model.csproj">
       <Project>{6167c487-2410-4e28-acda-582d28e58ecd}</Project>
-      <Name>Models</Name>
+      <Name>Model</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />
