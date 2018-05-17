@@ -2,14 +2,14 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
-using Models;
 
 
-namespace ViewModels
+
+namespace Models
 {
     public static class DatabaseReader
     {
-        private static string url      = "EALSQL1.eal.local";
+        private static string url = "EALSQL1.eal.local";
         private static string database = "DB2017_B12";
         private static string username = "USER_B12";
         private static string password = "SesamLukOp_12";
@@ -151,7 +151,7 @@ namespace ViewModels
         public static Dictionary<List<Service>, string> GetServices()
         {
             Dictionary<List<Service>, string> ret = new Dictionary<List<Service>, string>();
-            List<Service> Services= new List<Service>();
+            List<Service> Services = new List<Service>();
             string errorMessage = string.Empty;
 
             using (SqlConnection con = new SqlConnection(connectionString))
@@ -178,7 +178,7 @@ namespace ViewModels
                                 PriceWithTax = (decimal)reader["PriceWithTax"],
                                 DayCreated = DateTime.Parse(reader["DayCreated"].ToString())
                             };
-                            if(reader["DayServiced"] == DBNull.Value)
+                            if (reader["DayServiced"] == DBNull.Value)
                             {
                                 temp.DayServiced = null;
                             }
@@ -189,7 +189,7 @@ namespace ViewModels
 
                             temp.Repaired = (bool)reader["Repaired"];
                             temp.CustomerId = (int)reader["CustomerID"];
-                            
+
                             Services.Add(temp);
                         }
                     }

@@ -41,6 +41,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Customer.cs" />
+    <Compile Include="DataAccess\DatabaseReader.cs" />
+    <Compile Include="DataAccess\DatabaseWriter.cs" />
     <Compile Include="InputValidity.cs" />
     <Compile Include="ItemValidity.cs" />
     <Compile Include="Message.cs" />

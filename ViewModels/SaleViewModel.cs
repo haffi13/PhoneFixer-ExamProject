@@ -145,7 +145,8 @@ namespace ViewModels
                 bool? result = dialogService.ShowDialog
                     (new MessageBoxDialogViewModel(errorMessage, Message.SaleErrorTitle));
             }
-
+            OnPropertyChanged(nameof(Items));
+            OnPropertyChanged(nameof(Services));
         }
 
         private void Cancel()

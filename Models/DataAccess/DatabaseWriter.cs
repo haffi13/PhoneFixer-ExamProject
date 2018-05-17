@@ -2,12 +2,12 @@
 using System;
 using System.Data;
 using System.Data.SqlClient;
-            
-namespace ViewModels
+
+namespace Models
 {
     public static class DatabaseWriter
     {
-        private static string url      = "EALSQL1.eal.local";
+        private static string url = "EALSQL1.eal.local";
         private static string database = "DB2017_B12";
         private static string username = "USER_B12";
         private static string password = "SesamLukOp_12";
@@ -67,7 +67,7 @@ namespace ViewModels
                     };
 
                     cmd.Parameters.Add(new SqlParameter("@Barcode", item.Barcode));
-                    
+
                     cmd.ExecuteNonQuery();
                     connection.Close();
                 }
@@ -141,7 +141,7 @@ namespace ViewModels
                 }
             }
             return ret;
-        }   
+        }
 
         public static string DeleteCustomer(Customer customer)
         {
@@ -187,8 +187,8 @@ namespace ViewModels
                     cmd.Parameters.Add(new SqlParameter("@PriceNoTax", service.PriceNoTax));
                     cmd.Parameters.Add(new SqlParameter("@PriceWithTax", service.PriceWithTax));
                     cmd.Parameters.Add(new SqlParameter("@DayCreated", service.DayCreated));
-                    
-                    if(service.DayServiced == null)
+
+                    if (service.DayServiced == null)
                     {
                         cmd.Parameters.Add(new SqlParameter("@DayServiced", DBNull.Value));
                     }
