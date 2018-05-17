@@ -107,14 +107,7 @@ namespace ViewModels
         {
             if(SelectedItem != null && SelectedItem.NumberAvailable > 0)
             {
-                string errorMessage = string.Empty;
-                saleManager.AddItemToSale(SelectedItem);
-                //string errorMessage = saleManager.AddItem(selectedItem);
-                if(errorMessage != string.Empty)
-                {
-                    bool? result = dialogService.ShowDialog
-                        (new MessageBoxDialogViewModel(errorMessage, Message.InventoryErrorTitle));
-                }
+                saleManager.AddItemToSale(SelectedItem);   
                 else
                 {
                     OnPropertyChanged(nameof(Inventory));

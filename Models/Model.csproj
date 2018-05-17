@@ -43,18 +43,18 @@
     <Compile Include="Domain\Customer.cs" />
     <Compile Include="DataAccess\DatabaseReader.cs" />
     <Compile Include="DataAccess\DatabaseWriter.cs" />
-    <Compile Include="Logic\InputValidity.cs" />
-    <Compile Include="Logic\ItemValidity.cs" />
+    <Compile Include="Domain\Logic\InputValidity.cs" />
+    <Compile Include="Domain\Logic\ItemValidity.cs" />
     <Compile Include="Domain\Message.cs" />
     <Compile Include="Domain\Item.cs" />
-    <Compile Include="Logic\SaleManager.cs" />
+    <Compile Include="Domain\Logic\SaleManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Logic\ReceiptBuilder.cs" />
+    <Compile Include="Domain\Logic\ReceiptBuilder.cs" />
     <Compile Include="Domain\Sale.cs" />
-    <Compile Include="Logic\SaleValidity.cs" />
+    <Compile Include="Domain\Logic\SaleValidity.cs" />
     <Compile Include="Domain\Service.cs" />
-    <Compile Include="Logic\ServiceValidity.cs" />
-    <Compile Include="Logic\ValueAddedTax.cs" />
+    <Compile Include="Domain\Logic\ServiceValidity.cs" />
+    <Compile Include="Domain\Logic\ValueAddedTax.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

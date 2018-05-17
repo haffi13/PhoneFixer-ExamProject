@@ -43,11 +43,11 @@
   <ItemGroup>
     <Compile Include="ViewModels\DialogViewModels\ConfirmationDialogViewModel.cs" />
     <Compile Include="ViewModels\DialogViewModels\CustomerDialogViewModel.cs" />
-    <Compile Include="Resources\DialogServices\DialogCloseRequestedEventArgs.cs" />
-    <Compile Include="Resources\DialogServices\DialogService.cs" />
-    <Compile Include="Resources\DialogServices\IDialog.cs" />
-    <Compile Include="Resources\DialogServices\IDialogRequestClose.cs" />
-    <Compile Include="Resources\DialogServices\IDialogService.cs" />
+    <Compile Include="Resources\DialogService\DialogCloseRequestedEventArgs.cs" />
+    <Compile Include="Resources\DialogService\DialogService.cs" />
+    <Compile Include="Resources\DialogService\IDialog.cs" />
+    <Compile Include="Resources\DialogService\IDialogRequestClose.cs" />
+    <Compile Include="Resources\DialogService\IDialogService.cs" />
     <Compile Include="ViewModels\DialogViewModels\ItemDialogViewModel.cs" />
     <Compile Include="Resources\BaseViewModel.cs" />
     <Compile Include="ViewModels\CustomerViewModel.cs" />
