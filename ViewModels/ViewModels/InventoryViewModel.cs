@@ -108,7 +108,7 @@ namespace ViewModels
             if(SelectedItem != null && SelectedItem.NumberAvailable > 0)
             {
                 string errorMessage = string.Empty;
-                saleManager.AddItem(SelectedItem);
+                saleManager.AddItemToSale(SelectedItem);
                 //string errorMessage = saleManager.AddItem(selectedItem);
                 if(errorMessage != string.Empty)
                 {

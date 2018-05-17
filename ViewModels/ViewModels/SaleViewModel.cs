@@ -174,7 +174,7 @@ namespace ViewModels
             }
             else if(SelectedService != null)
             {
-                saleManager.RemoveService(selectedService);
+                saleManager.RemoveServiceFromSale(selectedService);
                 OnPropertyChanged(nameof(Services));
             }
         }
@@ -183,7 +183,7 @@ namespace ViewModels
         {
             if(SelectedService != null)
             {
-                saleManager.RemoveService(selectedService);
+                saleManager.RemoveServiceFromSale(selectedService);
                 OnPropertyChanged(nameof(Services));
             }
         }

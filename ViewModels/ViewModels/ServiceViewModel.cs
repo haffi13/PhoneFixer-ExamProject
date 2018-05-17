@@ -110,7 +110,7 @@ namespace ViewModels
         {
             if (!sale.Services.Contains(selectedService))
             {
-                saleManager.AddService(selectedService);
+                saleManager.AddServiceToSale(selectedService);
             }
         }
     }

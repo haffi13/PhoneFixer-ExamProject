@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Models;
-using System.Threading.Tasks;
 
-namespace ViewModels
+namespace Models
 {
     // This should be in the ViewModel layer where it can access the database.
     // Then it's possible to update the inventory when items are added to a sale.
@@ -25,7 +23,7 @@ namespace ViewModels
             {
                 lock (padlock)
                 {
-                    if(instance == null)
+                    if (instance == null)
                     {
                         instance = new SaleManager();
                     }
@@ -56,24 +54,24 @@ namespace ViewModels
         public void CancelSale()
         {
             Sale sale = Sale.Instance;
-            if(sale.Items.Count > 0)
+            if (sale.Items.Count > 0)
             {
                 for (int i = 0; i < sale.Items.Count; i++)
                 {
-                    RemoveItem(sale.Items[i]);
+                    RemoveItemFromSale(sale.Items[i]);
                 }
             }
-            if(sale.Services.Count > 0)
+            if (sale.Services.Count > 0)
             {
                 for (int i = 0; i < sale.Services.Count; i++)
                 {
-                    RemoveService(sale.Services[i]);
+                    RemoveServiceFromSale(sale.Services[i]);
                 }
             }
             ClearSale();
         }
 
-        public void AddItem(Item item) 
+        public void AddItemToSale(Item item)
         {
             Sale sale = Sale.Instance;
             sale.Items.Add(item);
@@ -84,7 +82,7 @@ namespace ViewModels
             //return DatabaseWriter.UpdateItem(item); // should not do this, not included on SD
         }
 
-        public void RemoveItem(Item item)
+        public void RemoveItemFromSale(Item item)
         {
             Sale sale = Sale.Instance;
             if (sale.Items.Contains(item))
@@ -96,14 +94,14 @@ namespace ViewModels
             }
         }
 
-        public void AddService(Service service)
+        public void AddServiceToSale(Service service)
         {
             Sale sale = Sale.Instance;
             sale.Services.Add(service);
             sale.PriceWithTax += service.PriceWithTax;
         }
 
-        public void RemoveService(Service service)
+        public void RemoveServiceFromSale(Service service)
         {
             Sale sale = Sale.Instance;
             if (sale.Services.Contains(service))
@@ -126,7 +124,7 @@ namespace ViewModels
                 {
                     item.NumberAvailable--;
                     errorMessage = DatabaseWriter.UpdateItem(item);
-                    if(errorMessage != string.Empty) 
+                    if (errorMessage != string.Empty)
                     {
                         return errorMessage;
                     }
@@ -134,7 +132,7 @@ namespace ViewModels
             }
 
             errorMessage = DocumentSale();
-            
+
             ClearSale();
             return errorMessage;
         }
@@ -143,12 +141,12 @@ namespace ViewModels
         {
             Sale sale = Sale.Instance;
             string errorMessage = DatabaseWriter.CreateSale(sale);
-            if(errorMessage == string.Empty)
+            if (errorMessage == string.Empty)
             {
                 Dictionary<int, string> temp = DatabaseReader.GetSaleId();
                 errorMessage = temp.Values.FirstOrDefault();
-                
-                if(errorMessage == string.Empty)
+
+                if (errorMessage == string.Empty)
                 {
                     sale.SaleId = temp.Keys.FirstOrDefault();
                     foreach (var item in sale.Items)
@@ -161,12 +159,12 @@ namespace ViewModels
                     }
                 }
             }
-            if(errorMessage == string.Empty)
+            if (errorMessage == string.Empty)
             {
                 foreach (var service in sale.Services)
                 {
                     errorMessage = DatabaseWriter.AddToSaleService(service);
-                    if(errorMessage != string.Empty)
+                    if (errorMessage != string.Empty)
                     {
                         return errorMessage;
                     }
