@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ViewModels.DialogServices
+﻿namespace ViewModels.DialogServices
 {
     // Interface which give access to the Registration of views to view models
     // and the ShowDialog method which Shows the corresponding dialog box.

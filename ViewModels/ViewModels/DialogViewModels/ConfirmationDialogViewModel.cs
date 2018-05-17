@@ -1,8 +1,4 @@
-﻿using System;
-using ViewModels.DialogServices;
-using Models;
-
-namespace ViewModels.DialogViewModels
+﻿namespace ViewModels.DialogViewModels
 {
     class ConfirmationDialogViewModel
     {
