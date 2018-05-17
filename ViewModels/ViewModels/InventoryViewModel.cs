@@ -108,10 +108,8 @@ namespace ViewModels
             if(SelectedItem != null && SelectedItem.NumberAvailable > 0)
             {
                 saleManager.AddItemToSale(SelectedItem);   
-                else
-                {
-                    OnPropertyChanged(nameof(Inventory));
-                }
+                
+                OnPropertyChanged(nameof(Inventory));
             }
         }
     }

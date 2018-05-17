@@ -108,9 +108,12 @@ namespace ViewModels
 
         private void AddToSale()
         {
-            if (!sale.Services.Contains(selectedService))
+            if(selectedService != null)
             {
-                saleManager.AddServiceToSale(selectedService);
+                if (!sale.Services.Contains(selectedService))
+                {
+                    saleManager.AddServiceToSale(selectedService);
+                }
             }
         }
     }
