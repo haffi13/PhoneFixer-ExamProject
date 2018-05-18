@@ -239,7 +239,7 @@ namespace ViewModels
                         service.DayServiced = DateTime.Now;
                     }
                 }
-                else // getur þetta ekki dílað við nulls  ?? 
+                else 
                 {
                     service.DayServiced = null;
                 }
@@ -262,7 +262,7 @@ namespace ViewModels
 
         private void AddService()
         {
-                    service.DayCreated = DateTime.Now;
+            service.DayCreated = DateTime.Now;
             string errorMessage = DatabaseWriter.CreateService(service);
             if (errorMessage == string.Empty)
             {

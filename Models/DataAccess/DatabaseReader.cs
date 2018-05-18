@@ -202,41 +202,5 @@ namespace Models
             ret.Add(Services, errorMessage);
             return ret;
         }
-
-        public static Dictionary<int, string> GetSaleId()
-        {
-            Sale sale = Sale.Instance;
-            Dictionary<int, string> ret = new Dictionary<int, string>();
-            string errorMessage = string.Empty;
-            int saleId = 0;
-            using (SqlConnection con = new SqlConnection(connectionString))
-            {
-                try
-                {
-                    SqlCommand cmd = new SqlCommand("GetSaleIdWithTime", con)
-                    {
-                        CommandType = CommandType.StoredProcedure
-                    };
-                    con.Open();
-
-                    cmd.Parameters.Add("@TimeOfSale", SqlDbType.DateTime).Value = sale.TimeOfSale;
-
-                    SqlDataReader reader = cmd.ExecuteReader();
-                    if (reader.HasRows)
-                    {
-                        while (reader.Read())
-                        {
-                            saleId = (int)reader["SaleId"];
-                        }
-                    }
-                }
-                catch (SqlException e)
-                {
-                    errorMessage = "\n\n" + e.Message;
-                }
-            }
-            ret.Add(saleId, errorMessage);
-            return ret;
-        }
     }
 }

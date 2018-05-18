@@ -4,9 +4,6 @@ using System.Linq;
 
 namespace Models
 {
-    // This should be in the ViewModel layer where it can access the database.
-    // Then it's possible to update the inventory when items are added to a sale.
-
     public sealed class SaleManager//singlt
     {
         // Decided to do this instead of creating a new instance.
@@ -129,38 +126,30 @@ namespace Models
                         return errorMessage;
                     }
                 }
+                errorMessage = DocumentSale();
+                ClearSale();
             }
 
-            errorMessage = DocumentSale();
-
-            ClearSale();
             return errorMessage;
         }
 
         private string DocumentSale()
         {
             Sale sale = Sale.Instance;
-            string errorMessage = DatabaseWriter.CreateSale(sale);
-            if (errorMessage == string.Empty)
+            Dictionary<int, string> temp = DatabaseWriter.CreateSale();
+            string errorMessage = temp.Values.FirstOrDefault();
+            sale.SaleId = temp.Keys.FirstOrDefault();
+            if (errorMessage == string.Empty && sale.SaleId != 0)
             {
-                Dictionary<int, string> temp = DatabaseReader.GetSaleId();
-                errorMessage = temp.Values.FirstOrDefault();
-
-                if (errorMessage == string.Empty)
+                foreach (var item in sale.Items)
                 {
-                    sale.SaleId = temp.Keys.FirstOrDefault();
-                    foreach (var item in sale.Items)
+                    errorMessage = DatabaseWriter.AddToSaleItem(item);
+                    if (errorMessage != string.Empty)
                     {
-                        errorMessage = DatabaseWriter.AddToSaleItem(item);
-                        if (errorMessage != string.Empty)
-                        {
-                            return errorMessage;
-                        }
+                        return errorMessage;
                     }
                 }
-            }
-            if (errorMessage == string.Empty)
-            {
+
                 foreach (var service in sale.Services)
                 {
                     errorMessage = DatabaseWriter.AddToSaleService(service);
@@ -170,6 +159,7 @@ namespace Models
                     }
                 }
             }
+
             return errorMessage;
         }
     }

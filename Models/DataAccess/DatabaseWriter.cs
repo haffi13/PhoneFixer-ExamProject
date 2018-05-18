@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+
 
 namespace Models
 {
@@ -280,9 +282,12 @@ namespace Models
             return ret;
         }
         //Draft..stored procedures need to be made
-        public static string CreateSale(Sale sale)
+        public static Dictionary<int, string> CreateSale()
         {
-            string ret = string.Empty;
+            Sale sale = Sale.Instance;
+            Dictionary<int, string> ret = new Dictionary<int, string>();
+            string errorMessage = string.Empty;
+            int saleId = 0;
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 try
@@ -300,13 +305,20 @@ namespace Models
                     cmd.Parameters.Add(new SqlParameter("@CreditCard", sale.CreditCard));
                     cmd.Parameters.Add(new SqlParameter("@DiscountPercentage", sale.DiscountPercentage));
 
+                    cmd.Parameters.Add("@SaleId", SqlDbType.Int).Direction = ParameterDirection.Output;
+
+                    
                     cmd.ExecuteNonQuery();
+
+                    saleId = int.Parse(cmd.Parameters["@SaleId"].Value.ToString());
+
                     connection.Close();
                 }
                 catch (SqlException e)
                 {
-                    ret = Message.AddSaleError + "\n\n" + e.Message;
+                    errorMessage = Message.AddSaleError + "\n\n" + e.Message;
                 }
+                ret.Add(saleId, errorMessage);
             }
             return ret;
         }
