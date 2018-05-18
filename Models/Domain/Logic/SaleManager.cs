@@ -117,7 +117,8 @@ namespace Models
             {
                 sale.TimeOfSale = DateTime.Now;
                 sale.TaxOnSale = sale.PriceWithTax - ValueAddedTax.RemoveVAT(sale.PriceWithTax);
-                foreach (var item in sale.Items)
+                foreach (var item in sale.Items) // Might make more sense to do this while adding items to 
+                                                // the junciton table when documenting the sale.
                 {
                     item.NumberAvailable--;
                     errorMessage = DatabaseWriter.UpdateItem(item);
