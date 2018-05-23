@@ -111,9 +111,8 @@ namespace Models
         public string FinalizeSale()
         {
             Sale sale = Sale.Instance;
-            SaleValidity saleValidity = new SaleValidity();
             string errorMessage = string.Empty;
-            if (saleValidity.SaleIsValid())
+            if (SaleValidity.SaleIsValid())
             {
                 sale.TimeOfSale = DateTime.Now;
                 sale.TaxOnSale = sale.PriceWithTax - ValueAddedTax.RemoveVAT(sale.PriceWithTax);

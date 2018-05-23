@@ -1,9 +1,9 @@
 ﻿namespace Models
 {
-    public class SaleValidity
+    public static class SaleValidity
     {
-        Sale sale;
-        public bool SaleIsValid()
+        static Sale sale;
+        public static bool SaleIsValid()
         {
             sale = Sale.Instance;
             bool ret = true;
@@ -13,7 +13,6 @@
             {
                 ret = false;
             }
-
 
             return ret;
         }
