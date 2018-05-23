@@ -117,20 +117,9 @@ namespace Models
             {
                 sale.TimeOfSale = DateTime.Now;
                 sale.TaxOnSale = sale.PriceWithTax - ValueAddedTax.RemoveVAT(sale.PriceWithTax);
-                foreach (var item in sale.Items) // Might make more sense to do this while adding items to 
-                                                // the junciton table when documenting the sale.
-                {
-                    item.NumberAvailable--;
-                    errorMessage = DatabaseWriter.UpdateItem(item);
-                    if (errorMessage != string.Empty)
-                    {
-                        return errorMessage;
-                    }
-                }
                 errorMessage = DocumentSale();
                 ClearSale();
             }
-
             return errorMessage;
         }
 
@@ -144,13 +133,18 @@ namespace Models
             {
                 foreach (var item in sale.Items)
                 {
+                    item.NumberAvailable--;
+                    errorMessage = DatabaseWriter.UpdateItem(item);
+                    if(errorMessage != string.Empty)
+                    {
+                        return errorMessage;
+                    }
                     errorMessage = DatabaseWriter.AddToSaleItem(item);
                     if (errorMessage != string.Empty)
                     {
                         return errorMessage;
                     }
                 }
-
                 foreach (var service in sale.Services)
                 {
                     errorMessage = DatabaseWriter.AddToSaleService(service);
@@ -160,7 +154,6 @@ namespace Models
                     }
                 }
             }
-
             return errorMessage;
         }
     }
