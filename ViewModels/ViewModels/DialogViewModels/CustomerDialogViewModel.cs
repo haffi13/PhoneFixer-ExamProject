@@ -13,7 +13,6 @@ namespace ViewModels
 
         private string confirmButtonContent;
         private string cancelButtonContent;
-        private string itemDialogMessage;
 
         private bool isEdit;
 
@@ -105,16 +104,6 @@ namespace ViewModels
             set
             {
                 cancelButtonContent = value;
-                OnPropertyChanged();
-            }
-        }
-
-        public string ItemDialogMessage
-        {
-            get { return itemDialogMessage; }
-            set
-            {
-                itemDialogMessage = value;
                 OnPropertyChanged();
             }
         }
