@@ -6,11 +6,11 @@ namespace ViewModels
     public class MessageBoxDialogViewModel : BaseViewModel, IDialogRequestClose
     {
         public event EventHandler<DialogCloseRequestedEventArgs> CloseRequested;
+        public RelayCommand ConfirmCommand { get; }
 
         private string message;
         private string windowTitle;
         
-        public RelayCommand ConfirmCommand { get; }
 
         // Bound to the TextBlock in the MessageBoxDialogView.
         public string Message

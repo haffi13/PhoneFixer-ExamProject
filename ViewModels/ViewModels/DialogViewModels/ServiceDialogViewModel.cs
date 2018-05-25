@@ -180,7 +180,7 @@ namespace ViewModels
 
 
         // Ctor used to construct the view model when adding a new service.
-        public ServiceDialogViewModel(string windowTitle, IDialogService dialogService)
+        public ServiceDialogViewModel(IDialogService dialogService, string windowTitle)
         {
             WindowTitle = windowTitle;
             
@@ -203,7 +203,7 @@ namespace ViewModels
         }
 
         // Ctor used to construct the view model when editing an existing service.
-        public ServiceDialogViewModel(string windowTitle, IDialogService dialogService, Service service) : this(windowTitle, dialogService)
+        public ServiceDialogViewModel(IDialogService dialogService, string windowTitle, Service service) : this(dialogService, windowTitle)
         {
             this.service = service;
             isEdit = true;
@@ -226,6 +226,45 @@ namespace ViewModels
             {
                 // Error message could not find selected customer.
             }   
+        }
+
+        private void AddService()
+        {
+            service.DayCreated = DateTime.Now;
+            string errorMessage = DatabaseWriter.CreateService(service);
+            if (errorMessage == string.Empty)
+            {
+                CloseRequested.Invoke(this, new DialogCloseRequestedEventArgs(true));
+            }
+            else
+            {
+                bool? result = dialogService.ShowDialog
+                    (new MessageBoxDialogViewModel(errorMessage, Message.ServiceErrorTitle));
+            }
+
+        }
+        // Could make the constructor direct the command to either add or edit depending on which one was used to instanciate
+        // the class.
+        private void EditService()
+        {
+            string errorMessage = DatabaseWriter.EditService(service);
+            if (errorMessage == string.Empty)
+            {
+                CloseRequested.Invoke(this, new DialogCloseRequestedEventArgs(true));
+            }
+            else
+            {
+                bool? result = dialogService.ShowDialog
+                    (new MessageBoxDialogViewModel(errorMessage, Message.ServiceErrorTitle));
+            }
+        }
+        private void SelectCustomer()
+        {
+            SelectCustomerDialogViewModel selectCustomerDialogViewModel = new SelectCustomerDialogViewModel(dialogService);
+            if (dialogService.ShowDialog(selectCustomerDialogViewModel) == true)
+            {
+                SelectedCustomer = selectCustomerDialogViewModel.SelectedCustomer;
+            }
         }
 
         private void Confirm()
@@ -260,49 +299,9 @@ namespace ViewModels
             }
         }
 
-        private void AddService()
-        {
-            service.DayCreated = DateTime.Now;
-            string errorMessage = DatabaseWriter.CreateService(service);
-            if (errorMessage == string.Empty)
-            {
-                CloseRequested.Invoke(this, new DialogCloseRequestedEventArgs(true));
-            }
-            else
-            {
-                bool? result = dialogService.ShowDialog
-                    (new MessageBoxDialogViewModel(errorMessage, Message.ServiceErrorTitle));
-            }
-
-        }
-        // Could make the constructor direct the command to either add or edit depending on which one was used to instanciate
-        // the class.
-        private void EditService()
-        {
-            string errorMessage = DatabaseWriter.EditService(service);
-            if (errorMessage == string.Empty)
-            {
-                CloseRequested.Invoke(this, new DialogCloseRequestedEventArgs(true));
-            }
-            else
-            {
-                bool? result = dialogService.ShowDialog
-                    (new MessageBoxDialogViewModel(errorMessage, Message.ServiceErrorTitle));
-            }
-        }
-
         private void Cancel()
         {
             CloseRequested.Invoke(this, new DialogCloseRequestedEventArgs(false));
-        }
-
-        private void SelectCustomer()
-        {
-            SelectCustomerDialogViewModel selectCustomerDialogViewModel = new SelectCustomerDialogViewModel(dialogService, "windowTitle");
-            if(dialogService.ShowDialog(selectCustomerDialogViewModel) == true)
-            {
-                SelectedCustomer = selectCustomerDialogViewModel.SelectedCustomer;
-            }    
         }
     }
 }

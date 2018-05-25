@@ -17,9 +17,12 @@ namespace ViewModels
 
     public class ItemDialogViewModel : BaseViewModel, IDialogRequestClose
     {
+        // Handles requests to close the dialog box
+        public event EventHandler<DialogCloseRequestedEventArgs> CloseRequested;
+        private readonly IDialogService dialogService;
+
         private Item item;
         private ItemValidity itemValidity;
-        private readonly IDialogService dialogService;
 
         private string priceNoTax;
         private string priceWithTax;
@@ -28,15 +31,12 @@ namespace ViewModels
 
         private string confirmButtonContent;
         private string cancelButtonContent;
-        private string itemDialogMessage;
+        
 
         private bool isEdit; // no properties.
 
         private bool barcodeIsEditable;
         private bool barcodeIsReadOnly;
-
-        // Handles requests to close the dialog box
-        public event EventHandler<DialogCloseRequestedEventArgs> CloseRequested;
 
         public RelayCommand ConfirmCommand { get; }
         public RelayCommand CancelCommand { get; }
@@ -82,17 +82,7 @@ namespace ViewModels
                 OnPropertyChanged();
             }
         }
-
-        // Message that appears at the top of the dialog box.
-        public string ItemDialogMessage // Retire this unless we have time...
-        {
-            get { return itemDialogMessage; }
-            set
-            {
-                itemDialogMessage = value;
-                OnPropertyChanged();
-            }
-        }
+        
 
         #region Public item properties 
         public string Barcode
