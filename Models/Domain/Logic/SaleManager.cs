@@ -29,9 +29,10 @@ namespace Models
             }
         }
 
+        // The constructor is private so an instance can only be created through the static properties "Instance"
         private SaleManager()
         {
-
+            
         }
 
         public static void ClearSale()
@@ -74,9 +75,6 @@ namespace Models
             sale.Items.Add(item);
 
             sale.PriceWithTax += item.PriceWithTax;
-
-            //item.NumberAvailable -= 1;
-            //return DatabaseWriter.UpdateItem(item); // should not do this, not included on SD
         }
 
         public void RemoveItemFromSale(Item item)
@@ -86,8 +84,6 @@ namespace Models
             {
                 sale.Items.Remove(item);
                 sale.PriceWithTax -= item.PriceWithTax;
-                //item.NumberAvailable += 1;              // Do not do this here, same for service.
-                //return DatabaseWriter.UpdateItem(item);
             }
         }
 
