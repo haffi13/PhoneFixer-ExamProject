@@ -8,12 +8,12 @@ namespace ViewModels
 {
     public class ServiceViewModel : BaseViewModel, ITabItem
     {
+        private readonly IDialogService dialogService;
         private ObservableCollection<Service> services = new ObservableCollection<Service>();
         private Service selectedService;
         private Sale sale;
         private SaleManager saleManager;
 
-        private readonly IDialogService dialogService;
 
         public string Header { get; set; }
 

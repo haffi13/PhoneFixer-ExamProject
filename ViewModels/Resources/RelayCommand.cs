@@ -8,13 +8,14 @@ namespace ViewModels
     public class RelayCommand : ICommand
     {
         private Action action;
+        public event EventHandler CanExecuteChanged = (sender, e) => { };   //--Seems to work without the sender..is never used in current solution
+
         public RelayCommand(Action action)
         {
             this.action = action;
         }
 
         // REVIEW!! !! ! !!  ! https://www.codeproject.com/Tips/813345/Basic-MVVM-and-ICommand-Usage-Example
-        public event EventHandler CanExecuteChanged = (sender, e) => { };   //--Seems to work without the sender..is never used in current solution
         //only the CanExecute and Execute are used.
         
         // Could this method be used to make StartSelection available in MainWindow.

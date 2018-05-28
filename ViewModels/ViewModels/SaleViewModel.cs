@@ -16,7 +16,7 @@ namespace ViewModels
 
         private string priceWithTax;
         private string priceWithoutTax;
-        private string discountPercent;
+        private string discountPercentage;
 
         private string receipt;
 
@@ -101,14 +101,14 @@ namespace ViewModels
             get { return sale.Company; }
             set { sale.Company = value; }
         }
-        public string DiscountPercent
+        public string DiscountPercentage
         {
-            get { return discountPercent; }
+            get { return discountPercentage; }
             set
             {
                 if (InputValidity.DoubleNotNull(value))
                 {
-                    discountPercent = value;
+                    discountPercentage = value;
                     sale.DiscountPercentage = double.Parse(value);
                     OnPropertyChanged();
                 }
@@ -157,10 +157,9 @@ namespace ViewModels
 
         private void RemoveProduct()
         {
-            if(SelectedItem != null)// doesnt work like this atm
+            if(SelectedItem != null)
             {
                 string errorMessage = string.Empty;
-                //string errorMessage = saleManager.RemoveItem(selectedItem);
                 if(errorMessage != string.Empty)
                 {
                     bool? result = dialogService.ShowDialog
