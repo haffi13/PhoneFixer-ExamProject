@@ -8,12 +8,12 @@ namespace ViewModels
 {
     public class InventoryViewModel : BaseViewModel, ITabItem
     {
+        // Keeps an instance of the DialogService instanciated at startup.
+        private readonly IDialogService dialogService;
+
         private ObservableCollection<Item> inventory = new ObservableCollection<Item>();
         private Item selectedItem;
         private SaleManager saleManager;
-
-        // Keeps an instance of the DialogService instanciated at startup.
-        private readonly IDialogService dialogService;
 
         // The header is the name of the tab. It's set in the MainWindowViewModel ctor.
         public string Header { get; set; }

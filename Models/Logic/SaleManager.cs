@@ -29,9 +29,10 @@ namespace Models
             }
         }
 
+        // The constructor is private so an instance can only be created through the static properties "Instance"
         private SaleManager()
         {
-
+            
         }
 
         public static void ClearSale()
@@ -74,9 +75,6 @@ namespace Models
             sale.Items.Add(item);
 
             sale.PriceWithTax += item.PriceWithTax;
-
-            //item.NumberAvailable -= 1;
-            //return DatabaseWriter.UpdateItem(item); // should not do this, not included on SD
         }
 
         public void RemoveItemFromSale(Item item)
@@ -86,8 +84,6 @@ namespace Models
             {
                 sale.Items.Remove(item);
                 sale.PriceWithTax -= item.PriceWithTax;
-                //item.NumberAvailable += 1;              // Do not do this here, same for service.
-                //return DatabaseWriter.UpdateItem(item);
             }
         }
 
@@ -111,26 +107,14 @@ namespace Models
         public string FinalizeSale()
         {
             Sale sale = Sale.Instance;
-            SaleValidity saleValidity = new SaleValidity();
             string errorMessage = string.Empty;
-            if (saleValidity.SaleIsValid())
+            if (SaleValidity.SaleIsValid())
             {
                 sale.TimeOfSale = DateTime.Now;
                 sale.TaxOnSale = sale.PriceWithTax - ValueAddedTax.RemoveVAT(sale.PriceWithTax);
-                foreach (var item in sale.Items) // Might make more sense to do this while adding items to 
-                                                // the junciton table when documenting the sale.
-                {
-                    item.NumberAvailable--;
-                    errorMessage = DatabaseWriter.UpdateItem(item);
-                    if (errorMessage != string.Empty)
-                    {
-                        return errorMessage;
-                    }
-                }
                 errorMessage = DocumentSale();
                 ClearSale();
             }
-
             return errorMessage;
         }
 
@@ -144,13 +128,18 @@ namespace Models
             {
                 foreach (var item in sale.Items)
                 {
+                    item.NumberAvailable--;
+                    errorMessage = DatabaseWriter.UpdateItem(item);
+                    if(errorMessage != string.Empty)
+                    {
+                        return errorMessage;
+                    }
                     errorMessage = DatabaseWriter.AddToSaleItem(item);
                     if (errorMessage != string.Empty)
                     {
                         return errorMessage;
                     }
                 }
-
                 foreach (var service in sale.Services)
                 {
                     errorMessage = DatabaseWriter.AddToSaleService(service);
@@ -160,7 +149,6 @@ namespace Models
                     }
                 }
             }
-
             return errorMessage;
         }
     }

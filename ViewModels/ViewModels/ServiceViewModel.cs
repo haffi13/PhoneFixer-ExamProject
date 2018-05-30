@@ -8,12 +8,12 @@ namespace ViewModels
 {
     public class ServiceViewModel : BaseViewModel, ITabItem
     {
+        private readonly IDialogService dialogService;
         private ObservableCollection<Service> services = new ObservableCollection<Service>();
         private Service selectedService;
         private Sale sale;
         private SaleManager saleManager;
 
-        private readonly IDialogService dialogService;
 
         public string Header { get; set; }
 
@@ -78,14 +78,14 @@ namespace ViewModels
         }
         private void AddService()
         {
-            bool? result = dialogService.ShowDialog(new ServiceDialogViewModel(Message.AddServiceTitle ,dialogService));
+            bool? result = dialogService.ShowDialog(new ServiceDialogViewModel(dialogService, Message.AddServiceTitle));
             RefreshService();
         }
         private void EditService()
         {
             if (SelectedService != null)
             {
-                bool? result = dialogService.ShowDialog(new ServiceDialogViewModel(Message.EditServiceTitle, dialogService, SelectedService));
+                bool? result = dialogService.ShowDialog(new ServiceDialogViewModel(dialogService, Message.EditServiceTitle, SelectedService));
                 RefreshService();
             }
         }

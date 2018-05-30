@@ -9,10 +9,10 @@ namespace ViewModels
 {
     public class SelectCustomerDialogViewModel : BaseViewModel, IDialogRequestClose
     {
+        public event EventHandler<DialogCloseRequestedEventArgs> CloseRequested;
+        private readonly IDialogService dialogService;
         private ObservableCollection<Customer> customers = new ObservableCollection<Customer>();
         private Customer selectedCustomer;
-        private readonly IDialogService dialogService;
-        public event EventHandler<DialogCloseRequestedEventArgs> CloseRequested;
 
         public RelayCommand ConfirmCommand { get; }
 
@@ -35,7 +35,7 @@ namespace ViewModels
             }
         }
 
-        public SelectCustomerDialogViewModel(IDialogService dialogService, string windowTitle)
+        public SelectCustomerDialogViewModel(IDialogService dialogService)
         {
             this.dialogService = dialogService;
 

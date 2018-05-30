@@ -281,7 +281,7 @@ namespace Models
             }
             return ret;
         }
-        //Draft..stored procedures need to be made
+        
         public static Dictionary<int, string> CreateSale()
         {
             Sale sale = Sale.Instance;
@@ -304,10 +304,8 @@ namespace Models
                     cmd.Parameters.Add(new SqlParameter("@Company", sale.Company));
                     cmd.Parameters.Add(new SqlParameter("@CreditCard", sale.CreditCard));
                     cmd.Parameters.Add(new SqlParameter("@DiscountPercentage", sale.DiscountPercentage));
-
                     cmd.Parameters.Add("@SaleId", SqlDbType.Int).Direction = ParameterDirection.Output;
 
-                    
                     cmd.ExecuteNonQuery();
 
                     saleId = int.Parse(cmd.Parameters["@SaleId"].Value.ToString());

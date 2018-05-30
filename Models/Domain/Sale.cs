@@ -24,7 +24,7 @@ namespace Models
             }
         }
         
-        // The constructor is private so an instance can only be created through the static Sale properties Instance
+        // The constructor is private so an instance can only be created through the static properties "Instance"
         private Sale()
         {
             Items = new List<Item>();
