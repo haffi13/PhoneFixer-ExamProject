@@ -81,41 +81,54 @@
 
 ----Add Item to the SALEITEM table
 
---Create procedure AddToSaleItem
---(
---@SaleId int,
---@Barcode nvarchar(15)
---)
---as 
---begin
---insert into SALEITEM
---values(@SaleId, @Barcode)
---end
+--CREATE PROCEDURE AddToSaleItem
 
----- Add Service to the SALESERVICE table
---Create procedure AddToSaleService
---(
---@SaleId int,
---@ServiceNumber int
---)
---as 
---begin
---insert into SALESERVICE
---values(@SaleId, @ServiceNumber)
---end
+--	@SaleId INT,
+--	@Barcode NVarchar(15)
 
+--AS 
+--BEGIN
+--	INSERT INTO SALEITEM
+--	VALUES(@SaleId, @Barcode)
+--END
 
----- Get a Sale
+----Create a Sale in the SALE table:
 
---create procedure GetSaleIdWithTime
---(
---@TimeOfSale datetime
---)
---as
---begin
---select SaleId from SALE
---where @TimeOfSale = TimeOfSale
---end
+--CREATE PROCEDURE CreateSale
+
+--	@TimeOfSale				Datetime,
+--	@PriceWithTax			Decimal(18,2),
+--	@TaxOnSale				Decimal(18,2),
+--	@Company				BIT,
+--	@CreditCard				BIT,
+--	@DiscountPercentage		INT,
+--	@SaleId					INT OUTPUT
+
+--AS
+
+--BEGIN
+--	SET NOCOUNT ON;
+
+--	INSERT INTO SALE(TimeOfSale, PriceWithTax, TaxOnSale, Company, CreditCard, DiscountPercentage)
+--	VALUES(@TimeOfSale, @PriceWithTax, @TaxOnSale, @Company, @CreditCard, @DiscountPercentage)
+--	SELECT @SaleId = SCOPE_IDENTITY()
+--END
+
+----Add Service to the SALESERVICE table
+
+--CREATE PROCEDURE AddToSaleService
+
+--	@SaleId INT,
+--	@ServiceNumber INT
+
+--AS
+--BEGIN
+
+--	INSERT INTO SALESERVICE
+--	VALUES(@SaleId, @ServiceNumber)
+
+--END
+
 
 ----Get ALL items in the item table:
 
@@ -364,12 +377,6 @@
 --	INSERT INTO SALE(TimeOfSale, PriceWithTax, TaxOnSale, Company, CreditCard, DiscountPercentage)
 --	VALUES(@TimeOfSale, @PriceWithTax, @TaxOnSale,@Company, @CreditCard, @DiscountPercentage)
 --END
-
-
-------One Time Queries:
-
-----Reseed ServiceId in the SERVICE table:
-
 
 
 ------MOCKDATA:
