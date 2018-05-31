@@ -267,10 +267,6 @@ namespace ViewModels
             }
         }
 
-        // This gets set when the user confirms the item he's adding to the system.
-
-        // Make sure to implement it correctly when editing a item. 
-
         public DateTime LastTimeAdded
         {
             get { return item.LastTimeAdded; }
@@ -405,7 +401,7 @@ namespace ViewModels
             {
                 // Make visible in UI where input is not valid. 
                 bool? result = dialogService.ShowDialog
-                        (new MessageBoxDialogViewModel(Message.ItemInputError, Message.InventoryErrorTitle));
+                        (new MessageBoxDialogViewModel(Message.InputError, Message.InventoryErrorTitle));
             }
         }
 

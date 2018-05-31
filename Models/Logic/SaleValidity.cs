@@ -12,7 +12,6 @@
             {
                 ret = false;
             }
-
             return ret;
         }
     }

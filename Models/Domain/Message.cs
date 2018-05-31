@@ -9,7 +9,7 @@
             "The system could not update the item.\nPlease check your input.";
         public static string DeleteItemError =
             "The system could not delete the selected item from the inventory.";
-        public static string ItemInputError = 
+        public static string InputError = 
             "The system could not perform that action.\nPlease check your input.";
         public static string GetItemError =
             "The system could not retrieve the inventory from the database.";
@@ -19,6 +19,8 @@
             "The system could not add the customer.\nPlease check your input.";
         public static string EditCustomerError =
             "The system could not edit the customer.\nPlease check your input.";
+        public static string GetCustomerError = 
+            "The system could not retrieve the customer.";
         public static string GetCustomersError =
             "The system could not retrieve customers from the database.";
         public static string GetServiceError =

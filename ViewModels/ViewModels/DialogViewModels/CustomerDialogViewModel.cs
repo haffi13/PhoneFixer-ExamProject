@@ -168,7 +168,8 @@ namespace ViewModels
             }
             else
             {
-                //check input
+                bool? result = dialogService.ShowDialog
+                    (new MessageBoxDialogViewModel(Message.InputError, Message.CustomerErrorTitle));
 
             }
         }

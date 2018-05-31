@@ -8,7 +8,6 @@ namespace ViewModels
         public event EventHandler<DialogCloseRequestedEventArgs> CloseRequested;
 
         private string message;
-        
 
         public RelayCommand ConfirmCommand { get; }
         public RelayCommand CancelCommand { get; }

@@ -224,7 +224,8 @@ namespace ViewModels
             }
             else
             {
-                // Error message could not find selected customer.
+                bool? result = dialogService.ShowDialog
+                    (new MessageBoxDialogViewModel(Message.GetCustomerError, Message.ServiceErrorTitle));
             }   
         }
 

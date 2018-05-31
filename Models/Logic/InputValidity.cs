@@ -19,8 +19,6 @@
             return true;
         }
 
-        
-
         public static bool Varchar50NotNull(string input)
         {
             if (input != null)
