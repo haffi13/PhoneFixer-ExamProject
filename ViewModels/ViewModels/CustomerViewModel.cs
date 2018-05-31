@@ -84,7 +84,9 @@ namespace ViewModels
 
         private void DeleteCustomer()
         {
-            if (SelectedCustomer != null)
+            bool? deleteCustomer = dialogService.ShowDialog
+                (new ConfirmationDialogViewModel(Message.DeleteCustomerConfirmation));
+            if (deleteCustomer == true && SelectedCustomer != null)
             {
                 string errorMessage = DatabaseWriter.DeleteCustomer(SelectedCustomer);
                 if (errorMessage != string.Empty)

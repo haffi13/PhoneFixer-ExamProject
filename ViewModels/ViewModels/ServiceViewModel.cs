@@ -91,7 +91,9 @@ namespace ViewModels
         }
         private void DeleteService()
         {
-            if (SelectedService != null)
+            bool? deleteService = dialogService.ShowDialog
+                (new ConfirmationDialogViewModel(Message.DeleteServiceConfirmation));
+            if (deleteService == true && SelectedService != null)
             {
                 string errorMessage = DatabaseWriter.DeleteService(SelectedService);
                 if (errorMessage != string.Empty)

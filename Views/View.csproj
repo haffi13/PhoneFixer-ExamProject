@@ -54,6 +54,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Views\DialogViews\ConfirmationDialogView.xaml.cs">
+      <DependentUpon>ConfirmationDialogView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\DialogViews\CustomerDialogView.xaml.cs">
       <DependentUpon>CustomerDialogView.xaml</DependentUpon>
     </Compile>
@@ -75,6 +78,10 @@
     <Compile Include="Views\ServiceView.xaml.cs">
       <DependentUpon>ServiceView.xaml</DependentUpon>
     </Compile>
+    <Page Include="Views\DialogViews\ConfirmationDialogView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\DialogViews\CustomerDialogView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

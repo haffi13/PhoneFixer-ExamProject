@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using System.Windows;
 
 namespace ViewModels.DialogServices
-{
-    // The DialogService assigns it's owner, we assign MainWindow at startup. 
+{ 
     // The ViewModels are registered to the views.
     public class DialogService : IDialogService
     {
@@ -29,7 +28,7 @@ namespace ViewModels.DialogServices
         
         
         // Shows a dialog box with the View that corresponds the viewmodel that gets passed
-        // as a argument.
+        // as an argument.
         public bool? ShowDialog<TViewModel>(TViewModel viewModel) where TViewModel : IDialogRequestClose
         {
             Type viewType = Mappings[typeof(TViewModel)];

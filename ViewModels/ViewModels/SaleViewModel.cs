@@ -198,9 +198,14 @@ namespace ViewModels
 
         private void Cancel()
         {
-            saleManager.CancelSale();
-            OnPropertyChanged(nameof(Items));
-            OnPropertyChanged(nameof(Services));
+            bool? cancelService = dialogService.ShowDialog
+                (new ConfirmationDialogViewModel(Message.CancelSaleConfirmation));
+            if(cancelService == true)
+            {
+                saleManager.CancelSale();
+                OnPropertyChanged(nameof(Items));
+                OnPropertyChanged(nameof(Services));
+            }
         }
 
         private void RemoveProduct()
@@ -215,6 +220,7 @@ namespace ViewModels
                 saleManager.RemoveServiceFromSale(SelectedService);
                 OnPropertyChanged(nameof(Services));
             }
+            AmountPaid = string.Empty;
             OnPropertyChanged(nameof(Receipt));
         }
     }

@@ -42,6 +42,8 @@
             "Do you want to remove the item from the inventory?";
         public static string DeleteServiceConfirmation = 
             "Do you want to delete the service?";
+        public static string DeleteCustomerConfirmation =
+            "Do you want to delete the customer?";
         #endregion
 
         #region Success Messages

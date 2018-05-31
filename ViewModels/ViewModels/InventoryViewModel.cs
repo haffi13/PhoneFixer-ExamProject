@@ -87,18 +87,20 @@ namespace ViewModels
         // Deletes the selected item in the datagrid in the InventoryView.
         private void DeleteItem()
         {
-            if (SelectedItem != null)
+            bool? deleteItem = dialogService.ShowDialog
+                (new ConfirmationDialogViewModel(Message.DeleteItemConfirmation));
+            if(deleteItem == true && SelectedItem != null)
             {
-                string errorMessage = DatabaseWriter.DeleteItem(SelectedItem);
-                if(errorMessage != string.Empty)
-                {
-                    bool? result = dialogService.ShowDialog
-                        (new MessageBoxDialogViewModel(errorMessage, Message.InventoryErrorTitle));
-                }
-                else
-                {
-                    OnPropertyChanged(nameof(Inventory));
-                }
+                    string errorMessage = DatabaseWriter.DeleteItem(SelectedItem);
+                    if (errorMessage != string.Empty)
+                    {
+                        bool? result = dialogService.ShowDialog
+                            (new MessageBoxDialogViewModel(errorMessage, Message.InventoryErrorTitle));
+                    }
+                    else
+                    {
+                        OnPropertyChanged(nameof(Inventory));
+                    }
             }
         }
 
