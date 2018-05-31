@@ -4,13 +4,8 @@ using System.Linq;
 
 namespace Models
 {
-    public sealed class SaleManager//singlt
+    public sealed class SaleManager
     {
-        // Decided to do this instead of creating a new instance.
-        // As all relevant classes have access to the same instance of Sale it might be better
-        // to clear all the values instead of creating a new instance as it might be problematic
-        // to let the other classes know there is a new instance if one creates it.
-
         private static SaleManager instance = null;
         private static readonly object padlock = new object();
 
@@ -118,21 +113,19 @@ namespace Models
 
         private void RemoveProductFromReceipt(object product)
         {
-            Item item = product as Item;
-            Service service = product as Service;
             string name = string.Empty;
             decimal price = 0;
-            if(item != null)
+            if (product is Item item)
             {
                 name = item.Name;
                 price = item.PriceWithTax;
             }
-            else if(service != null)
+            else if (product is Service service)
             {
                 name = service.ServiceName;
                 price = service.PriceWithTax;
             }
-            if(name != string.Empty && price != 0)
+            if (name != string.Empty && price != 0)
             {
                 foreach (var node in Receipt.Nodes)
                 {
@@ -147,14 +140,12 @@ namespace Models
         private void AddProductToReceipt(object product)
         {
             ReceiptNode node = new ReceiptNode();
-            Item item = product as Item;
-            Service service = product as Service;
-            if (item != null)
+            if (product is Item item)
             {
                 node.Name = item.Name;
                 node.Price = item.PriceWithTax;
             }
-            else if (service != null)
+            else if (product is Service service)
             {
                 node.Name = service.ServiceName;
                 node.Price = service.PriceWithTax;

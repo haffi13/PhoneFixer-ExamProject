@@ -15,9 +15,9 @@ namespace ViewModels
         private SaleManager saleManager;
 
         private string priceWithTax;
-        private string priceWithoutTax;
-        private string discountPercentage;
-
+        private string discountPercentage;// here for further development
+        private string amountPaid;//added
+        private bool amountPaidEnabled = true;//added
 
         // Implementation of the ITabItem inteface
         public string Header { get; set; }
@@ -93,7 +93,11 @@ namespace ViewModels
         public bool CreditCard
         {
             get { return sale.CreditCard; }
-            set { sale.CreditCard = value; }
+            set
+            {
+                sale.CreditCard = value;
+                AmountPaidEnabled = !value;
+            }
         }
         public bool Company
         {
@@ -114,12 +118,50 @@ namespace ViewModels
             }
         }
 
-        // Call onpropertychanged on the company bool and make if statement for which receipt to get.
-        //public ObservableCollection<string> Receipt
-        //{
-        //    get { return new ObservableCollection<string>(ReceiptBuilder.GetReceiptPerson()); }
-        //}
+        public bool AmountPaidEnabled
+        {
+            get {return amountPaidEnabled; }
+            set
+            {
+                if(value == false)
+                {
+                    AmountPaid = string.Empty;
+                }
+                amountPaidEnabled = value;
+                OnPropertyChanged();
+            }
+        }
 
+        public string AmountPaid
+        {
+            get { return amountPaid; }
+            set
+            {
+                if (InputValidity.DecimalNotNull(value) || value == string.Empty)
+                {
+                    amountPaid = value;
+                    OnPropertyChanged(nameof(Remainder));
+                }
+                OnPropertyChanged();
+            }
+        }
+
+        public string Remainder
+        {
+            get
+            {
+                if(CreditCard != true && AmountPaid != null && AmountPaid != string.Empty)
+                {
+                    return (decimal.Parse(AmountPaid) - sale.PriceWithTax).ToString(); 
+                }
+                else
+                {
+                    return string.Empty;
+                }
+            }
+        }
+
+        
         public ObservableCollection<ReceiptNode> Receipt
         {
             get { return new ObservableCollection<ReceiptNode>(saleManager.Receipt.Nodes); }
@@ -148,6 +190,8 @@ namespace ViewModels
                 bool? result = dialogService.ShowDialog
                     (new MessageBoxDialogViewModel(errorMessage, Message.SaleErrorTitle));
             }
+            AmountPaid = string.Empty;
+            CreditCard = false;
             OnPropertyChanged(nameof(Items));
             OnPropertyChanged(nameof(Services));
         }
