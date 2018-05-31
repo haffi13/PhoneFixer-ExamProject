@@ -111,6 +111,22 @@ namespace Models
             }
         }
 
+        private void AddProductToReceipt(object product)
+        {
+            ReceiptNode node = new ReceiptNode();
+            if (product is Item item)
+            {
+                node.Name = item.Name;
+                node.Price = item.PriceWithTax;
+            }
+            else if (product is Service service)
+            {
+                node.Name = service.ServiceName;
+                node.Price = service.PriceWithTax;
+            }
+            Receipt.AddNode(node);
+        }
+
         private void RemoveProductFromReceipt(object product)
         {
             string name = string.Empty;
@@ -136,21 +152,6 @@ namespace Models
                     }
                 }
             }
-        }
-        private void AddProductToReceipt(object product)
-        {
-            ReceiptNode node = new ReceiptNode();
-            if (product is Item item)
-            {
-                node.Name = item.Name;
-                node.Price = item.PriceWithTax;
-            }
-            else if (product is Service service)
-            {
-                node.Name = service.ServiceName;
-                node.Price = service.PriceWithTax;
-            }
-            Receipt.Nodes.Add(node);
         }
 
         public string FinalizeSale()

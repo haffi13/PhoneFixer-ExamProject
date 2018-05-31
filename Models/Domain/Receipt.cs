@@ -9,6 +9,11 @@ namespace Models
         {
             Nodes = new List<ReceiptNode>();
         }
+
+        public void AddNode(ReceiptNode node)
+        {
+            Nodes.Add(node);
+        }
     }
 }
 
