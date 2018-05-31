@@ -14,6 +14,8 @@ namespace Models
         private static SaleManager instance = null;
         private static readonly object padlock = new object();
 
+        private Receipt receipt = new Receipt();
+
         public static SaleManager Instance
         {
             get
@@ -29,13 +31,19 @@ namespace Models
             }
         }
 
+        public Receipt Receipt
+        {
+            get { return receipt; }
+            set { receipt = value; }
+        }
+
         // The constructor is private so an instance can only be created through the static properties "Instance"
         private SaleManager()
         {
-            
+
         }
 
-        public static void ClearSale()
+        public void ClearSale()
         {
             Sale sale = Sale.Instance;
             sale.SaleId = 0;
@@ -47,6 +55,7 @@ namespace Models
             sale.Company = false;
             sale.CreditCard = false;
             sale.DiscountPercentage = 0;
+            Receipt = new Receipt();
         }
 
         public void CancelSale()
@@ -73,8 +82,8 @@ namespace Models
         {
             Sale sale = Sale.Instance;
             sale.Items.Add(item);
-
             sale.PriceWithTax += item.PriceWithTax;
+            AddProductToReceipt(item);
         }
 
         public void RemoveItemFromSale(Item item)
@@ -84,6 +93,7 @@ namespace Models
             {
                 sale.Items.Remove(item);
                 sale.PriceWithTax -= item.PriceWithTax;
+                RemoveProductFromReceipt(item);
             }
         }
 
@@ -92,6 +102,7 @@ namespace Models
             Sale sale = Sale.Instance;
             sale.Services.Add(service);
             sale.PriceWithTax += service.PriceWithTax;
+            AddProductToReceipt(service);
         }
 
         public void RemoveServiceFromSale(Service service)
@@ -101,7 +112,54 @@ namespace Models
             {
                 sale.Services.Remove(service);
                 sale.PriceWithTax -= service.PriceWithTax;
+                RemoveProductFromReceipt(service);
             }
+        }
+
+        private void RemoveProductFromReceipt(object product)
+        {
+            Item item = product as Item;
+            Service service = product as Service;
+            string name = string.Empty;
+            decimal price = 0;
+            if(item != null)
+            {
+                name = item.Name;
+                price = item.PriceWithTax;
+            }
+            else if(service != null)
+            {
+                name = service.ServiceName;
+                price = service.PriceWithTax;
+            }
+            if(name != string.Empty && price != 0)
+            {
+                foreach (var node in Receipt.Nodes)
+                {
+                    if (name == node.Name && price == node.Price)
+                    {
+                        Receipt.Nodes.Remove(node);
+                        break;
+                    }
+                }
+            }
+        }
+        private void AddProductToReceipt(object product)
+        {
+            ReceiptNode node = new ReceiptNode();
+            Item item = product as Item;
+            Service service = product as Service;
+            if (item != null)
+            {
+                node.Name = item.Name;
+                node.Price = item.PriceWithTax;
+            }
+            else if (service != null)
+            {
+                node.Name = service.ServiceName;
+                node.Price = service.PriceWithTax;
+            }
+            Receipt.Nodes.Add(node);
         }
 
         public string FinalizeSale()

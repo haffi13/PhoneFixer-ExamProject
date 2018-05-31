@@ -18,7 +18,6 @@ namespace ViewModels
         private string priceWithoutTax;
         private string discountPercentage;
 
-        private string receipt;
 
         // Implementation of the ITabItem inteface
         public string Header { get; set; }
@@ -116,9 +115,14 @@ namespace ViewModels
         }
 
         // Call onpropertychanged on the company bool and make if statement for which receipt to get.
-        public ObservableCollection<string> Receipt
+        //public ObservableCollection<string> Receipt
+        //{
+        //    get { return new ObservableCollection<string>(ReceiptBuilder.GetReceiptPerson()); }
+        //}
+
+        public ObservableCollection<ReceiptNode> Receipt
         {
-            get { return new ObservableCollection<string>(ReceiptBuilder.GetReceiptPerson()); }
+            get { return new ObservableCollection<ReceiptNode>(saleManager.Receipt.Nodes); }
         }
 
         #endregion
@@ -159,31 +163,15 @@ namespace ViewModels
         {
             if(SelectedItem != null)
             {
-                string errorMessage = string.Empty;
-                if(errorMessage != string.Empty)
-                {
-                    bool? result = dialogService.ShowDialog
-                        (new MessageBoxDialogViewModel(errorMessage, Message.SaleErrorTitle));
-                }
-                else
-                {
-                    OnPropertyChanged(nameof(Items));
-                }
+                saleManager.RemoveItemFromSale(SelectedItem);
+                OnPropertyChanged(nameof(Items));               
             }
             else if(SelectedService != null)
             {
-                saleManager.RemoveServiceFromSale(selectedService);
+                saleManager.RemoveServiceFromSale(SelectedService);
                 OnPropertyChanged(nameof(Services));
             }
-        }
-
-        private void RemoveService()
-        {
-            if(SelectedService != null)
-            {
-                saleManager.RemoveServiceFromSale(selectedService);
-                OnPropertyChanged(nameof(Services));
-            }
+            OnPropertyChanged(nameof(Receipt));
         }
     }
 }

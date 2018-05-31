@@ -35,8 +35,8 @@
         
         <DataGrid
             x:Name="ServiceDataGrid"
-            Grid.Column="5"
-            Grid.ColumnSpan="3"
+            Grid.Column="1"
+            Grid.ColumnSpan="7"
             Grid.Row="1"
             Grid.RowSpan="4"
             Margin="10"

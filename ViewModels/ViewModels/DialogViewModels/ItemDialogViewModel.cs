@@ -384,11 +384,6 @@ namespace ViewModels
                     {
                         CloseRequested.Invoke(this, new DialogCloseRequestedEventArgs(true));
                     }
-
-                    
-                    // Only reaches here if adding a item.
-                    // Timer...
-                    //ItemDialogMessage = Message.AddItemSuccess;
                 }
                 else
                 {

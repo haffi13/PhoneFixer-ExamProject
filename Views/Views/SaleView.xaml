@@ -7,6 +7,15 @@
              mc:Ignorable="d" 
              d:DesignHeight="700" d:DesignWidth="1200"
              >
+    <UserControl.Resources>
+        <DataTemplate x:Key="receiptTemplate">
+            <StackPanel Orientation="Vertical">
+                <TextBlock Text="{Binding Receipt.Nodes.Name}" />
+                <TextBlock Text="{Binding Receipt.Nodes.Price}"/>
+            </StackPanel>
+        </DataTemplate>
+    </UserControl.Resources>
+    
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="0.05*"/>
@@ -111,16 +120,70 @@
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
-            <ListView
+           <!--- <ListView
                 Grid.Column="0"
                 Grid.Row="0"
                 Grid.RowSpan="3"
                 Margin="10"
                 ItemsSource="{Binding Receipt}"
-                >
-                
             </ListView>
+                >-->
+                
+
             
+                <!--<ItemsControl 
+                    Grid.Column="0"
+                    Grid.Row="0"
+                    Grid.RowSpan="3"
+                    Margin="10"
+                    >
+                <StackPanel>
+                    <TextBox HorizontalAlignment="Center" Text="{Binding Receipt}"/>
+                </StackPanel>
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <StackPanel Orientation="Vertical"/>
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>-->
+            
+            <!--<StackPanel
+                Grid.Column="0"
+                    Grid.Row="0"
+                    Grid.RowSpan="3"
+                    Margin="10">
+                <Label HorizontalAlignment="Center" Content="{Binding Path=Receipt}" />
+            </StackPanel>
+
+            <ItemsControl ItemTemplate="{StaticResource receiptTemplate}" 
+                          Grid.Column="0"
+                    Grid.Row="0"
+                    Grid.RowSpan="3"
+                    Margin="10">
+                
+            </ItemsControl>-->
+
+            <ItemsControl 
+	            Grid.Column="0"
+                Grid.Row="0"
+                Grid.RowSpan="3"
+	            ItemsSource="{Binding Receipt}">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel Orientation="Vertical"/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Label Content="{Binding ReceiptLine}"/>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
 
             <Grid
                 Grid.Row="3">

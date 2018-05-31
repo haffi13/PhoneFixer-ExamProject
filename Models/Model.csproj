@@ -43,13 +43,14 @@
     <Compile Include="Domain\Customer.cs" />
     <Compile Include="DataAccess\DatabaseReader.cs" />
     <Compile Include="DataAccess\DatabaseWriter.cs" />
+    <Compile Include="Domain\ReceiptNode.cs" />
     <Compile Include="Logic\InputValidity.cs" />
     <Compile Include="Logic\ItemValidity.cs" />
     <Compile Include="Domain\Message.cs" />
     <Compile Include="Domain\Item.cs" />
     <Compile Include="Logic\SaleManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Logic\ReceiptBuilder.cs" />
+    <Compile Include="Logic\Receipt.cs" />
     <Compile Include="Domain\Sale.cs" />
     <Compile Include="Logic\SaleValidity.cs" />
     <Compile Include="Domain\Service.cs" />
