@@ -19,10 +19,6 @@ namespace ViewModels.DialogServices
             where TViewModel : IDialogRequestClose
             where TView : IDialog
         {
-            if (Mappings.ContainsKey(typeof(TViewModel)))
-            {
-                //Exception
-            }
             Mappings.Add(typeof(TViewModel), typeof(TView));
         }
         

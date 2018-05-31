@@ -3,6 +3,9 @@
 //using Models;
 //using ViewModels;
 
+// All tests in this class are obsolete.
+
+
 //namespace PhoneFixer_UnitTests
 //{
 //    [TestClass]
