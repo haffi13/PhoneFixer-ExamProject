@@ -40,17 +40,13 @@
             Grid.Row="1"
             Grid.RowSpan="4"
             Margin="10"
-            AutoGenerateColumns="False"
+            AutoGenerateColumns="True"
             IsReadOnly="True"
             SelectionMode="Single"
             ItemsSource="{Binding Services}"
             SelectedItem="{Binding SelectedService}"
             >
-            <DataGrid.Columns>
-                <DataGridTextColumn Header="Name" Binding="{Binding ServiceName}"/>
-                <DataGridTextColumn Header="Day Created" Binding="{Binding DayCreated}"/>
-                <DataGridCheckBoxColumn Header="Repaired" Binding="{Binding Repaired}"/>
-            </DataGrid.Columns>
+            
         </DataGrid>
 
         <Button 
